@@ -1,0 +1,48 @@
+﻿@model IEnumerable<ContactS.BLL.DTO.UserDTO>
+@using System;
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Користувачі</h2>
+
+    @{
+    <div class="card-columns">
+        @foreach (var item in Model)
+        {
+                <div class="card bg-dark text-white">
+                    <div class="card-header">
+                        <h5 class="card-title text-center">@item.Name</h5>
+                    </div>
+                    <div class="card-body">
+                        @{
+                                Random rand = new Random();
+                                int img = rand.Next(1, 6);
+                                switch (img) {
+                                    case 1:
+                        <img src="https://www.omis.ee/wp-content/uploads/2016/03/no-profile-img-240x300.gif" class="card-img-top" alt="...">
+                                    break;
+                                case 2:
+                        <img src="https://www.omis.ee/wp-content/uploads/2016/03/no-profile-img-240x300.gif" class="card-img-top" alt="...">
+                                    break;
+                                case 3:
+                        <img src="https://www.omis.ee/wp-content/uploads/2016/03/no-profile-img-240x300.gif" class="card-img-top" alt="...">
+                                    break;
+                                case 4:
+                        <img src="https://www.omis.ee/wp-content/uploads/2016/03/no-profile-img-240x300.gif" class="card-img-top" alt="...">
+                                    break;
+                                case 5:
+                        <img src="https://www.omis.ee/wp-content/uploads/2016/03/no-profile-img-240x300.gif" class="card-img-top" alt="...">
+                                        break;
+                                }
+                            }
+                    </div>
+                    <div class="card-footer text-center ">
+                        @Html.ActionLink("Add to friend", "AddToFriend", new { Id = item.Id }, new { @class = "btn btn-outline-primary btn-block" })
+                    </div>
+                </div>
+        }
+        </div>
+    }
+

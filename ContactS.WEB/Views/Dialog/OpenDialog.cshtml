@@ -1,0 +1,137 @@
+﻿@model ContactS.WEB.Models.OpenDialogModel
+@using Microsoft.AspNet.Identity
+@{
+    ViewBag.Title = "OpenDialog";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title – приложение ASP.NET</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="https://fonts.googleapis.com/css?family=Product+Sans" rel="stylesheet" type="text/css">
+    
+</head>
+<body style="height:100vh !important">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+        @Html.ActionLink("Имя приложения", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    @Html.ActionLink("Домашняя страница", "Index", "Home", null, new { @class = "nav-link" })
+                </li>
+                <li class="nav-item">
+                    @Html.ActionLink("Користувачі", "Index", "Account", null, new { @class = "nav-link" })
+                </li>
+            </ul>
+            <ul class="navbar-nav navbar-right">
+                @if (!User.Identity.IsAuthenticated)
+                {
+                    <li class="nav-item">@Html.ActionLink("Войти", "Login", "Account", null, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Регистрация", "Register", "Account", null, new { @class = "nav-link" })</li>
+                }
+                else
+                {
+                    <li class="nav-item">
+                        <a class="nav-link">Привет @User.Identity.Name</a>
+                    </li>
+                    <li class="nav-item">@Html.ActionLink("Выход", "Logout", "Account", null, new { @class = "nav-link" })</li>
+                }
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        @Recources.Resource.CurrentLang
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        @Html.ActionLink("Українська", "ChangeCulture", "Home", new { lang = "ua" }, new { @class = "dropdown-item" })
+                        @Html.ActionLink("English", "ChangeCulture", "Home", new { lang = "en" }, new { @class = "dropdown-item" })
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container h-fill-avaible" style="padding-top:50px; padding-bottom:10px;">
+        <div class="row h-fill-avaible">
+            <div class="col-md-2">
+                <h2 class="text-center">@Model.Dialog.Name</h2>
+                <div class="btn-group-vertical  btn-block">
+                    @Html.ActionLink("Змінити", "Edit", "Dialog", new { id = Model.DialogId }, new { @class = "btn btn-primary " })
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#LeaveDialog">Leave</button>
+                    @Html.ActionLink("Покинути", "Leave", "Dialog", new { id = Model.DialogId }, new { @class = "btn btn-primary mt-1", FormMethod.Post })
+                </div>
+            </div>
+            <div class="col-md-10" style="height:80% !important;">
+                <div class="row">
+                    <div class="col-sm-10 offset-sm-1 mb-3">
+                        @using (Html.BeginForm("OpenDialog", "Dialog", FormMethod.Post))
+                        {
+                            <div class="input-group">
+                                @Html.TextAreaFor(m => m.NewMessage.Content, new { @class = "form-control", placeholder = "Напишіть повідомлення...", aria_label = "Recipient's username", aria_describedby = "button-addon2" })
+                                @Html.HiddenFor(m => m.DialogId)
+                                <div class="input-group-append">
+                                    <input class="btn btn-primary" type="submit" name="SendMessage" value="Send" id="button-addon2" />
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div id="scrolList">
+                    @Html.Partial("_MessageItems", Model.Messages)
+                </div>
+
+                <div id="loading"><img src='https://metanit.com/sharp/articles/mvc/loading_spinner.gif'></div>
+
+
+            </div>
+
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrapy")
+    <script type="text/javascript">
+$(function () {
+
+    $('div#loading').hide();
+
+    var page = 0;
+    var _inCallback = false;
+    function loadItems() {
+        if (page > -1 && !_inCallback) {
+            _inCallback = true;
+            page++;
+            $('div#loading').show();
+
+            $.ajax({
+                type: 'GET',
+                url: '/Dialog/OpenDialog/' + @Model.DialogId.ToString() +"?page="+ page,
+                success: function (data, textstatus) {
+                    if (data != '') {
+                        $("#scrolList").append(data);
+                    }
+                    else {
+                        page = -1;
+                    }
+                    _inCallback = false;
+                    $("div#loading").hide();
+                }
+            });
+        }
+    }
+    // обработка события скроллинга
+    $(window).scroll(function () {
+        if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+
+            loadItems();
+        }
+    });
+})
+    </script>
+</body>
+</html>

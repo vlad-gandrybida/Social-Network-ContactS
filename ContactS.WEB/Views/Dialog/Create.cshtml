@@ -1,0 +1,23 @@
+﻿@model List<ContactS.BLL.DTO.UserDTO>
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create Dialog</h2>
+
+@foreach(var user in Model)
+{
+<div style="border: black solid 1px; margin: 10px">
+    <div style="margin: 10px; display: inline-block">
+
+        <p>@user.Name</p>
+    </div>
+
+    @using (Html.BeginForm())
+    {
+        <input value="@user.Id" name="id" type="hidden"/>
+        <input type="submit" name="Send" value="Write" class="btn btn-primary" />
+    }
+</div>
+}

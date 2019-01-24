@@ -1,0 +1,25 @@
+﻿@model ContactS.WEB.Models.DialogListModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Your Chats</h2>
+
+@Html.ActionLink("Create Dialog", "Create", "Dialog", null, new { @class = "btn btn-primary" })
+<div class="list-group">
+    @foreach (var chat in Model.dialogs)
+    {
+    <a href="/Dialog/OpenDialog/@chat.DialogId" class="list-group-item list-group-item-action input-group">
+
+        <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">@chat.Dialog</h5>
+            <small>@chat.Data</small>
+        </div>
+        <p class="mb-1">@chat.LastMessage</p>
+        <small>@chat.Sender</small>
+    </a>
+        
+    }
+</div>
+

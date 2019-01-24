@@ -1,0 +1,35 @@
+﻿@model IEnumerable<ContactS.BLL.DTO.MessageDTO>
+@using Microsoft.AspNet.Identity
+
+@foreach (var msg in Model)
+{
+    if (msg.Sender.Id == User.Identity.GetUserId())
+    {
+        <div class="row mb-2">
+            <div class="col-8 offset-4 ">
+                <div class="card border-info">
+                    <div class="card-body">
+                        @Html.ActionLink(msg.Sender.Name, "ClientProfile", "Account", new { userId = msg.Sender.Id }, new { @class = "card-title text-info" })
+                        <p class="card-text">@msg.Content</p>
+                        <small class="text-muted">@msg.Time</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="row mb-2">
+            <div class="col-8">
+                <div class="card border-primary">
+                    <div class="card-body">
+                        @Html.ActionLink(msg.Sender.Name, "ClientProfile", "Account", new { userId = msg.Sender.Id }, new {@class="card-title" })
+                        <p class="card-text">@msg.Content</p>
+                        <small class="text-muted">@msg.Time</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+}

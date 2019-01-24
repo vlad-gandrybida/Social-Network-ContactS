@@ -1,0 +1,24 @@
+﻿@model ContactS.BLL.DTO.DialogDTO
+
+@{
+    ViewBag.Title = "Leave";
+}
+
+<h2>Leave @Model.Name?</h2>
+
+@using (Html.BeginForm())
+{
+    <div class="form-horizontal">
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Leave" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
