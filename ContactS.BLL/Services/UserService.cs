@@ -132,7 +132,7 @@ namespace ContactS.BLL.Services
             };
         }
 
-        int UserPageSize => 20;
+        int UserPageSize => 15;
 
         public UserListDTO ListUsers(UserFilter filter, int page = 0)
         {
@@ -226,6 +226,12 @@ namespace ContactS.BLL.Services
             };
             query.ClearSortCriterias();
             return query;
+        }
+
+        public bool AreUsersIsFriends(UserDTO User1Id, UserDTO User2Id)
+        {
+            var filter = new FriendshipFilter { Account = User1Id, Account2 = User2Id };
+            return GetQuery(filter).Execute().Any();
         }
     }
 }

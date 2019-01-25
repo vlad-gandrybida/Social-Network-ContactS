@@ -1,48 +1,31 @@
-﻿@model IEnumerable<ContactS.BLL.DTO.UserDTO>
+﻿@model IEnumerable<ContactS.WEB.Models.UserListItemModel>
 @using System;
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Користувачі</h2>
+<h2 class="mt-4 mb-4 text-center">Користувачі</h2>
 
-    @{
-    <div class="card-columns">
-        @foreach (var item in Model)
-        {
-                <div class="card bg-dark text-white">
-                    <div class="card-header">
-                        <h5 class="card-title text-center">@item.Name</h5>
-                    </div>
-                    <div class="card-body">
-                        @{
-                                Random rand = new Random();
-                                int img = rand.Next(1, 6);
-                                switch (img) {
-                                    case 1:
-                        <img src="https://www.omis.ee/wp-content/uploads/2016/03/no-profile-img-240x300.gif" class="card-img-top" alt="...">
-                                    break;
-                                case 2:
-                        <img src="https://www.omis.ee/wp-content/uploads/2016/03/no-profile-img-240x300.gif" class="card-img-top" alt="...">
-                                    break;
-                                case 3:
-                        <img src="https://www.omis.ee/wp-content/uploads/2016/03/no-profile-img-240x300.gif" class="card-img-top" alt="...">
-                                    break;
-                                case 4:
-                        <img src="https://www.omis.ee/wp-content/uploads/2016/03/no-profile-img-240x300.gif" class="card-img-top" alt="...">
-                                    break;
-                                case 5:
-                        <img src="https://www.omis.ee/wp-content/uploads/2016/03/no-profile-img-240x300.gif" class="card-img-top" alt="...">
-                                        break;
-                                }
-                            }
-                    </div>
-                    <div class="card-footer text-center ">
-                        @Html.ActionLink("Add to friend", "AddToFriend", new { Id = item.Id }, new { @class = "btn btn-outline-primary btn-block" })
-                    </div>
-                </div>
-        }
+<div class="row">
+    <div class="col-md-3">
+        @using (Html.BeginForm("Search", "Account", FormMethod.Get)) {
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">@@</span>
+            </div>
+            <input type="text" name="search.UserName" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
         </div>
-    }
+        <input type="text" class="form-control mb-3" name="search.Name" placeholder="Name"/>
+        <input type="text" class="form-control mb-3" name="search.Adress" placeholder="Adress"/>
+        <input type="submit" value="Поиск" class="btn btn-primary mb-3" />
+        }
+    </div>
+    <div class="col-md-9">
+            <div class="card-columns">
+                @Html.Partial("_UserList",Model)
+            </div>
+    </div>
+</div>
+    
 

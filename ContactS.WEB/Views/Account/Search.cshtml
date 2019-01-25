@@ -1,0 +1,29 @@
+﻿@model ContactS.WEB.Models.SearcModelList
+
+@{
+    ViewBag.Title = "Search";
+}
+
+<h2 class="mt-4 mb-4 text-center">Search</h2>
+
+<div class="row">
+    <div class="col-md-3">
+        @using (Html.BeginForm("Search", "Account", FormMethod.Get))
+        {
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">@@</span>
+                </div>
+                <input type="text" name="UserName" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+            </div>
+            <input type="text" class="form-control mb-3" name="Name" placeholder="Name" title=@Model.SearchModel.Name />
+            <input type="text" class="form-control mb-3" name="Adress" placeholder="Adress" />
+            <input type="submit" value="Поиск" class="btn btn-primary mb-3" />
+        }
+    </div>
+    <div class="col-md-9">
+        <div class="card-columns">
+            @Html.Partial("_UserList", Model.Users)
+        </div>
+    </div>
+</div>

@@ -33,13 +33,13 @@ namespace ContactS.BLL.Queries
                     .Contains(Filter.Name.ToLower()));
             
             if (!string.IsNullOrEmpty(Filter.Login))
-                clients = clients.Where(u => u.ApplicationUser.UserName.Equals(Filter.Login));
+                clients = clients.Where(u => u.ApplicationUser.UserName.ToLower().Contains(Filter.Login.ToLower()));
 
             if (!string.IsNullOrEmpty(Filter.Email))
                 clients = clients.Where(u => u.ApplicationUser.Email.Equals(Filter.Email));
             
             if (Filter.Address != null)
-                clients = clients.Where(u => u.Address.Contains(Filter.Address));
+                clients = clients.Where(u => u.Address.ToLower().Contains(Filter.Address.ToLower()));
 
             List<UserDTO> result = new List<UserDTO>();
             

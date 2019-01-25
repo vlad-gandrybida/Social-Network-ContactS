@@ -38,7 +38,17 @@ namespace ContactS.WEB.Controllers
         public ActionResult Index(int page = 1)
         {
             var users = UserService.ListUsers(new BLL.DTO.Filtres.UserFilter(), page);
-            return View(users.ResultUsers);
+            List<UserListItemModel> result = new List<UserListItemModel>();
+            foreach(var item in users.ResultUsers)
+            {
+                result.Add(new UserListItemModel
+                {
+                    user = item,
+                    IsFriend = UserService.AreUsersIsFriends(item,
+                    UserService.GetUserById(User.Identity.GetUserId())) ? 1 : item.Id==User.Identity.GetUserId()? 0:-1,
+                });
+            }
+            return View(result);
         }
 
         [AllowAnonymous]
@@ -168,6 +178,30 @@ namespace ContactS.WEB.Controllers
                 Address = "ул. Спортивная, д.30, кв.75",
                 Role = "admin",
             }, new List<string> { "user", "admin" });
+        }
+        
+
+        public ActionResult Search(SearchModel search, int page=1)
+        {
+            var users = UserService.ListUsers(new BLL.DTO.Filtres.UserFilter
+            {
+                Login = search.UserName,
+                Name = search.Name,
+                Address = search.Adress
+            }, page);
+
+            List<UserListItemModel> items = new List<UserListItemModel>();
+            foreach (var item in users.ResultUsers)
+            {
+                items.Add(new UserListItemModel
+                {
+                    user = item,
+                    IsFriend = UserService.AreUsersIsFriends(item,
+                    UserService.GetUserById(User.Identity.GetUserId())) ? 1 : item.Id == User.Identity.GetUserId() ? 0 : -1,
+                });
+            }
+
+            return View(new SearcModelList { SearchModel = search, Users = items });
         }
     }
 }

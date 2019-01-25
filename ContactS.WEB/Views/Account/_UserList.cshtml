@@ -1,0 +1,55 @@
+﻿@model List<ContactS.WEB.Models.UserListItemModel>
+
+@{
+    Random rand = new Random();
+    foreach (var item in Model)
+    {
+        <div class="card bg-dark text-white">
+            <div class="card-header">
+                <h5 class="card-title text-center">@item.user.Name</h5>
+            </div>
+            <div class="card-body">
+                @{
+                    int img = rand.Next(1, 6);
+                    switch (img)
+                    {
+                        case 1:
+                            <img src="https://www.omis.ee/wp-content/uploads/2016/03/no-profile-img-240x300.gif" class="card-img-top" alt="...">
+                            break;
+                        case 2:
+                            <img src="https://www.compatico.com/content/img/misc/no-profile-image.jpg" class="card-img-top" alt="...">
+                            break;
+                        case 3:
+                            <img src="http://www.sud.if.ua/wp-content/uploads/2017/04/no-profile-img-239x300.png" class="card-img-top" alt="...">
+                            break;
+                        case 4:
+                            <img src="https://french.columbia.edu/themes/custom/columbia/assets/img/people-default.svg" class="card-img-top" alt="...">
+                            break;
+                        case 5:
+                            <img src="http://www.tippanii.com/images/noprofile.png" class="card-img-top" alt="...">
+                            break;
+                    }
+                }
+            </div>
+            @if (item.IsFriend == 1)
+            {
+                <div class="card-footer text-center ">
+                    @Html.ActionLink("Your friend", "AddToFriend", new { Id = item.user.Id }, new { @class = "btn btn-outline-success btn-block disabled" })
+                </div>
+            }
+            else if (item.IsFriend == -1)
+            {
+                <div class="card-footer text-center ">
+                    @Html.ActionLink("Add to friend", "AddToFriend", new { Id = item.user.Id }, new { @class = "btn btn-outline-primary btn-block" })
+                </div>
+            }
+            else
+            {
+                <div class="card-footer text-center ">
+                    @Html.ActionLink("Your profile", "AddToFriend", new { Id = item.user.Id }, new { @class = "btn btn-outline-danger btn-block disabled" })
+                </div>
+            }
+
+        </div>
+                        }
+                    }

@@ -25,6 +25,7 @@ namespace ContactS.BLL.Interfaces
         UserDTO GetUserById(string id);
         UserListDTO ListUsers(UserFilter filter, int page = 0);
         List<UserDTO> ListFriendsOfUser(UserDTO account, int page = 0);
+        bool AreUsersIsFriends(UserDTO User1Id, UserDTO User2Id);
 
         Task SetInitialData(UserDTO adminDto, List<string> roles);
     }
