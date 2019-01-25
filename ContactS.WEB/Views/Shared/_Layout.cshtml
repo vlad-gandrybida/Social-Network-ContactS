@@ -1,55 +1,57 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNet.Identity;
+
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title – приложение ASP.NET</title>
+    <title>@ViewBag.Title – ContactS</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <link href="https://fonts.googleapis.com/css?family=Product+Sans" rel="stylesheet" type="text/css">
 </head>
 <body>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-            @Html.ActionLink("Contact🆂", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+        @Html.ActionLink("Contact🆂", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    @Html.ActionLink("Повідомлення", "Index", "Dialog", null, new { @class = "nav-link" })
+                </li>
+                <li class="nav-item">
+                    @Html.ActionLink("Користувачі", "Index", "Account", null, new { @class = "nav-link" })
+                </li>
+            </ul>
+            <ul class="navbar-nav navbar-right">
+                @if (!User.Identity.IsAuthenticated)
+                {
+                    <li class="nav-item">@Html.ActionLink("Войти", "Login", "Account", null, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Регистрация", "Register", "Account", null, new { @class = "nav-link" })</li>
+                }
+                else
+                {
                     <li class="nav-item">
-                        @Html.ActionLink("Повідомлення", "Index", "Dialog", null, new { @class = "nav-link" })
+                        @Html.ActionLink("Моя сторінка", "ClientProfile", "Account", new { id = User.Identity.GetUserId() }, new { @class = "nav-link" })
                     </li>
-                    <li class="nav-item">
-                        @Html.ActionLink("Користувачі", "Index", "Account", null, new { @class = "nav-link" })
-                    </li>
-                </ul>
-                <ul class="navbar-nav navbar-right">
-                    @if (!User.Identity.IsAuthenticated)
-                    {
-                        <li class="nav-item">@Html.ActionLink("Войти", "Login", "Account", null, new { @class = "nav-link" })</li>
-                        <li class="nav-item">@Html.ActionLink("Регистрация", "Register", "Account", null, new { @class = "nav-link" })</li>
-                    }
-                    else
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link">Привет @User.Identity.Name</a>
-                        </li>
-                        <li class="nav-item">@Html.ActionLink("Выход", "Logout", "Account", null, new { @class = "nav-link" })</li>
-                    }
-                    <li class="nav-item dropdown mr-5">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            @Recources.Resource.CurrentLang
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown" >
-                            @Html.ActionLink("Українська", "ChangeCulture", "Home", new { lang = "ua" }, new { @class = "dropdown-item" })
-                            @Html.ActionLink("English", "ChangeCulture", "Home", new { lang = "en" }, new { @class = "dropdown-item" })
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+                    <li class="nav-item">@Html.ActionLink("Выход", "Logout", "Account", null, new { @class = "nav-link" })</li>
+                }
+                <li class="nav-item dropdown mr-5">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        @Recources.Resource.CurrentLang
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        @Html.ActionLink("Українська", "ChangeCulture", "Home", new { lang = "ua" }, new { @class = "dropdown-item" })
+                        @Html.ActionLink("English", "ChangeCulture", "Home", new { lang = "en" }, new { @class = "dropdown-item" })
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
     <div class="container body-content">
         @RenderBody()
     </div>

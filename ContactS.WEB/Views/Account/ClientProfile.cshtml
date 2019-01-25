@@ -1,10 +1,63 @@
-﻿@model ContactS.BLL.DTO.UserDTO
+﻿@model ContactS.WEB.Models.ClientProfileViewModel
 
 @{
-    ViewBag.Title = "MyPage";
+    ViewBag.Title = Model.userInfo.Name;
 }
 
-<h2>View</h2>
-@Html.DisplayFor(x => x.Name)
-@Html.DisplayFor(x => x.Email)
-@Html.DisplayFor(x => x.Address)
+<div class="row mt-5">
+    <div class="col-3">
+        @{ 
+            int img = new Random().Next(1, 6);
+            switch (img)
+            {
+                case 1:
+                    <img src="https://www.omis.ee/wp-content/uploads/2016/03/no-profile-img-240x300.gif" class="card-img-top" alt="...">
+                    break;
+                case 2:
+                    <img src="https://www.compatico.com/content/img/misc/no-profile-image.jpg" class="card-img-top" alt="...">
+                    break;
+                case 3:
+                    <img src="http://www.sud.if.ua/wp-content/uploads/2017/04/no-profile-img-239x300.png" class="card-img-top" alt="...">
+                    break;
+                case 4:
+                    <img src="https://french.columbia.edu/themes/custom/columbia/assets/img/people-default.svg" class="card-img-top" alt="...">
+                    break;
+                case 5:
+                    <img src="http://www.tippanii.com/images/noprofile.png" class="card-img-top" alt="...">
+                    break;
+            }
+        }
+                    <div class="btn-group-vertical btn-block mt-2">
+                        @if (Model.Relation == 1)
+                        {
+                            @Html.ActionLink("Вилучити з друзів", "RemoveFromFriends", new { id = Model.userInfo.Id }, new { @class = "btn btn-danger" })
+                        }
+                        else if (Model.Relation == -1)
+                        {
+                            @Html.ActionLink("Додати до друзів", "AddToFriend", new { id = Model.userInfo.Id }, new { @class = "btn btn-primary" })
+                            @Html.ActionLink("Написати", "Create","Dialog", new { id = Model.userInfo.Id }, new { @class = "btn btn-primary" })
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Змінити", "Edit", null, new { @class = "btn btn-primary" })
+                            @Html.ActionLink("Видалити", "Delete", null, new { @class = "btn btn-danger" })
+                        }
+                    </div>
+    </div>
+    <div class="col-9">
+        <div class="row">
+            <div class="col-md-9 col-sm-12">
+                <h3>@Model.userInfo.Name</h3>
+            </div>
+            <div class="col-md-3 col-sm-12">
+                <small class="text-muted float-right">(@@@Model.userInfo.UserName)</small>
+            </div>
+        </div>
+        <hr />
+        <p>Address: @Model.userInfo.Address</p>
+        <p>Address: @Model.userInfo.Address</p>
+        <hr />
+        <h2>Posts</h2>
+        <p>Posts in develop now!</p>
+    </div>
+</div>

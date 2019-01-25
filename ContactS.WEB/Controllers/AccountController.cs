@@ -37,18 +37,7 @@ namespace ContactS.WEB.Controllers
 
         public ActionResult Index(int page = 1)
         {
-            var users = UserService.ListUsers(new BLL.DTO.Filtres.UserFilter(), page);
-            List<UserListItemModel> result = new List<UserListItemModel>();
-            foreach(var item in users.ResultUsers)
-            {
-                result.Add(new UserListItemModel
-                {
-                    user = item,
-                    IsFriend = UserService.AreUsersIsFriends(item,
-                    UserService.GetUserById(User.Identity.GetUserId())) ? 1 : item.Id==User.Identity.GetUserId()? 0:-1,
-                });
-            }
-            return View(result);
+            return RedirectToAction("Search",new SearchModel());
         }
 
         [AllowAnonymous]
@@ -121,9 +110,9 @@ namespace ContactS.WEB.Controllers
             return View(model);
         }
 
-        public ActionResult Delete()
+        public ActionResult Delete(string id)
         {
-            return View(UserService.GetUserById(User.Identity.GetUserId()));
+                return View(UserService.GetUserById(User.Identity.GetUserId()));
         }
 
         [HttpPost]
@@ -137,14 +126,14 @@ namespace ContactS.WEB.Controllers
 
         public ActionResult Edit()
         {
-            return View(UserService.GetUserById(User.Identity.GetUserId()));
+                return View(UserService.GetUserById(User.Identity.GetUserId()));
         }
 
         [HttpPost]
         public ActionResult Edit(UserDTO account)
         {
             UserService.EditUser(account);
-            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+
             return RedirectToAction("Index", "Home");
         }
         
@@ -156,15 +145,14 @@ namespace ContactS.WEB.Controllers
             return Redirect(Url);
         }
 
-
-        public ActionResult ClientProfile()
-        {
-            return View(UserService.GetUserById(User.Identity.GetUserId()));
-        }
-
         public ActionResult ClientProfile(string id)
         {
-            return View(UserService.GetUserById(id));
+            var user = UserService.GetUserById(id);
+            return View(new ClientProfileViewModel {
+                userInfo = user,
+                Relation = UserService.AreUsersIsFriends(user,
+                    UserService.GetUserById(User.Identity.GetUserId())) ? 1 : user.Id == User.Identity.GetUserId() ? 0 : -1
+            });
         }
 
         private async Task SetInitialDataAsync()
@@ -200,8 +188,18 @@ namespace ContactS.WEB.Controllers
                     UserService.GetUserById(User.Identity.GetUserId())) ? 1 : item.Id == User.Identity.GetUserId() ? 0 : -1,
                 });
             }
-
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView("_UserList", items);
+            }
             return View(new SearcModelList { SearchModel = search, Users = items });
+        }
+
+        public ActionResult RemoveFromFriends(string id)
+        {
+            var Url = Request.UrlReferrer.AbsolutePath;
+            UserService.RemoveUsersFromFriends(UserService.GetUserById(id), UserService.GetUserById(User.Identity.GetUserId()));
+            return Redirect(Url);
         }
     }
 }

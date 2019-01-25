@@ -24,4 +24,10 @@ namespace ContactS.WEB.Models
         public SearchModel SearchModel { get; set; }
         public List<UserListItemModel> Users = new List<UserListItemModel>();
     }
+
+    public class ClientProfileViewModel
+    {
+        public UserDTO userInfo { get; set; }
+        public int Relation { get; set; }
+    }
 }

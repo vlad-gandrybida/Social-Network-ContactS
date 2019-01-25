@@ -6,7 +6,7 @@
     {
         <div class="card bg-dark text-white">
             <div class="card-header">
-                <h5 class="card-title text-center">@item.user.Name</h5>
+                <h5 class="card-title text-center">@Html.ActionLink(item.user.Name,"ClientProfile",new {id = item.user.Id })</h5>
             </div>
             <div class="card-body">
                 @{
