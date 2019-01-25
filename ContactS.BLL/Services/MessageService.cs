@@ -26,7 +26,7 @@ namespace ContactS.BLL.Services
 
         public async Task DeleteMessage(int messageId)
         {
-            Database.DialogManager.Delete(messageId);
+            Database.MessageManager.Delete(messageId);
             await Database.SaveAsync();
         }
 

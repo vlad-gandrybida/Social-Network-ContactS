@@ -4,20 +4,26 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create Dialog</h2>
+<h2 class="mt-4 text-center">Оберіть кому написати</h2>
 
-@foreach(var user in Model)
-{
-<div style="border: black solid 1px; margin: 10px">
-    <div style="margin: 10px; display: inline-block">
-
-        <p>@user.Name</p>
-    </div>
-
-    @using (Html.BeginForm())
+<ul class="list-group">
+    @foreach (var user in Model)
     {
-        <input value="@user.Id" name="id" type="hidden"/>
-        <input type="submit" name="Send" value="Write" class="btn btn-primary" />
+    <li class="list-group-item сontainer">
+
+        <div class="row">
+            <div class="col-2">
+            @using (Html.BeginForm())
+            {
+
+                <input value="@user.Id" name="id" type="hidden" />
+                <input type="submit" name="Send" value="Write" class="btn btn-primary" />
+            }</div>
+            <div class="col-10">
+                <p class="m-0">@user.Name</p>
+            </div>
+            
+        </div>
+    </li>
     }
-</div>
-}
+</ul>

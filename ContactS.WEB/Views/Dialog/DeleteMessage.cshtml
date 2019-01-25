@@ -21,12 +21,15 @@
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm("DeleteMessage", "Dialog", FormMethod.Post))
+    {
         @Html.AntiForgeryToken()
 
+        @Html.HiddenFor(model => model.DialogId)
+        @Html.HiddenFor(model => model.Message.Id)
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back", "OpenChat", new { id = Model.DialogId }, new { @class = "btn btn-default" })
+            @Html.ActionLink("Back", "OpenDialog", new { id = Model.DialogId }, new { @class = "btn btn-default" })
         </div>
     }
 </div>

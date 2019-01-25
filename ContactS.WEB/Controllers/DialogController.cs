@@ -58,13 +58,25 @@ namespace ContactS.WEB.Controllers
                 MessageDTO lastMessage = MessageService.ListDialogMessages(new MessageFilter
                 {
                     Chat = dialog
-                }).ResultMessages.LastOrDefault();
+                }).ResultMessages.OrderBy(x=>x.Time).LastOrDefault();
+                string message;
+                if (lastMessage != null)
+                {
+                    message = lastMessage.Content;
+                    if (message.Length > 50)
+                    {
+                        message = message.Substring(0, 50) + "...";
+                    }
+                }
+                else
+                {
+                    message = "Історія переписки пуста";
+                }
                 result.dialogs.Add(new DialogViewModel
                 {
                     DialogId = dialog.Id,
                     Dialog = dialog.Name,
-                    LastMessage = lastMessage != null ? lastMessage.Content
-                    : "Історія переписки пуста",
+                    LastMessage = message,
                     Data = lastMessage != null ? lastMessage.Time.ToShortDateString()
                     + "  " + lastMessage.Time.ToShortTimeString() : " ",
                     Sender = lastMessage != null ? lastMessage.Sender.Name
@@ -165,14 +177,14 @@ namespace ContactS.WEB.Controllers
             var msg = MessageService.GetMessageById(id);
             if (msg.Sender.Id != User.Identity.GetUserId()) return RedirectToAction("AccessDenied", "Page");
 
-            return View(new MessageModel { Message = msg, DialogId = msg.Dialog.Id });
+            return View(msg);
         }
 
         [HttpPost]
-        public ActionResult EditMessage(MessageModel model)
+        public ActionResult EditMessage(MessageDTO model)
         {
-            MessageService.EditMessage(model.Message);
-            return RedirectToAction("OpenDialog", new { id = model.DialogId });
+            MessageService.EditMessage(model);
+            return RedirectToAction("OpenDialog", new { id = model.Dialog.Id });
         }
 
         public ActionResult Edit(int id)
@@ -181,7 +193,7 @@ namespace ContactS.WEB.Controllers
 
             if (!DialogService.GetUsersInDialog(Dialog).Any(x=>x.Id== User.Identity.GetUserId())) return RedirectToAction("AccessDenied", "Page");
 
-            return View(Dialog);
+            return PartialView(Dialog);
         }
 
         [HttpPost]
@@ -216,8 +228,7 @@ namespace ContactS.WEB.Controllers
             var Dialog = DialogService.GetDialogById(id);
             if (!DialogService.GetUsersInDialog(Dialog).Any(x => x.Id == User.Identity.GetUserId())) return RedirectToAction("AccessDenied", "Page");
             
-
-            return View(Dialog);
+            return PartialView(Dialog);
         }
 
         [HttpPost]

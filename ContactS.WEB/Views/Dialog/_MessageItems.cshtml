@@ -11,7 +11,12 @@
                     <div class="card-body">
                         @Html.ActionLink(msg.Sender.Name, "ClientProfile", "Account", new { userId = msg.Sender.Id }, new { @class = "card-title text-info" })
                         <p class="card-text">@msg.Content</p>
-                        <small class="text-muted">@msg.Time</small>
+                        <div class="d-inline-block">
+                            <small class="text-muted">@msg.Time</small>
+                            <small class="text-muted">@Html.ActionLink("Змінити", "EditMessage", new { id = msg.Id })</small>
+                            <small class="text-muted">@Html.ActionLink("Видалити", "DeleteMessage", new { id = msg.Id })</small>
+                            
+                        </div>
                     </div>
                 </div>
             </div>
