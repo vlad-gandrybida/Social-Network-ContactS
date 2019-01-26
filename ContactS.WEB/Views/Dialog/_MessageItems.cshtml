@@ -8,14 +8,14 @@
         <div class="row mb-2">
             <div class="col-8 offset-4 ">
                 <div class="card border-info">
-                    <div class="card-body">
-                        @Html.ActionLink(msg.Sender.Name, "ClientProfile", "Account", new { userId = msg.Sender.Id }, new { @class = "card-title text-info" })
-                        <p class="card-text">@msg.Content</p>
-                        <div class="d-inline-block">
+                    <div class="card-body p-2">
+                        @Html.ActionLink(msg.Sender.Name, "ClientProfile", "Account", new { id = msg.Sender.Id }, new { @class = "card-title text-info",style="font-size:14px" })
+                        <p class="card-text m-0">@msg.Content</p>
+                        <div class="d-inline-block" style="font-size:0.8rem">
                             <small class="text-muted">@msg.Time</small>
                             <small class="text-muted">@Html.ActionLink("Змінити", "EditMessage", new { id = msg.Id })</small>
                             <small class="text-muted">@Html.ActionLink("Видалити", "DeleteMessage", new { id = msg.Id })</small>
-                            
+
                         </div>
                     </div>
                 </div>
@@ -27,10 +27,10 @@
         <div class="row mb-2">
             <div class="col-8">
                 <div class="card border-primary">
-                    <div class="card-body">
-                        @Html.ActionLink(msg.Sender.Name, "ClientProfile", "Account", new { userId = msg.Sender.Id }, new {@class="card-title" })
-                        <p class="card-text">@msg.Content</p>
-                        <small class="text-muted">@msg.Time</small>
+                    <div class="card-body p-2">
+                        @Html.ActionLink(msg.Sender.Name, "ClientProfile", "Account", new { id = msg.Sender.Id }, new { @class = "card-title", style = "font-size:14px" })
+                        <p class="card-text m-0">@msg.Content</p>
+                        <small class="text-muted" style="font-size:0.8rem">@msg.Time</small>
                     </div>
                 </div>
             </div>

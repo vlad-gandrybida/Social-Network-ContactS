@@ -1,10 +1,10 @@
 ﻿using ContactS.DAL.EF;
 using ContactS.DAL.Entities;
+using ContactS.DAL.Identity;
 using ContactS.DAL.Interfaces;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Threading.Tasks;
-using ContactS.DAL.Identity;
 
 namespace ContactS.DAL.Repositories
 {
@@ -30,45 +30,24 @@ namespace ContactS.DAL.Repositories
             friendshipManager = new FriendshipManager(db);
         }
 
-        public ApplicationUserManager UserManager
-        {
-            get { return userManager; }
-        }
+        public ApplicationUserManager UserManager => userManager;
 
-        public IClientManager ClientManager
-        {
-            get { return clientManager; }
-        }
+        public IClientManager ClientManager => clientManager;
 
-        public IMessageManager MessageManager
-        {
-            get { return messageManager; }
-        }
+        public IMessageManager MessageManager => messageManager;
 
-        public IDialogManager DialogManager
-        {
-            get { return dialogManager; }
-        }
+        public IDialogManager DialogManager => dialogManager;
 
-        public IFriendshipManager FriendshipManager
-        {
-            get { return friendshipManager; }
-        }
+        public IFriendshipManager FriendshipManager => friendshipManager;
 
-        public ApplicationRoleManager RoleManager
-        {
-            get { return roleManager; }
-        }
+        public ApplicationRoleManager RoleManager => roleManager;
 
         public async Task SaveAsync()
         {
             await db.SaveChangesAsync();
         }
 
-        public ApplicationContext Context
-        {
-            get { return db; }
-        }
+        public ApplicationContext Context => db;
 
         public void Dispose()
         {
@@ -79,7 +58,7 @@ namespace ContactS.DAL.Repositories
 
         public virtual void Dispose(bool disposing)
         {
-            if (!this.disposed)
+            if (!disposed)
             {
                 if (disposing)
                 {
@@ -87,7 +66,7 @@ namespace ContactS.DAL.Repositories
                     roleManager.Dispose();
                     clientManager.Dispose();
                 }
-                this.disposed = true;
+                disposed = true;
             }
         }
     }

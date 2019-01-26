@@ -3,18 +3,15 @@ using ContactS.BLL.DTO.Filtres;
 using ContactS.BLL.Infrastructure;
 using ContactS.DAL.Entities;
 using ContactS.DAL.Repositories;
-using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ContactS.BLL.Queries
 {
-    class MessageListQuery : QueryBase<MessageDTO>
+    internal class MessageListQuery : QueryBase<MessageDTO>
     {
-        UnitOfWork Database;
+        private UnitOfWork Database;
         public MessageListQuery(UnitOfWork unitOfWork)
         {
             Database = unitOfWork;
@@ -41,7 +38,7 @@ namespace ContactS.BLL.Queries
 
             List<MessageDTO> result = new List<MessageDTO>();
 
-            foreach (var item in query)
+            foreach (Message item in query)
             {
                 MessageDTO message = new MessageDTO
                 {

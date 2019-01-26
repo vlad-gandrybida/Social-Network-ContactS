@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Threading;
 using System.Web;
 using System.Web.Mvc;
@@ -13,14 +11,14 @@ namespace ContactS.WEB.Models.Filters
         public void OnActionExecuted(ActionExecutedContext filterContext)
         {
             string cultureName = null;
-            
+
             HttpCookie cultureCookie = filterContext.HttpContext.Request.Cookies["lang"];
             if (cultureCookie != null)
                 cultureName = cultureCookie.Value;
             else
                 cultureName = "ua";
-            
-            List<string> cultures = new List<string>() { "ua", "en"};
+
+            List<string> cultures = new List<string>() { "ua", "en" };
             if (!cultures.Contains(cultureName))
             {
                 cultureName = "ua";

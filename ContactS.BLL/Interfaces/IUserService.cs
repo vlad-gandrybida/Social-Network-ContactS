@@ -2,9 +2,7 @@
 using ContactS.BLL.DTO.Filtres;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ContactS.BLL.Interfaces
@@ -21,7 +19,7 @@ namespace ContactS.BLL.Interfaces
         Task RemoveUsersFromFriends(UserDTO accountDto, UserDTO user2Dto);
         Task RemoveFriendship(FriendshipDTO friendship);
 
-        
+
         UserDTO GetUserById(string id);
         UserListDTO ListUsers(UserFilter filter, int page = 0);
         List<UserDTO> ListFriendsOfUser(UserDTO account, int page = 0);

@@ -11,7 +11,7 @@ namespace ContactS.WEB.App_Start
 {
     public class Startup
     {
-        IServiceCreator serviceCreator = new ServiceCreator();
+        private IServiceCreator serviceCreator = new ServiceCreator();
         public void Configuration(IAppBuilder app)
         {
             app.CreatePerOwinContext(CreateUserService);

@@ -6,9 +6,6 @@ using ContactS.BLL.Queries;
 using ContactS.DAL.Interfaces;
 using ContactS.DAL.Repositories;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ContactS.BLL.Services
@@ -17,7 +14,7 @@ namespace ContactS.BLL.Services
     {
         public int ChatMessagePageSize => 15;
 
-        IUnitOfWork Database { get; set; }
+        private IUnitOfWork Database { get; set; }
 
         public MessageService(IUnitOfWork uow)
         {
@@ -42,7 +39,7 @@ namespace ContactS.BLL.Services
 
         public async Task EditMessage(MessageDTO messageDto)
         {
-            var message = Database.MessageManager.GetById(messageDto.Id);
+            DAL.Entities.Message message = Database.MessageManager.GetById(messageDto.Id);
             message.Content = messageDto.Content;
             Database.MessageManager.Update(message);
             await Database.SaveAsync();
@@ -50,7 +47,7 @@ namespace ContactS.BLL.Services
 
         public MessageDTO GetMessageById(int id)
         {
-            var message = Database.MessageManager.GetById(id);
+            DAL.Entities.Message message = Database.MessageManager.GetById(id);
             MessageDTO result;
             if (message != null)
             {
@@ -78,7 +75,7 @@ namespace ContactS.BLL.Services
 
         public MessageListDTO ListDialogMessages(MessageFilter filter, int page = 0)
         {
-            var query = GetMessageQuery(filter);
+            IQuery<MessageDTO> query = GetMessageQuery(filter);
 
             query.Skip = (page > 0 ? page - 1 : 0) * ChatMessagePageSize;
             query.Take = ChatMessagePageSize;
@@ -96,7 +93,7 @@ namespace ContactS.BLL.Services
 
         private IQuery<MessageDTO> GetMessageQuery(MessageFilter filter = null)
         {
-            var query = new MessageListQuery((UnitOfWork)Database);
+            MessageListQuery query = new MessageListQuery((UnitOfWork)Database);
             query.ClearSortCriterias();
             query.Filter = filter;
             return query;
@@ -104,10 +101,11 @@ namespace ContactS.BLL.Services
 
         public async Task<int> PostMessageToDialog(DialogDTO dialog, UserDTO user, MessageDTO message)
         {
-            var dialogEnt = Database.DialogManager.GetById(dialog.Id);
-            var userEnt = Database.ClientManager.GetById(user.Id);
+            DAL.Entities.Dialog dialogEnt = Database.DialogManager.GetById(dialog.Id);
+            DAL.Entities.ClientProfile userEnt = Database.ClientManager.GetById(user.Id);
 
-            var newMessage = new DAL.Entities.Message {
+            DAL.Entities.Message newMessage = new DAL.Entities.Message
+            {
                 Content = message.Content
             };
             newMessage.Time = DateTime.Now;

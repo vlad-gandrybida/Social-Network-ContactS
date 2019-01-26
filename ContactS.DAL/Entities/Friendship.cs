@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.Core.Objects;
 
 namespace ContactS.DAL.Entities
@@ -34,7 +33,7 @@ namespace ContactS.DAL.Entities
         {
             unchecked
             {
-                var hash = 23;
+                int hash = 23;
                 hash = hash * 31 + User1.GetHashCode();
                 hash = hash * 31 + User2.GetHashCode();
                 return hash;

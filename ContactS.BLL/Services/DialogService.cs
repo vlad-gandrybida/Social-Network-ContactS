@@ -5,7 +5,6 @@ using ContactS.BLL.Interfaces;
 using ContactS.BLL.Queries;
 using ContactS.DAL.Interfaces;
 using ContactS.DAL.Repositories;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,7 +16,7 @@ namespace ContactS.BLL.Services
     {
         public int DialogPageSize => 20;
 
-        IUnitOfWork Database { get; set; }
+        private IUnitOfWork Database { get; set; }
 
         public DialogService(IUnitOfWork uow)
         {
@@ -26,7 +25,7 @@ namespace ContactS.BLL.Services
 
         public async Task AddUsersToDialog(DialogDTO dialog, List<UserDTO> accounts)
         {
-            foreach(var acc in accounts)
+            foreach (UserDTO acc in accounts)
             {
                 await AddUserToDialog(dialog, acc);
             }
@@ -34,8 +33,8 @@ namespace ContactS.BLL.Services
 
         public async Task AddUserToDialog(DialogDTO dialog, UserDTO account)
         {
-            var dialogEnt = Database.DialogManager.GetById(dialog.Id);
-            var userEnt = Database.ClientManager.GetById(account.Id);
+            DAL.Entities.Dialog dialogEnt = Database.DialogManager.GetById(dialog.Id);
+            DAL.Entities.ClientProfile userEnt = Database.ClientManager.GetById(account.Id);
             dialogEnt.ChatUsers.Add(userEnt);
             Database.DialogManager.Update(dialogEnt);
             await Database.SaveAsync();
@@ -46,20 +45,20 @@ namespace ContactS.BLL.Services
             int id;
             if (dialogDto.Users.Count == 2)
             {
-                var tmp = CheckIfPrivateDialogExists(dialogDto);
+                int tmp = CheckIfPrivateDialogExists(dialogDto);
                 if (tmp != -1) return tmp;
             }
-            var list = dialogDto.Users
+            List<DAL.Entities.ClientProfile> list = dialogDto.Users
                 .Select(User => Database.ClientManager.GetById(User.Id))
                 .ToList();
 
-            var dialogName = new StringBuilder();
-            if (String.IsNullOrEmpty(dialogDto.Name))
+            StringBuilder dialogName = new StringBuilder();
+            if (string.IsNullOrEmpty(dialogDto.Name))
             {
                 list.ForEach(u => dialogName.Append(u.Name + ", "));
                 dialogDto.Name = dialogName.ToString();
             }
-            var dialogEnt = new DAL.Entities.Dialog
+            DAL.Entities.Dialog dialogEnt = new DAL.Entities.Dialog
             {
                 Name = dialogDto.Name
             };
@@ -84,7 +83,7 @@ namespace ContactS.BLL.Services
 
         public async Task EditDialogName(DialogDTO dialogDto)
         {
-            var dialog = Database.DialogManager.GetById(dialogDto.Id);
+            DAL.Entities.Dialog dialog = Database.DialogManager.GetById(dialogDto.Id);
             dialog.Name = dialogDto.Name;
             Database.DialogManager.Update(dialog);
             await Database.SaveAsync();
@@ -92,15 +91,16 @@ namespace ContactS.BLL.Services
 
         public DialogDTO GetDialogById(int Id)
         {
-            var dialog = Database.DialogManager.GetById(Id);
+            DAL.Entities.Dialog dialog = Database.DialogManager.GetById(Id);
 
-            var result = new DialogDTO
+            DialogDTO result = new DialogDTO
             {
                 Id = dialog.Id,
                 Name = dialog.Name
             };
 
-            dialog.ChatUsers.ForEach(m => result.Users.Add(new UserDTO {
+            dialog.ChatUsers.ForEach(m => result.Users.Add(new UserDTO
+            {
                 Id = m.Id,
                 Email = m.ApplicationUser.Email,
                 Address = m.Address,
@@ -113,7 +113,7 @@ namespace ContactS.BLL.Services
 
         public List<UserDTO> GetUsersInDialog(DialogDTO dialog)
         {
-            var dialogEnt = Database.DialogManager.GetById(dialog.Id);
+            DAL.Entities.Dialog dialogEnt = Database.DialogManager.GetById(dialog.Id);
 
             List<UserDTO> result = new List<UserDTO>();
             dialogEnt.ChatUsers.ForEach(m => result.Add(new UserDTO
@@ -129,7 +129,7 @@ namespace ContactS.BLL.Services
 
         public DialogListDTO ListDialogs(DialogFilter filter, int page = 0)
         {
-            var query = GetChatQuery(filter);
+            IQuery<DialogDTO> query = GetChatQuery(filter);
             query.Skip = (page > 0 ? page - 1 : 0) * DialogPageSize;
             query.Take = DialogPageSize;
 
@@ -145,8 +145,8 @@ namespace ContactS.BLL.Services
 
         public async Task RemoveUserFromDialog(DialogDTO dialog, UserDTO account)
         {
-            var dialogEnt = Database.DialogManager.GetById(dialog.Id);
-            var userEnt = Database.ClientManager.GetById(account.Id);
+            DAL.Entities.Dialog dialogEnt = Database.DialogManager.GetById(dialog.Id);
+            DAL.Entities.ClientProfile userEnt = Database.ClientManager.GetById(account.Id);
 
             dialogEnt.ChatUsers.Remove(userEnt);
 
@@ -161,7 +161,7 @@ namespace ContactS.BLL.Services
 
         private IQuery<DialogDTO> GetChatQuery(DialogFilter filter)
         {
-            var query = new DialogListQuery((UnitOfWork)Database);
+            DialogListQuery query = new DialogListQuery((UnitOfWork)Database);
             query.ClearSortCriterias();
             query.Filter = filter;
             return query;
@@ -169,15 +169,26 @@ namespace ContactS.BLL.Services
 
         private int CheckIfPrivateDialogExists(DialogDTO privateChat)
         {
-            var tmpChatList = ListDialogs(new DialogFilter { Account = privateChat.Users.FirstOrDefault() });
-            foreach (var chatTmp in tmpChatList.ResultDialogs)
+            DialogListDTO tmpChatList = ListDialogs(new DialogFilter { Account = privateChat.Users[0] });
+            foreach (DialogDTO chatTmp in tmpChatList.ResultDialogs)
             {
                 if (chatTmp.Users.Count != 2) continue;
-                if (chatTmp.Users.Contains(privateChat.Users[0])
-                    && chatTmp.Users.Contains(privateChat.Users[1]))
+                if (chatTmp.Users.Any(x=>x.Id == privateChat.Users[1].Id))
                     return chatTmp.Id;
             }
 
+            return -1;
+        }
+
+        public int HavePrivateDailog(string id1, string id2)
+        {
+            DialogListDTO tmpChatList = ListDialogs(new DialogFilter { Account = new UserDTO { Id = id1 } });
+            foreach (DialogDTO chatTmp in tmpChatList.ResultDialogs)
+            {
+                if (chatTmp.Users.Count != 2) continue;
+                if (chatTmp.Users.Any(x=>x.Id == id2))
+                    return chatTmp.Id;
+            }
             return -1;
         }
     }

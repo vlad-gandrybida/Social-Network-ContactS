@@ -117,13 +117,100 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="About" xml:space="preserve">
+    <value>Про нас</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>Гандрибіда Владислав</value>
+  </data>
   <data name="Back" xml:space="preserve">
     <value>Назад</value>
+  </data>
+  <data name="Contact" xml:space="preserve">
+    <value>Звяжіться з нами</value>
+  </data>
+  <data name="ContactHeader" xml:space="preserve">
+    <value>Напишіть нам!</value>
   </data>
   <data name="CurrentLang" xml:space="preserve">
     <value>Українська</value>
   </data>
+  <data name="Dialogs" xml:space="preserve">
+    <value>Мої діалоги</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Enter" xml:space="preserve">
+    <value>Введіть</value>
+  </data>
+  <data name="EnterMessage" xml:space="preserve">
+    <value>Введіть ваше повідомлення</value>
+  </data>
+  <data name="LearnMore" xml:space="preserve">
+    <value>Дізнатися більше</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Вхід</value>
+  </data>
+  <data name="LogOut" xml:space="preserve">
+    <value>Вихід</value>
+  </data>
+  <data name="Main" xml:space="preserve">
+    <value>Головна</value>
+  </data>
   <data name="MainText" xml:space="preserve">
     <value>Доброго дня! Вас вітає соціальна мережа нового покоління ContactS!</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Повідомлення</value>
+  </data>
+  <data name="MyPage" xml:space="preserve">
+    <value>Моя сторінка</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Ім'я</value>
+  </data>
+  <data name="Registration" xml:space="preserve">
+    <value>Реєстрація</value>
+  </data>
+  <data name="Security" xml:space="preserve">
+    <value>Безпека</value>
+  </data>
+  <data name="SecurityListText" xml:space="preserve">
+    <value>Odio ut enim blandit volutpat maecenas volutpat. Dictum non consectetur a erat nam at lectus. Amet justo donec enim diam vulputate ut pharetra sit. Pulvinar elementum integer enim neque volutpat ac tincidunt vitae. Mattis aliquam faucibus purus in massa tempor nec. Nec nam aliquam sem et tortor consequat id porta. Diam maecenas sed enim ut sem viverra aliquet eget. Commodo odio aenean sed adipiscing diam donec adipiscing. Convallis a cras semper auctor. Nibh sit amet commodo nulla facilisi nullam vehicula ipsum. Ornare massa eget egestas purus. Id eu nisl nunc mi ipsum.</value>
+  </data>
+  <data name="Social" xml:space="preserve">
+    <value>Доступність</value>
+  </data>
+  <data name="SocialListText" xml:space="preserve">
+    <value>Tincidunt arcu non sodales neque sodales. Aliquam sem fringilla ut morbi tincidunt augue. Est pellentesque elit ullamcorper dignissim cras tincidunt lobortis. Pharetra diam sit amet nisl suscipit adipiscing bibendum. Tristique nulla aliquet enim tortor at. Nec nam aliquam sem et tortor consequat. A condimentum vitae sapien pellentesque habitant morbi. Sit amet nulla facilisi morbi tempus iaculis urna. Vel eros donec ac odio tempor orci dapibus ultrices. Elementum facilisis leo vel fringilla est ullamcorper eget.</value>
+  </data>
+  <data name="SocialText" xml:space="preserve">
+    <value>ContactS - абсолютно безкоштовна, та перша по-справжньому соціальна мережа.</value>
+  </data>
+  <data name="Speed" xml:space="preserve">
+    <value>Швидкість</value>
+  </data>
+  <data name="SpeedListText" xml:space="preserve">
+    <value>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</value>
+  </data>
+  <data name="SpeedText" xml:space="preserve">
+    <value>ContactS - надзвичайно швидка соціальна мережа, яка миттєво відзивається на ваші команди.</value>
+  </data>
+  <data name="Style" xml:space="preserve">
+    <value>Стиль</value>
+  </data>
+  <data name="StyleListText" xml:space="preserve">
+    <value>Libero enim sed faucibus turpis in eu mi bibendum. Quis commodo odio aenean sed adipiscing diam donec adipiscing tristique. In hendrerit gravida rutrum quisque non. Neque volutpat ac tincidunt vitae semper quis lectus nulla at. Erat velit scelerisque in dictum. Tortor at auctor urna nunc id. Justo donec enim diam vulputate. Scelerisque eu ultrices vitae auctor. Leo in vitae turpis massa sed elementum tempus egestas sed. At volutpat diam ut venenatis tellus in metus.</value>
+  </data>
+  <data name="StyleText" xml:space="preserve">
+    <value>ContactS - працює на Bootstrap 4, що дає їй можливіть вглядати однаково привабливо на всіх пристроя.</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>Відправити</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>Користувачі</value>
   </data>
 </root>

@@ -6,7 +6,7 @@
 
 <div class="row mt-5">
     <div class="col-3">
-        @{ 
+        @{
             int img = new Random().Next(1, 6);
             switch (img)
             {
@@ -27,22 +27,52 @@
                     break;
             }
         }
-                    <div class="btn-group-vertical btn-block mt-2">
-                        @if (Model.Relation == 1)
-                        {
-                            @Html.ActionLink("Вилучити з друзів", "RemoveFromFriends", new { id = Model.userInfo.Id }, new { @class = "btn btn-danger" })
-                        }
-                        else if (Model.Relation == -1)
-                        {
-                            @Html.ActionLink("Додати до друзів", "AddToFriend", new { id = Model.userInfo.Id }, new { @class = "btn btn-primary" })
-                            @Html.ActionLink("Написати", "Create","Dialog", new { id = Model.userInfo.Id }, new { @class = "btn btn-primary" })
-                        }
-                        else
-                        {
-                            @Html.ActionLink("Змінити", "Edit", null, new { @class = "btn btn-primary" })
-                            @Html.ActionLink("Видалити", "Delete", null, new { @class = "btn btn-danger" })
-                        }
-                    </div>
+
+        @if (Model.Relation == 1)
+        {
+            using (Html.BeginForm("Create", "Dialog", FormMethod.Post, new { @class = "form-group mt-2" }))
+            {
+                <div class="btn-group-vertical btn-block mt-2">
+                    @Html.ActionLink("Вилучити з друзів", "RemoveFromFriends", new { id = Model.userInfo.Id }, new { @class = "btn btn-danger btn-block mt-2" })
+                    <input value="@Model.userInfo.Id" name="id" type="hidden" />
+                    <input type="submit" name="Send" value="Написати" class="btn btn-primary" />
+                </div>
+            }
+        }
+        else if (Model.Relation == -1)
+        {
+            using (Html.BeginForm("Create", "Dialog", FormMethod.Post, new { @class = "form-group mt-2" }))
+            {
+                <div class="btn-group-vertical btn-block mt-2">
+                    @Html.ActionLink("Додати до друзів", "AddToFriend", new { id = Model.userInfo.Id }, new { @class = "btn btn-primary" })
+                    <input value="@Model.userInfo.Id" name="id" type="hidden" />
+                    <input type="submit" name="Send" value="Написати" class="btn btn-primary" />
+                </div>
+            }
+
+        }
+        else
+        {
+            <div class="btn-group-vertical btn-block mt-2">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Edit">
+                    Змінити
+                </button>
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#Delete">
+                    Видалити
+                </button>
+            </div>
+
+            <div class="modal fade" id="Edit" tabindex="-1" role="dialog" aria-labelledby="EditTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    @Html.Partial("Edit", Model.userInfo)
+                </div>
+            </div>
+            <div class="modal fade" id="Delete" tabindex="-1" role="dialog" aria-labelledby="DeleteTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    @Html.Partial("Delete", Model.userInfo)
+                </div>
+            </div>
+        }
     </div>
     <div class="col-9">
         <div class="row">
@@ -55,7 +85,7 @@
         </div>
         <hr />
         <p>Address: @Model.userInfo.Address</p>
-        <p>Address: @Model.userInfo.Address</p>
+        <p>Email: @Model.userInfo.Email</p>
         <hr />
         <h2>Posts</h2>
         <p>Posts in develop now!</p>

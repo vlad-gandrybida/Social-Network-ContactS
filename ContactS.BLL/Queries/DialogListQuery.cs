@@ -3,18 +3,15 @@ using ContactS.BLL.DTO.Filtres;
 using ContactS.BLL.Infrastructure;
 using ContactS.DAL.Entities;
 using ContactS.DAL.Repositories;
-using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ContactS.BLL.Queries
 {
     public class DialogListQuery : QueryBase<DialogDTO>
     {
-        UnitOfWork Database;
+        private UnitOfWork Database;
         public DialogListQuery(UnitOfWork unitOfWork)
         {
             Database = unitOfWork;
@@ -30,7 +27,7 @@ namespace ContactS.BLL.Queries
 
             IQueryable<Dialog> query = Database.Context.Dialogs.Local.AsQueryable();
 
-            
+
 
             if (!string.IsNullOrEmpty(Filter.Name))
                 query = query.Where(u => u.Name.ToLower()
@@ -42,14 +39,14 @@ namespace ContactS.BLL.Queries
                         .FirstOrDefault(user => user.Id == Filter.Account.Id)));
 
             List<DialogDTO> result = new List<DialogDTO>();
-            foreach (var elem in query)
+            foreach (Dialog elem in query)
             {
                 DialogDTO dialog = new DialogDTO
                 {
                     Id = elem.Id,
                     Name = elem.Name
                 };
-                foreach (var client in elem.ChatUsers)
+                foreach (ClientProfile client in elem.ChatUsers)
                 {
                     UserDTO user = new UserDTO
                     {

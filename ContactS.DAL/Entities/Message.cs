@@ -19,8 +19,6 @@ namespace ContactS.DAL.Entities
         [Required]
         public virtual Dialog Dialog { get; set; }
 
-        //		public bool Seen { get; set; }
-
         public int Id { get; set; }
     }
 }

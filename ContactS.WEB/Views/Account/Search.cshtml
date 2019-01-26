@@ -18,9 +18,9 @@
             </div>
             <input type="text" class="form-control mb-3" name="Name" placeholder="Name" value=@Model.SearchModel.Name />
             <input type="text" class="form-control mb-3" name="Adress" placeholder="Adress" value=@Model.SearchModel.Adress />
-            <div class="row">
-                <input type="submit" value="Поиск" class="btn btn-primary" />
-                @Html.ActionLink("Скинути", "Index", null, new { @class = "btn btn-primary ml-1" })
+            <div class="btn-group btn-block">
+                <input type="submit" value="Поиск" class="btn btn-success" />
+                @Html.ActionLink("Скинути", "Index", null, new { @class = "btn btn-danger" })
             </div>
         }
     </div>

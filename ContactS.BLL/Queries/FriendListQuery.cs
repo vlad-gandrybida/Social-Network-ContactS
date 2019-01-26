@@ -3,18 +3,15 @@ using ContactS.BLL.DTO.Filtres;
 using ContactS.BLL.Infrastructure;
 using ContactS.DAL.Entities;
 using ContactS.DAL.Repositories;
-using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ContactS.BLL.Queries
 {
     public class FriendListQuery : QueryBase<FriendshipDTO>
     {
-        UnitOfWork Database;
+        private UnitOfWork Database;
         public FriendListQuery(UnitOfWork unitOfWork)
         {
             Database = unitOfWork;
@@ -34,7 +31,7 @@ namespace ContactS.BLL.Queries
                     || (f.User2.Id.Equals(Filter.Account.Id) && f.User1.Id.Equals(Filter.Account2.Id)));
 
             List<FriendshipDTO> result = new List<FriendshipDTO>();
-            foreach (var frndshp in query)
+            foreach (Friendship frndshp in query)
             {
                 FriendshipDTO friendship = new FriendshipDTO
                 {

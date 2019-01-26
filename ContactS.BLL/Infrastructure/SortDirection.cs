@@ -1,5 +1,4 @@
 ﻿
-
 namespace ContactS.BLL.Infrastructure
 {
     public enum SortDirection

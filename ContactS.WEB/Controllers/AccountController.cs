@@ -5,9 +5,7 @@ using ContactS.WEB.Models.Filters;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
@@ -19,25 +17,13 @@ namespace ContactS.WEB.Controllers
     [Culture]
     public class AccountController : Controller
     {
-        private IUserService UserService
-        {
-            get
-            {
-                return HttpContext.GetOwinContext().GetUserManager<IUserService>();
-            }
-        }
+        private IUserService UserService => HttpContext.GetOwinContext().GetUserManager<IUserService>();
 
-        private IAuthenticationManager AuthenticationManager
-        {
-            get
-            {
-                return HttpContext.GetOwinContext().Authentication;
-            }
-        }
+        private IAuthenticationManager AuthenticationManager => HttpContext.GetOwinContext().Authentication;
 
         public ActionResult Index(int page = 1)
         {
-            return RedirectToAction("Search",new SearchModel());
+            return RedirectToAction("Search", new SearchModel());
         }
 
         [AllowAnonymous]
@@ -54,7 +40,7 @@ namespace ContactS.WEB.Controllers
             await SetInitialDataAsync();
             if (ModelState.IsValid)
             {
-                UserDTO userDto = new UserDTO { Email = model.Email, Password = model.Password };
+                UserDTO userDto = new UserDTO { UserName = model.Login, Password = model.Password };
                 ClaimsIdentity claim = await UserService.Authenticate(userDto);
                 if (claim == null)
                 {
@@ -95,7 +81,7 @@ namespace ContactS.WEB.Controllers
             {
                 UserDTO userDto = new UserDTO
                 {
-                    Email = model.Email,
+                    UserName = model.Login,
                     Password = model.Password,
                     Address = model.Address,
                     Name = model.Name,
@@ -105,14 +91,14 @@ namespace ContactS.WEB.Controllers
                 if (operation == 0)
                     return View("SuccessRegister");
                 else
-                    ModelState.AddModelError("","Попробуйте ещё раз");
+                    ModelState.AddModelError("", "Попробуйте ещё раз");
             }
             return View(model);
         }
 
         public ActionResult Delete(string id)
         {
-                return View(UserService.GetUserById(User.Identity.GetUserId()));
+            return View(UserService.GetUserById(User.Identity.GetUserId()));
         }
 
         [HttpPost]
@@ -126,29 +112,30 @@ namespace ContactS.WEB.Controllers
 
         public ActionResult Edit()
         {
-                return View(UserService.GetUserById(User.Identity.GetUserId()));
+            return View(UserService.GetUserById(User.Identity.GetUserId()));
         }
 
         [HttpPost]
         public ActionResult Edit(UserDTO account)
         {
+            string Url = Request.UrlReferrer.AbsolutePath;
             UserService.EditUser(account);
-
-            return RedirectToAction("Index", "Home");
+            return Redirect(Url);
         }
-        
+
         public ActionResult AddToFriend(string Id)
         {
-            var Url = Request.UrlReferrer.AbsolutePath;
-            UserService.AddUsersToFriends(UserService.GetUserById(User.Identity.GetUserId()), 
+            string Url = Request.UrlReferrer.AbsolutePath;
+            UserService.AddUsersToFriends(UserService.GetUserById(User.Identity.GetUserId()),
                 UserService.GetUserById(Id));
             return Redirect(Url);
         }
 
         public ActionResult ClientProfile(string id)
         {
-            var user = UserService.GetUserById(id);
-            return View(new ClientProfileViewModel {
+            UserDTO user = UserService.GetUserById(id);
+            return View(new ClientProfileViewModel
+            {
                 userInfo = user,
                 Relation = UserService.AreUsersIsFriends(user,
                     UserService.GetUserById(User.Identity.GetUserId())) ? 1 : user.Id == User.Identity.GetUserId() ? 0 : -1
@@ -167,11 +154,11 @@ namespace ContactS.WEB.Controllers
                 Role = "admin",
             }, new List<string> { "user", "admin" });
         }
-        
 
-        public ActionResult Search(SearchModel search, int page=1)
+
+        public ActionResult Search(SearchModel search, int page = 1)
         {
-            var users = UserService.ListUsers(new BLL.DTO.Filtres.UserFilter
+            UserListDTO users = UserService.ListUsers(new BLL.DTO.Filtres.UserFilter
             {
                 Login = search.UserName,
                 Name = search.Name,
@@ -179,7 +166,7 @@ namespace ContactS.WEB.Controllers
             }, page);
 
             List<UserListItemModel> items = new List<UserListItemModel>();
-            foreach (var item in users.ResultUsers)
+            foreach (UserDTO item in users.ResultUsers)
             {
                 items.Add(new UserListItemModel
                 {
@@ -197,7 +184,7 @@ namespace ContactS.WEB.Controllers
 
         public ActionResult RemoveFromFriends(string id)
         {
-            var Url = Request.UrlReferrer.AbsolutePath;
+            string Url = Request.UrlReferrer.AbsolutePath;
             UserService.RemoveUsersFromFriends(UserService.GetUserById(id), UserService.GetUserById(User.Identity.GetUserId()));
             return Redirect(Url);
         }

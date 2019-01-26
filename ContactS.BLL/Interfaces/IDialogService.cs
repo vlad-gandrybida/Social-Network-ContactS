@@ -2,8 +2,6 @@
 using ContactS.BLL.DTO.Filtres;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ContactS.BLL.Interfaces
@@ -13,7 +11,7 @@ namespace ContactS.BLL.Interfaces
         Task<int> CreateDialog(DialogDTO DialogDto);
 
         Task DeleteDialog(int DialogId);
-
+        
 
         Task EditDialogName(DialogDTO DialogDto);
 
@@ -23,7 +21,7 @@ namespace ContactS.BLL.Interfaces
         Task AddUsersToDialog(DialogDTO Dialog, List<UserDTO> accounts);
 
         DialogDTO GetDialogById(int id);
-
+        int HavePrivateDailog(string id1, string id2);
         DialogListDTO ListDialogs(DialogFilter filter, int page = 0);
 
         List<UserDTO> GetUsersInDialog(DialogDTO Dialog);

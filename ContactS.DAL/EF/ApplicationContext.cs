@@ -1,6 +1,6 @@
-﻿using System.Data.Entity;
+﻿using ContactS.DAL.Entities;
 using Microsoft.AspNet.Identity.EntityFramework;
-using ContactS.DAL.Entities;
+using System.Data.Entity;
 
 namespace ContactS.DAL.EF
 {
@@ -15,12 +15,12 @@ namespace ContactS.DAL.EF
         {
             //InitializeDbContext();
         }
-        
+
         public DbSet<ClientProfile> ClientProfiles { get; set; }
         public DbSet<Friendship> Friendships { get; set; }
         public DbSet<Message> Messages { get; set; }
         public DbSet<Dialog> Dialogs { get; set; }
-        
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

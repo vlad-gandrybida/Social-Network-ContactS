@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Recources {
+namespace Resources {
     using System;
     
     
@@ -61,11 +61,47 @@ namespace Recources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Про нас.
+        /// </summary>
+        public static string About {
+            get {
+                return ResourceManager.GetString("About", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Гандрибіда Владислав.
+        /// </summary>
+        public static string Author {
+            get {
+                return ResourceManager.GetString("Author", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Назад.
         /// </summary>
         public static string Back {
             get {
                 return ResourceManager.GetString("Back", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Звяжіться з нами.
+        /// </summary>
+        public static string Contact {
+            get {
+                return ResourceManager.GetString("Contact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Напишіть нам!.
+        /// </summary>
+        public static string ContactHeader {
+            get {
+                return ResourceManager.GetString("ContactHeader", resourceCulture);
             }
         }
         
@@ -79,11 +115,236 @@ namespace Recources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Мої діалоги.
+        /// </summary>
+        public static string Dialogs {
+            get {
+                return ResourceManager.GetString("Dialogs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Email.
+        /// </summary>
+        public static string Email {
+            get {
+                return ResourceManager.GetString("Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Введіть.
+        /// </summary>
+        public static string Enter {
+            get {
+                return ResourceManager.GetString("Enter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Введіть ваше повідомлення.
+        /// </summary>
+        public static string EnterMessage {
+            get {
+                return ResourceManager.GetString("EnterMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Дізнатися більше.
+        /// </summary>
+        public static string LearnMore {
+            get {
+                return ResourceManager.GetString("LearnMore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Вхід.
+        /// </summary>
+        public static string Login {
+            get {
+                return ResourceManager.GetString("Login", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Вихід.
+        /// </summary>
+        public static string LogOut {
+            get {
+                return ResourceManager.GetString("LogOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Головна.
+        /// </summary>
+        public static string Main {
+            get {
+                return ResourceManager.GetString("Main", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Доброго дня! Вас вітає соціальна мережа нового покоління ContactS!.
         /// </summary>
         public static string MainText {
             get {
                 return ResourceManager.GetString("MainText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Повідомлення.
+        /// </summary>
+        public static string Message {
+            get {
+                return ResourceManager.GetString("Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Моя сторінка.
+        /// </summary>
+        public static string MyPage {
+            get {
+                return ResourceManager.GetString("MyPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Ім&apos;я.
+        /// </summary>
+        public static string Name {
+            get {
+                return ResourceManager.GetString("Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Реєстрація.
+        /// </summary>
+        public static string Registration {
+            get {
+                return ResourceManager.GetString("Registration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Безпека.
+        /// </summary>
+        public static string Security {
+            get {
+                return ResourceManager.GetString("Security", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Odio ut enim blandit volutpat maecenas volutpat. Dictum non consectetur a erat nam at lectus. Amet justo donec enim diam vulputate ut pharetra sit. Pulvinar elementum integer enim neque volutpat ac tincidunt vitae. Mattis aliquam faucibus purus in massa tempor nec. Nec nam aliquam sem et tortor consequat id porta. Diam maecenas sed enim ut sem viverra aliquet eget. Commodo odio aenean sed adipiscing diam donec adipiscing. Convallis a cras semper auctor. Nibh sit amet commodo nulla facilisi nullam vehicula i [остаток строки не уместился]&quot;;.
+        /// </summary>
+        public static string SecurityListText {
+            get {
+                return ResourceManager.GetString("SecurityListText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Доступність.
+        /// </summary>
+        public static string Social {
+            get {
+                return ResourceManager.GetString("Social", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tincidunt arcu non sodales neque sodales. Aliquam sem fringilla ut morbi tincidunt augue. Est pellentesque elit ullamcorper dignissim cras tincidunt lobortis. Pharetra diam sit amet nisl suscipit adipiscing bibendum. Tristique nulla aliquet enim tortor at. Nec nam aliquam sem et tortor consequat. A condimentum vitae sapien pellentesque habitant morbi. Sit amet nulla facilisi morbi tempus iaculis urna. Vel eros donec ac odio tempor orci dapibus ultrices. Elementum facilisis leo vel fringilla est ullamcorper  [остаток строки не уместился]&quot;;.
+        /// </summary>
+        public static string SocialListText {
+            get {
+                return ResourceManager.GetString("SocialListText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на ContactS - абсолютно безкоштовна, та перша по-справжньому соціальна мережа..
+        /// </summary>
+        public static string SocialText {
+            get {
+                return ResourceManager.GetString("SocialText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Швидкість.
+        /// </summary>
+        public static string Speed {
+            get {
+                return ResourceManager.GetString("Speed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum..
+        /// </summary>
+        public static string SpeedListText {
+            get {
+                return ResourceManager.GetString("SpeedListText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на ContactS - надзвичайно швидка соціальна мережа, яка миттєво відзивається на ваші команди..
+        /// </summary>
+        public static string SpeedText {
+            get {
+                return ResourceManager.GetString("SpeedText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Стиль.
+        /// </summary>
+        public static string Style {
+            get {
+                return ResourceManager.GetString("Style", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Libero enim sed faucibus turpis in eu mi bibendum. Quis commodo odio aenean sed adipiscing diam donec adipiscing tristique. In hendrerit gravida rutrum quisque non. Neque volutpat ac tincidunt vitae semper quis lectus nulla at. Erat velit scelerisque in dictum. Tortor at auctor urna nunc id. Justo donec enim diam vulputate. Scelerisque eu ultrices vitae auctor. Leo in vitae turpis massa sed elementum tempus egestas sed. At volutpat diam ut venenatis tellus in metus..
+        /// </summary>
+        public static string StyleListText {
+            get {
+                return ResourceManager.GetString("StyleListText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на ContactS - працює на Bootstrap 4, що дає їй можливіть вглядати однаково привабливо на всіх пристроя..
+        /// </summary>
+        public static string StyleText {
+            get {
+                return ResourceManager.GetString("StyleText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Відправити.
+        /// </summary>
+        public static string Submit {
+            get {
+                return ResourceManager.GetString("Submit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Користувачі.
+        /// </summary>
+        public static string Users {
+            get {
+                return ResourceManager.GetString("Users", resourceCulture);
             }
         }
     }

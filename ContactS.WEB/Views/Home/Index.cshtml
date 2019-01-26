@@ -1,31 +1,48 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = Resources.Resource.Main;
 }
 
 <div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">@Recources.Resource.MainText</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    <h1 class="display-4">Contact🆂</h1>
+    <p class="lead">@Resources.Resource.MainText</p>
+    <p><a href="/Home/About" class="btn btn-primary btn-lg mt-4">@Resources.Resource.LearnMore &raquo;</a></p>
 </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+<div class="card-deck">
+    <div class="card border-danger">
+        <div class="card-header text-center text-danger">
+            <h2>S - Speed</h2>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">@Resources.Resource.Speed</h5>
+            <p class="card-text">@Resources.Resource.SpeedText</p>
+        </div>
+        <div class="card-footer">
+            <a href="/Home/About" class="btn btn-danger btn-block">@Resources.Resource.LearnMore &raquo;</a>
+        </div>
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+    <div class="card border-success">
+        <div class="card-header text-center text-success">
+            <h2>S - Style</h2>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">@Resources.Resource.Style</h5>
+            <p class="card-text">@Resources.Resource.StyleText</p>
+        </div>
+        <div class="card-footer">
+            <a href="/Home/About" class="btn btn-success btn-block">@Resources.Resource.LearnMore &raquo;</a>
+        </div>
     </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+    <div class="card border-primary">
+        <div class="card-header text-center text-primary">
+            <h2>S - Social</h2>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">@Resources.Resource.Social</h5>
+            <p class="card-text">@Resources.Resource.SocialText</p>
+        </div>
+        <div class="card-footer">
+            <a href="/Home/About" class="btn btn-primary btn-block">@Resources.Resource.LearnMore &raquo;</a>
+        </div>
     </div>
 </div>

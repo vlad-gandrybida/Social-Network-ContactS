@@ -117,13 +117,76 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Author" xml:space="preserve">
+    <value>Gandrybida Vladyslav</value>
+  </data>
   <data name="Back" xml:space="preserve">
     <value>Back</value>
+  </data>
+  <data name="ContactHeader" xml:space="preserve">
+    <value>Contact us!</value>
   </data>
   <data name="CurrentLang" xml:space="preserve">
     <value>English</value>
   </data>
+  <data name="Dialogs" xml:space="preserve">
+    <value>Daiolgs</value>
+  </data>
+  <data name="Enter" xml:space="preserve">
+    <value>Enter</value>
+  </data>
+  <data name="EnterMessage" xml:space="preserve">
+    <value>Enter your message</value>
+  </data>
+  <data name="LearnMore" xml:space="preserve">
+    <value>Learn More</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Sing in</value>
+  </data>
+  <data name="LogOut" xml:space="preserve">
+    <value>LogOut</value>
+  </data>
   <data name="MainText" xml:space="preserve">
     <value>Hello! You on brand new social network - ContactS!</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Message</value>
+  </data>
+  <data name="MyPage" xml:space="preserve">
+    <value>My page</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Registration" xml:space="preserve">
+    <value>Sing up</value>
+  </data>
+  <data name="Security" xml:space="preserve">
+    <value>Security</value>
+  </data>
+  <data name="Social" xml:space="preserve">
+    <value>Social</value>
+  </data>
+  <data name="SocialText" xml:space="preserve">
+    <value>ContactS is absolutely free, and the first truly social network.</value>
+  </data>
+  <data name="Speed" xml:space="preserve">
+    <value>Speed</value>
+  </data>
+  <data name="SpeedText" xml:space="preserve">
+    <value>ContactS is an extremely fast social network that instantly hits your commands.</value>
+  </data>
+  <data name="Style" xml:space="preserve">
+    <value>Style</value>
+  </data>
+  <data name="StyleText" xml:space="preserve">
+    <value>ContactS - works on Bootstrap 4, which gives it an opportunity to look equally attractive on all devices.</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>Submit</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>Users</value>
   </data>
 </root>

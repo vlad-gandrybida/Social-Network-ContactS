@@ -12,34 +12,34 @@ namespace ContactS.BLL.Infrastructure
         {
             SortCriteria = new List<Func<IQueryable<TResult>, IOrderedQueryable<TResult>>>();
         }
-        
+
         public int? Skip { get; set; }
-        
+
         public int? Take { get; set; }
-        
+
         public IList<Func<IQueryable<TResult>, IOrderedQueryable<TResult>>> SortCriteria { get; }
-        
+
         public void AddSortCriteria(string fieldName, SortDirection direction = SortDirection.Ascending)
         {
-           
-            var prop = typeof(TResult).GetProperty(fieldName);
-            var param = Expression.Parameter(typeof(TResult), "i");
-            var expr = Expression.Lambda(Expression.Property(param, prop), param);
-            
+
+            PropertyInfo prop = typeof(TResult).GetProperty(fieldName);
+            ParameterExpression param = Expression.Parameter(typeof(TResult), "i");
+            LambdaExpression expr = Expression.Lambda(Expression.Property(param, prop), param);
+
             typeof(QueryBase<TResult>).GetMethod(nameof(AddSortCriteriaCore), BindingFlags.Instance | BindingFlags.NonPublic).MakeGenericMethod(prop.PropertyType)
                 .Invoke(this, new object[] { expr, direction });
         }
-        
+
         public void AddSortCriteria<TKey>(Expression<Func<TResult, TKey>> field, SortDirection direction)
         {
             AddSortCriteriaCore(field, direction);
         }
-        
+
         public IList<TResult> Execute()
         {
-            var query = GetQueryable();
+            IQueryable<TResult> query = GetQueryable();
 
-            for (var i = SortCriteria.Count - 1; i >= 0; i--)
+            for (int i = SortCriteria.Count - 1; i >= 0; i--)
                 query = SortCriteria[i](query);
 
             if (Skip != null)
@@ -47,11 +47,11 @@ namespace ContactS.BLL.Infrastructure
             if (Take != null)
                 query = query.Take(Take.Value);
 
-            var results = query.ToList();
+            List<TResult> results = query.ToList();
             PostProcessResults(results);
             return results;
         }
-        
+
         public int GetTotalRowCount()
         {
             return GetQueryable().Count();
@@ -64,12 +64,12 @@ namespace ContactS.BLL.Infrastructure
             else
                 SortCriteria.Add(x => x.OrderByDescending(sortExpression));
         }
-        
+
         public void ClearSortCriterias()
         {
             SortCriteria.Clear();
         }
-        
+
         protected virtual void PostProcessResults(IList<TResult> results)
         {
         }

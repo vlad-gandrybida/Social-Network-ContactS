@@ -7,18 +7,16 @@ using ContactS.DAL.Entities;
 using ContactS.DAL.Interfaces;
 using ContactS.DAL.Repositories;
 using Microsoft.AspNet.Identity;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ContactS.BLL.Services
 {
     public class UserService : IUserService
     {
-        IUnitOfWork Database { get; set; }
+        private IUnitOfWork Database { get; set; }
 
         public UserService(IUnitOfWork uow)
         {
@@ -31,7 +29,7 @@ namespace ContactS.BLL.Services
             if (user == null)
             {
                 user = new ApplicationUser { Email = userDto.Email, UserName = userDto.Email };
-                var result = await Database.UserManager.CreateAsync(user, userDto.Password);
+                IdentityResult result = await Database.UserManager.CreateAsync(user, userDto.Password);
                 if (result.Errors.Count() > 0)
                     return -1;
 
@@ -51,9 +49,9 @@ namespace ContactS.BLL.Services
         public async Task<ClaimsIdentity> Authenticate(UserDTO userDto)
         {
             ClaimsIdentity claim = null;
-            
-            ApplicationUser user = await Database.UserManager.FindAsync(userDto.Email, userDto.Password);
-            
+
+            ApplicationUser user = await Database.UserManager.FindAsync(userDto.UserName, userDto.Password);
+
             if (user != null)
                 claim = await Database.UserManager.CreateIdentityAsync(user,
                                             DefaultAuthenticationTypes.ApplicationCookie);
@@ -70,11 +68,11 @@ namespace ContactS.BLL.Services
 
         public async Task EditUser(UserDTO account)
         {
-            var acc = Database.ClientManager.GetById(account.Id);
+            ClientProfile acc = Database.ClientManager.GetById(account.Id);
             acc.Address = account.Address;
             acc.Name = account.Name;
             Database.ClientManager.Update(acc);
-            var user = Database.UserManager.Users.FirstOrDefault(u => u.Id == account.Id);
+            ApplicationUser user = Database.UserManager.Users.FirstOrDefault(u => u.Id == account.Id);
             if (user == null) return;
 
             if (account.Email != null)
@@ -97,8 +95,8 @@ namespace ContactS.BLL.Services
 
         public async Task AddUsersToFriends(string id1, string id2)
         {
-            var user1 = Database.ClientManager.GetById(id1);
-            var user2 = Database.ClientManager.GetById(id2);
+            ClientProfile user1 = Database.ClientManager.GetById(id1);
+            ClientProfile user2 = Database.ClientManager.GetById(id2);
 
             Database.FriendshipManager.Create(new Friendship(user1, user2));
             await Database.SaveAsync();
@@ -106,9 +104,9 @@ namespace ContactS.BLL.Services
 
         public async Task RemoveUsersFromFriends(UserDTO accountDto, UserDTO user2Dto)
         {
-            var query = GetQuery(new FriendshipFilter { Account = accountDto, Account2 = user2Dto });
+            IQuery<FriendshipDTO> query = GetQuery(new FriendshipFilter { Account = accountDto, Account2 = user2Dto });
 
-            var frship = query.Execute().FirstOrDefault();
+            FriendshipDTO frship = query.Execute().FirstOrDefault();
             await RemoveFriendship(frship);
             await Database.SaveAsync();
         }
@@ -121,7 +119,7 @@ namespace ContactS.BLL.Services
 
         public UserDTO GetUserById(string id)
         {
-            var client = Database.ClientManager.GetById(id);
+            ClientProfile client = Database.ClientManager.GetById(id);
             return new UserDTO
             {
                 Id = client.Id,
@@ -132,14 +130,14 @@ namespace ContactS.BLL.Services
             };
         }
 
-        int UserPageSize => 15;
+        private int UserPageSize => 15;
 
         public UserListDTO ListUsers(UserFilter filter, int page = 0)
         {
-            var query = GetQuery(filter);
+            IQuery<UserDTO> query = GetQuery(filter);
             query.Skip = (page > 0 ? page - 1 : 0) * UserPageSize;
             query.Take = UserPageSize;
-            query.AddSortCriteria(x=>x.Name);
+            query.AddSortCriteria(x => x.Name);
 
 
             return new UserListDTO
@@ -153,14 +151,14 @@ namespace ContactS.BLL.Services
 
         public List<UserDTO> ListFriendsOfUser(UserDTO account, int page = 0)
         {
-            var filter = new FriendshipFilter { Account = account };
+            FriendshipFilter filter = new FriendshipFilter { Account = account };
 
-            var query = GetQuery(filter);
+            IQuery<FriendshipDTO> query = GetQuery(filter);
             query.Skip = (page > 0 ? page - 1 : 0) * UserPageSize;
             query.Take = UserPageSize;
 
 
-            var queryRes = new FriendshipListDTO
+            FriendshipListDTO queryRes = new FriendshipListDTO
             {
                 RequestedPage = page,
                 ResultCount = query.GetTotalRowCount(),
@@ -168,8 +166,8 @@ namespace ContactS.BLL.Services
                 Filter = filter
             };
 
-            var retList = new List<UserDTO>();
-            foreach (var friendship in queryRes.ResultFriendships)
+            List<UserDTO> retList = new List<UserDTO>();
+            foreach (FriendshipDTO friendship in queryRes.ResultFriendships)
             {
                 ClientProfile tmpUs = null;
 
@@ -193,7 +191,7 @@ namespace ContactS.BLL.Services
         {
             foreach (string roleName in roles)
             {
-                var role = await Database.RoleManager.FindByNameAsync(roleName);
+                ApplicationRole role = await Database.RoleManager.FindByNameAsync(roleName);
                 if (role == null)
                 {
                     role = new ApplicationRole { Name = roleName };
@@ -210,7 +208,7 @@ namespace ContactS.BLL.Services
 
         private IQuery<UserDTO> GetQuery(UserFilter filter)
         {
-            var query = new UserListQuery((UnitOfWork)Database)
+            UserListQuery query = new UserListQuery((UnitOfWork)Database)
             {
                 Filter = filter
             };
@@ -220,7 +218,7 @@ namespace ContactS.BLL.Services
 
         private IQuery<FriendshipDTO> GetQuery(FriendshipFilter filter)
         {
-            var query = new FriendListQuery((UnitOfWork)Database)
+            FriendListQuery query = new FriendListQuery((UnitOfWork)Database)
             {
                 Filter = filter
             };
@@ -230,7 +228,7 @@ namespace ContactS.BLL.Services
 
         public bool AreUsersIsFriends(UserDTO User1Id, UserDTO User2Id)
         {
-            var filter = new FriendshipFilter { Account = User1Id, Account2 = User2Id };
+            FriendshipFilter filter = new FriendshipFilter { Account = User1Id, Account2 = User2Id };
             return GetQuery(filter).Execute().Any();
         }
     }

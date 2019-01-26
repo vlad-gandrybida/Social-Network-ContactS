@@ -5,10 +5,8 @@ using ContactS.WEB.Models;
 using ContactS.WEB.Models.Filters;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -20,45 +18,27 @@ namespace ContactS.WEB.Controllers
     [Culture]
     public class DialogController : Controller
     {
-        private IDialogService DialogService
-        {
-            get
-            {
-                return HttpContext.GetOwinContext().GetUserManager<IDialogService>();
-            }
-        }
+        private IDialogService DialogService => HttpContext.GetOwinContext().GetUserManager<IDialogService>();
 
-        private IMessageService MessageService
-        {
-            get
-            {
-                return HttpContext.GetOwinContext().GetUserManager<IMessageService>();
-            }
-        }
+        private IMessageService MessageService => HttpContext.GetOwinContext().GetUserManager<IMessageService>();
 
-        private IUserService UserService
-        {
-            get
-            {
-                return HttpContext.GetOwinContext().GetUserManager<IUserService>();
-            }
-        }
+        private IUserService UserService => HttpContext.GetOwinContext().GetUserManager<IUserService>();
 
         public ActionResult Index()
         {
-            var usersDialogs = DialogService
+            List<DialogDTO> usersDialogs = DialogService
                 .ListDialogs(new DialogFilter
                 {
                     Account = UserService
                     .GetUserById(User.Identity.GetUserId())
                 }).ResultDialogs.ToList();
             DialogListModel result = new DialogListModel();
-            foreach(var dialog in usersDialogs)
+            foreach (DialogDTO dialog in usersDialogs)
             {
                 MessageDTO lastMessage = MessageService.ListDialogMessages(new MessageFilter
                 {
                     Chat = dialog
-                }).ResultMessages.OrderBy(x=>x.Time).LastOrDefault();
+                }).ResultMessages.OrderBy(x => x.Time).LastOrDefault();
                 string message;
                 if (lastMessage != null)
                 {
@@ -88,17 +68,23 @@ namespace ContactS.WEB.Controllers
 
         public ActionResult Create()
         {
-            var friends = UserService.ListFriendsOfUser(UserService.GetUserById(User.Identity.GetUserId()));
+            List<UserDTO> friends = UserService.ListFriendsOfUser(UserService.GetUserById(User.Identity.GetUserId()));
             return View(friends);
         }
-        
+
         [HttpPost]
         public async Task<ActionResult> Create(string id)
         {
-            var creator = UserService.GetUserById(User.Identity.GetUserId());
-            var reciver = UserService.GetUserById(id);
-            var DialogId = await DialogService.CreateDialog(new DialogDTO {
-                Users = new List<UserDTO> { creator, reciver},
+            //int privateDialog = DialogService.HavePrivateDailog(User.Identity.GetUserId(), id);
+            //if (privateDialog != -1)
+            //{
+            //    return RedirectToAction("OpenDialog", new { id = privateDialog });
+            //}
+            UserDTO creator = UserService.GetUserById(User.Identity.GetUserId());
+            UserDTO reciver = UserService.GetUserById(id);
+            int DialogId = await DialogService.CreateDialog(new DialogDTO
+            {
+                Users = new List<UserDTO> { creator, reciver },
                 Name = $"{creator.Name} and {reciver.Name} dialog"
             });
             return RedirectToAction("OpenDialog", new { id = DialogId });
@@ -106,8 +92,8 @@ namespace ContactS.WEB.Controllers
 
         public ActionResult Delete(int id)
         {
-            var Dialog = DialogService.GetDialogById(id);
-            var user = UserService.GetUserById(User.Identity.GetUserId());
+            DialogDTO Dialog = DialogService.GetDialogById(id);
+            UserDTO user = UserService.GetUserById(User.Identity.GetUserId());
             if (!DialogService.GetUsersInDialog(Dialog).Contains(user)) return RedirectToAction("AccessDenied", "Page");
 
             return View(Dialog);
@@ -123,13 +109,14 @@ namespace ContactS.WEB.Controllers
 
         public ActionResult OpenDialog(int id, int page = 1)
         {
-            var dialog = DialogService.GetDialogById(id);
-            var userList = DialogService.GetUsersInDialog(dialog);
-            var user = UserService.GetUserById(User.Identity.GetUserId());
-            if (userList.Find(x=>x.Id==user.Id)==null)
+            DialogDTO dialog = DialogService.GetDialogById(id);
+            List<UserDTO> userList = DialogService.GetUsersInDialog(dialog);
+
+            UserDTO user = UserService.GetUserById(User.Identity.GetUserId());
+            if (userList.Find(x => x.Id == user.Id) == null)
                 return RedirectToAction("AccessDenied", "Page");
 
-            var list = MessageService
+            List<MessageDTO> list = MessageService
                 .ListDialogMessages(new MessageFilter { Chat = dialog }, page)
                 .ResultMessages.ToList();
 
@@ -151,15 +138,15 @@ namespace ContactS.WEB.Controllers
         [HttpPost]
         public ActionResult OpenDialog(OpenDialogModel model)
         {
-            var user = UserService.GetUserById(User.Identity.GetUserId());
-            var dialog = DialogService.GetDialogById(model.DialogId);
+            UserDTO user = UserService.GetUserById(User.Identity.GetUserId());
+            DialogDTO dialog = DialogService.GetDialogById(model.DialogId);
             MessageService.PostMessageToDialog(dialog, user, model.NewMessage);
             return RedirectToAction("OpenDialog", new { id = dialog.Id });
         }
 
         public ActionResult DeleteMessage(int id)
         {
-            var msg = MessageService.GetMessageById(id);
+            MessageDTO msg = MessageService.GetMessageById(id);
             if (msg.Sender.Id != User.Identity.GetUserId()) return RedirectToAction("AccessDenied", "Page");
 
             return View(new MessageModel { Message = msg, DialogId = msg.Dialog.Id });
@@ -174,7 +161,7 @@ namespace ContactS.WEB.Controllers
 
         public ActionResult EditMessage(int id)
         {
-            var msg = MessageService.GetMessageById(id);
+            MessageDTO msg = MessageService.GetMessageById(id);
             if (msg.Sender.Id != User.Identity.GetUserId()) return RedirectToAction("AccessDenied", "Page");
 
             return View(msg);
@@ -189,9 +176,9 @@ namespace ContactS.WEB.Controllers
 
         public ActionResult Edit(int id)
         {
-            var Dialog = DialogService.GetDialogById(id);
+            DialogDTO Dialog = DialogService.GetDialogById(id);
 
-            if (!DialogService.GetUsersInDialog(Dialog).Any(x=>x.Id== User.Identity.GetUserId())) return RedirectToAction("AccessDenied", "Page");
+            if (!DialogService.GetUsersInDialog(Dialog).Any(x => x.Id == User.Identity.GetUserId())) return RedirectToAction("AccessDenied", "Page");
 
             return PartialView(Dialog);
         }
@@ -205,13 +192,13 @@ namespace ContactS.WEB.Controllers
 
         public ActionResult RemovePeople(int id)
         {
-            var dialog = DialogService.GetDialogById(id);
-            var user = UserService.GetUserById(User.Identity.GetUserId());
-            var userList = DialogService.GetUsersInDialog(dialog);
+            DialogDTO dialog = DialogService.GetDialogById(id);
+            UserDTO user = UserService.GetUserById(User.Identity.GetUserId());
+            List<UserDTO> userList = DialogService.GetUsersInDialog(dialog);
             if (!userList.Contains(user)) return RedirectToAction("AccessDenied", "Page");
             userList.Remove(user);
-            var list = new List<SelectModel>();
-            userList.ForEach(f => list.Add(new SelectModel { User= f }));
+            List<SelectModel> list = new List<SelectModel>();
+            userList.ForEach(f => list.Add(new SelectModel { User = f }));
             return View(new RemovePeopleModel { Accounts = list, Dialog = dialog });
         }
 
@@ -225,16 +212,16 @@ namespace ContactS.WEB.Controllers
 
         public ActionResult Leave(int id)
         {
-            var Dialog = DialogService.GetDialogById(id);
+            DialogDTO Dialog = DialogService.GetDialogById(id);
             if (!DialogService.GetUsersInDialog(Dialog).Any(x => x.Id == User.Identity.GetUserId())) return RedirectToAction("AccessDenied", "Page");
-            
+
             return PartialView(Dialog);
         }
 
         [HttpPost]
         public ActionResult Leave(DialogDTO Dialog)
         {
-            var user = UserService.GetUserById(User.Identity.GetUserId());
+            UserDTO user = UserService.GetUserById(User.Identity.GetUserId());
             DialogService.RemoveUserFromDialog(Dialog, user);
 
             return RedirectToAction("Index");
