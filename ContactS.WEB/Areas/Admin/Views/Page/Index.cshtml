@@ -1,0 +1,47 @@
+﻿@{
+    ViewBag.Title = Resources.Resource.Admin;
+}
+
+<nav class="nav nav-tabs nav-justified mt-3 rounded border-dark border">
+    <a class="nav-item nav-link active" href="#">@Resources.Resource.Main</a>
+    <a class="nav-item nav-link text-white bg-dark" href="/Admin/Page/Users">@Resources.Resource.Users</a>
+    <a class="nav-item nav-link text-white bg-dark" href="/Admin/Page/Messages">@Resources.Resource.Message</a>
+    <div class="container bg-transparent p-3">
+        <div class="card-deck">
+            <div class="card border-danger">
+                <div class="card-header text-center text-danger">
+                    <h2>@Resources.Resource.Admin</h2>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">@Resources.Resource.AdminText</p>
+                </div>
+                <div class="card-footer">
+                    <button disabled="disabled" class="btn btn-danger btn-block">@Resources.Resource.Congratulations</button>
+                </div>
+            </div>
+            <div class="card border-success">
+                <div class="card-header text-center text-success">
+                    <h2>@Resources.Resource.Users</h2>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">@Resources.Resource.AdminUsersText</p>
+                </div>
+                <div class="card-footer">
+                    <a href="/Admin/Page/Users" class="btn btn-success btn-block">@Resources.Resource.Users &raquo;</a>
+                </div>
+            </div>
+            <div class="card border-primary">
+                <div class="card-header text-center text-primary">
+                    <h2>@Resources.Resource.Message</h2>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">@Resources.Resource.AdminMessagesText</p>
+                </div>
+                <div class="card-footer">
+                    <a href="/Admin/Page/Messages" class="btn btn-primary btn-block">@Resources.Resource.Message &raquo;</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+

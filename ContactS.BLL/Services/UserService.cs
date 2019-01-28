@@ -33,7 +33,7 @@ namespace ContactS.BLL.Services
                 if (result.Errors.Count() > 0)
                     return -1;
 
-                await Database.UserManager.AddToRoleAsync(user.Id, userDto.Role);
+                await Database.UserManager.AddToRoleAsync(user.Id, "user");
 
                 ClientProfile clientProfile = new ClientProfile { Id = user.Id, Address = userDto.Address, Name = userDto.Name };
                 Database.ClientManager.Create(clientProfile);
@@ -81,8 +81,16 @@ namespace ContactS.BLL.Services
 
             if (account.UserName != null)
                 user.UserName = account.UserName;
+
             if (account.Password != null)
                 user.PasswordHash = Database.UserManager.PasswordHasher.HashPassword(account.Password);
+
+            if (account.Role != null)
+            {
+                Database.UserManager.AddToRole(user.Id, "admin");
+                Database.UserManager.RemoveFromRole(user.Id, "user");
+            }
+                
 
             Database.UserManager.Update(user);
             await Database.SaveAsync();
@@ -126,7 +134,8 @@ namespace ContactS.BLL.Services
                 Name = client.Name,
                 Address = client.Address,
                 Email = client.ApplicationUser.Email,
-                UserName = client.ApplicationUser.UserName
+                UserName = client.ApplicationUser.UserName,
+                Role = client.ApplicationUser.Roles.Any(x=>x.RoleId == "user")?"user":"admin"
             };
         }
 

@@ -148,7 +148,7 @@
     <value>LogOut</value>
   </data>
   <data name="MainText" xml:space="preserve">
-    <value>Hello! You on brand new social network - ContactS!</value>
+    <value>Hello! Welcome to the social network of the new generation ContactS!</value>
   </data>
   <data name="Message" xml:space="preserve">
     <value>Message</value>
@@ -188,5 +188,35 @@
   </data>
   <data name="Users" xml:space="preserve">
     <value>Users</value>
+  </data>
+  <data name="Admin" xml:space="preserve">
+    <value>Admin</value>
+  </data>
+  <data name="AdminMessagesText" xml:space="preserve">
+    <value>You can moderate messages from users.</value>
+  </data>
+  <data name="AdminText" xml:space="preserve">
+    <value>You are now an administrator. You have the right to edit messages and moderate users.</value>
+  </data>
+  <data name="AdminUsersText" xml:space="preserve">
+    <value>You can change user roles, just click the button next to the user.</value>
+  </data>
+  <data name="Congratulations" xml:space="preserve">
+    <value>Congratulations!</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="Loading" xml:space="preserve">
+    <value>Loading...</value>
+  </data>
+  <data name="Main" xml:space="preserve">
+    <value>Main Page</value>
+  </data>
+  <data name="Role" xml:space="preserve">
+    <value>Role</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>User</value>
   </data>
 </root>

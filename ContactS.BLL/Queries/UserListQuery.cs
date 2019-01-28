@@ -3,6 +3,7 @@ using ContactS.BLL.DTO.Filtres;
 using ContactS.BLL.Infrastructure;
 using ContactS.DAL.Entities;
 using ContactS.DAL.Repositories;
+using Microsoft.AspNet.Identity;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -24,7 +25,9 @@ namespace ContactS.BLL.Queries
         protected override IQueryable<UserDTO> GetQueryable()
         {
             IQueryable<ClientProfile> clients = Database.Context.ClientProfiles;
+
             Database.Context.Users.Load();
+
             if (!string.IsNullOrEmpty(Filter.Name))
                 clients = clients.Where(u => u.Name.ToLower()
                     .Contains(Filter.Name.ToLower()));
@@ -48,7 +51,8 @@ namespace ContactS.BLL.Queries
                     Email = client.ApplicationUser.Email,
                     Address = client.Address,
                     Name = client.Name,
-                    UserName = client.ApplicationUser.UserName
+                    UserName = client.ApplicationUser.UserName,
+                    Role = Database.UserManager.GetRoles(client.Id).FirstOrDefault()
                 };
                 result.Add(user);
             }

@@ -1,0 +1,20 @@
+﻿@model IEnumerable<ContactS.WEB.Areas.Admin.Models.AdminMessageViewModel>
+
+
+@foreach (var item in Model)
+{
+    <div class="col-12 m-1">
+        @using (Html.BeginForm())
+        {
+        <div class="input-group">
+            @Html.TextArea("Content", item.Content,new { @class="form-control"})
+            @Html.Hidden("Id", item.Id)
+            <div class="input-group-append">
+                <input type="submit" value=@Resources.Resource.Edit class="btn btn-lg btn-primary" />
+            </div>
+        </div>
+        
+        }
+    </div>
+}
+

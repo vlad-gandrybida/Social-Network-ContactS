@@ -70,6 +70,42 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Адміністратор.
+        /// </summary>
+        public static string Admin {
+            get {
+                return ResourceManager.GetString("Admin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Ви можете модерувати повідомлення які надходять від користувачів..
+        /// </summary>
+        public static string AdminMessagesText {
+            get {
+                return ResourceManager.GetString("AdminMessagesText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Ви тепер адміністратор. Ви маєте право редагувати користувачів та модерувати їх повідомлення..
+        /// </summary>
+        public static string AdminText {
+            get {
+                return ResourceManager.GetString("AdminText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Ви может змінювати ролі користувачів, просто натисніть на кнопку поруч з користувачем..
+        /// </summary>
+        public static string AdminUsersText {
+            get {
+                return ResourceManager.GetString("AdminUsersText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Гандрибіда Владислав.
         /// </summary>
         public static string Author {
@@ -84,6 +120,15 @@ namespace Resources {
         public static string Back {
             get {
                 return ResourceManager.GetString("Back", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Вітаємо!.
+        /// </summary>
+        public static string Congratulations {
+            get {
+                return ResourceManager.GetString("Congratulations", resourceCulture);
             }
         }
         
@@ -124,6 +169,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Змінити.
+        /// </summary>
+        public static string Edit {
+            get {
+                return ResourceManager.GetString("Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Email.
         /// </summary>
         public static string Email {
@@ -156,6 +210,15 @@ namespace Resources {
         public static string LearnMore {
             get {
                 return ResourceManager.GetString("LearnMore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Завантаження....
+        /// </summary>
+        public static string Loading {
+            get {
+                return ResourceManager.GetString("Loading", resourceCulture);
             }
         }
         
@@ -228,6 +291,15 @@ namespace Resources {
         public static string Registration {
             get {
                 return ResourceManager.GetString("Registration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Роль.
+        /// </summary>
+        public static string Role {
+            get {
+                return ResourceManager.GetString("Role", resourceCulture);
             }
         }
         
@@ -336,6 +408,15 @@ namespace Resources {
         public static string Submit {
             get {
                 return ResourceManager.GetString("Submit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Користувач.
+        /// </summary>
+        public static string User {
+            get {
+                return ResourceManager.GetString("User", resourceCulture);
             }
         }
         
