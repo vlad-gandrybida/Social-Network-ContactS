@@ -267,11 +267,8 @@
     <Content Include="Views\Account\Edit.cshtml" />
     <Content Include="Views\Dialog\Index.cshtml" />
     <Content Include="Views\Dialog\Create.cshtml" />
-    <Content Include="Views\Dialog\Delete.cshtml" />
     <Content Include="Views\Dialog\Edit.cshtml" />
     <Content Include="Views\Dialog\OpenDialog.cshtml" />
-    <Content Include="Views\Dialog\DeleteMessage.cshtml" />
-    <Content Include="Views\Dialog\EditMessage.cshtml" />
     <Content Include="Views\Shared\AccessDenied.cshtml" />
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />

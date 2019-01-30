@@ -33,6 +33,7 @@ namespace ContactS.BLL.Queries
 
             if (Filter.Sender != null)
                 query = query.Where(u => u.Sender.Id == Filter.Sender.Id);
+
             if (Filter.Chat != null)
                 query = query.Where(c => c.Dialog.Id == Filter.Chat.Id);
 

@@ -6,7 +6,7 @@
     {
         <div class="card bg-dark text-white">
             <div class="card-header">
-                <h5 class="card-title text-center">@Html.ActionLink(item.user.Name, "ClientProfile", new { id = item.user.Id })</h5>
+                <h5 class="card-title text-center">@Html.ActionLink(item.user.Name, "ClientProfile", new { id = item.user.Id }, new { @class = "text-white" })</h5>
             </div>
             <div class="card-body">
                 @{
@@ -34,7 +34,7 @@
             @if (item.IsFriend == 1)
             {
                 <div class="card-footer text-center ">
-                    @Html.ActionLink("Your friend", "AddToFriend", new { Id = item.user.Id }, new { @class = "btn btn-outline-success btn-block disabled" })
+                    @Html.ActionLink("Your friend", "ClientProfile", new { Id = item.user.Id }, new { @class = "btn btn-outline-success btn-block" })
                 </div>
             }
             else if (item.IsFriend == -1)
@@ -46,7 +46,7 @@
             else
             {
                 <div class="card-footer text-center ">
-                    @Html.ActionLink("Your profile", "AddToFriend", new { Id = item.user.Id }, new { @class = "btn btn-outline-danger btn-block disabled" })
+                    @Html.ActionLink(Resources.Resource.MyPage, "ClientProfile", new { Id = item.user.Id }, new { @class = "btn btn-outline-danger btn-block" })
                 </div>
             }
 

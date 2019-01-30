@@ -240,4 +240,10 @@
   <data name="User" xml:space="preserve">
     <value>Користувач</value>
   </data>
+  <data name="AddToFriend" xml:space="preserve">
+    <value />
+  </data>
+  <data name="YourFriend" xml:space="preserve">
+    <value />
+  </data>
 </root>

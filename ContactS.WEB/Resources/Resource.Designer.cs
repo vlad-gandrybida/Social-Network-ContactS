@@ -70,6 +70,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на .
+        /// </summary>
+        public static string AddToFriend {
+            get {
+                return ResourceManager.GetString("AddToFriend", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Адміністратор.
         /// </summary>
         public static string Admin {
@@ -426,6 +435,15 @@ namespace Resources {
         public static string Users {
             get {
                 return ResourceManager.GetString("Users", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на .
+        /// </summary>
+        public static string YourFriend {
+            get {
+                return ResourceManager.GetString("YourFriend", resourceCulture);
             }
         }
     }

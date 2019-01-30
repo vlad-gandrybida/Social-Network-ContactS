@@ -10,12 +10,13 @@
                 <div class="card border-info">
                     <div class="card-body p-2">
                         @Html.ActionLink(msg.Sender.Name, "ClientProfile", "Account", new { id = msg.Sender.Id }, new { @class = "card-title text-info",style="font-size:14px" })
-                        <p class="card-text m-0">@msg.Content</p>
-                        <div class="d-inline-block" style="font-size:0.8rem">
-                            <small class="text-muted">@msg.Time</small>
-                            <small class="text-muted">@Html.ActionLink("Змінити", "EditMessage", new { id = msg.Id })</small>
-                            <small class="text-muted">@Html.ActionLink("Видалити", "DeleteMessage", new { id = msg.Id })</small>
-
+                        <p class="card-text m-0">@Html.Raw(Html.Encode(msg.Content).Replace("\n","<br />"))</p>
+                        <div class="d-inline-block" >
+                            <small class="text-muted" style="font-size:0.8rem">@msg.Time</small>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#EditMessageModal" data-messageid="@msg.Id" data-content="@msg.Content">Edit</button>
+                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#DeleteMessageModal" data-messageid="@msg.Id" >Delete</button>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -75,11 +75,6 @@ namespace ContactS.WEB.Controllers
         [HttpPost]
         public async Task<ActionResult> Create(string id)
         {
-            //int privateDialog = DialogService.HavePrivateDailog(User.Identity.GetUserId(), id);
-            //if (privateDialog != -1)
-            //{
-            //    return RedirectToAction("OpenDialog", new { id = privateDialog });
-            //}
             UserDTO creator = UserService.GetUserById(User.Identity.GetUserId());
             UserDTO reciver = UserService.GetUserById(id);
             int DialogId = await DialogService.CreateDialog(new DialogDTO
@@ -144,34 +139,23 @@ namespace ContactS.WEB.Controllers
             return RedirectToAction("OpenDialog", new { id = dialog.Id });
         }
 
-        public ActionResult DeleteMessage(int id)
+        [HttpPost]
+        public ActionResult DeleteMessage(MessageViewModel model)
         {
-            MessageDTO msg = MessageService.GetMessageById(id);
-            if (msg.Sender.Id != User.Identity.GetUserId()) return RedirectToAction("AccessDenied", "Page");
-
-            return View(new MessageModel { Message = msg, DialogId = msg.Dialog.Id });
+            string Url = Request.UrlReferrer.AbsolutePath;
+            var message = MessageService.GetMessageById(model.Id);
+            MessageService.DeleteMessage(message);
+            return Redirect(Url);
         }
 
         [HttpPost]
-        public ActionResult DeleteMessage(MessageModel model)
+        public ActionResult EditMessage(MessageViewModel model)
         {
-            MessageService.DeleteMessage(model.Message);
-            return RedirectToAction("OpenDialog", new { id = model.DialogId });
-        }
-
-        public ActionResult EditMessage(int id)
-        {
-            MessageDTO msg = MessageService.GetMessageById(id);
-            if (msg.Sender.Id != User.Identity.GetUserId()) return RedirectToAction("AccessDenied", "Page");
-
-            return View(msg);
-        }
-
-        [HttpPost]
-        public ActionResult EditMessage(MessageDTO model)
-        {
-            MessageService.EditMessage(model);
-            return RedirectToAction("OpenDialog", new { id = model.Dialog.Id });
+            string Url = Request.UrlReferrer.AbsolutePath;
+            var message = MessageService.GetMessageById(model.Id);
+            message.Content = model.Content;
+            MessageService.EditMessage(message);
+            return Redirect(Url);
         }
 
         public ActionResult Edit(int id)

@@ -34,10 +34,10 @@ namespace ContactS.WEB.Models
         public List<DialogViewModel> dialogs = new List<DialogViewModel>();
     }
 
-    public class MessageModel
+    public class MessageViewModel
     {
-        public MessageDTO Message { get; set; }
-        public int DialogId { get; set; }
+        public string Content { get; set; }
+        public int Id { get; set; }
     }
 
     public class RemovePeopleModel

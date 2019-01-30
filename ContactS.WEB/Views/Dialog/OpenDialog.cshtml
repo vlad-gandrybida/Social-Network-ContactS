@@ -1,17 +1,17 @@
 ﻿@model ContactS.WEB.Models.OpenDialogModel
 @using Microsoft.AspNet.Identity
 @{
-    ViewBag.Title = "OpenDialog";
+    ViewBag.Title = Model.Dialog.Name;
 }
 
 <div class="row mt-4">
     <div class="col-md-2">
-        <h2 class="text-center">@Model.Dialog.Name</h2>
+        <h2 class="text-center text-primary">@Model.Dialog.Name</h2>
         <div class="btn-group-vertical  btn-block mt-3">
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#EditDialog">
                 Змінити
             </button>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#LeaveDialog">
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#LeaveDialog">
                 Покинути
             </button>
         </div>
@@ -28,13 +28,13 @@
             </div>
         </div>
     </div>
-    <div class="col-md-10 mt-4" style="height:80% !important;">
+    <div class="col-md-10 mt-4">
         <div class="row">
             <div class="col-sm-10 offset-sm-1 mb-3">
                 @using (Html.BeginForm("OpenDialog", "Dialog", FormMethod.Post))
                 {
                     <div class="input-group">
-                        @Html.TextAreaFor(m => m.NewMessage.Content, new { @class = "form-control", placeholder = "Напишіть повідомлення...", aria_label = "Recipient's username", aria_describedby = "button-addon2" })
+                        @Html.TextAreaFor(m => m.NewMessage.Content, new { @class = "form-control border-primary", placeholder = "Напишіть повідомлення...", aria_label = "Recipient's username", aria_describedby = "button-addon2" })
                         @Html.HiddenFor(m => m.DialogId)
                         <div class="input-group-append">
                             <input class="btn btn-primary" type="submit" name="SendMessage" value="Send" id="button-addon2" />
@@ -43,10 +43,66 @@
                 }
             </div>
         </div>
+
+
+
+
+        <div class="modal fade" id="EditMessageModal" tabindex="-1" role="dialog" aria-labelledby="EditMessageModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content border-primary">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-primary" id="EditMessageModalLabel">Редагування повідомлення</h5>
+                        <button type="button" class="close text-danger" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        @using (Html.BeginForm("EditMessage", "Dialog", FormMethod.Post))
+                        {
+                            <label for="message-text" class="col-form-label">Повідомлення</label>
+                            <textarea name="Content" class="form-control border-primary" rows="8" id="message-text"></textarea>
+                            <input type="hidden" id="messageid" name="Id" />
+                            <div class="btn-group float-right mt-3">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <input type="submit" value="Edit" class="btn btn-primary" />
+                            </div>
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="DeleteMessageModal" tabindex="-1" role="dialog" aria-labelledby="DeleteMessageModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content border-danger">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-danger" id="DeleteMessageModalLabel">Видалення повідомлення</h5>
+                        <button type="button" class="close text-danger" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        @using (Html.BeginForm("DeleteMessage", "Dialog", FormMethod.Post))
+                        {
+                            <p>Підтвердіть вашу дію!</p>
+                            <input type="hidden" id="messageid" name="Id" />
+                            <div class="btn-group float-right mt-3">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <input type="submit" value="Delete" class="btn btn-danger" />
+                            </div>
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
         <div id="scrolList">
             @Html.Partial("_MessageItems", Model.Messages)
         </div>
-
         <div class="d-flex justify-content-center">
             <div id="loading" class="spinner-border text-primary text-center" role="status">
                 <span class="sr-only">Loading...</span>
@@ -61,6 +117,25 @@
 
 @section Scripts{
 
+    <script type="text/javascript">
+
+        $('#EditMessageModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget)
+            var id = button.data('messageid')
+            var content = button.data('content')
+            var modal = $(this)
+            modal.find('.modal-body textarea').val(content)
+            modal.find('#messageid').val(id)
+        })
+
+        $('#DeleteMessageModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget)
+            var id = button.data('messageid')
+            var modal = $(this)
+            modal.find('#messageid').val(id)
+        })
+
+    </script>
 
 
     <script type="text/javascript">

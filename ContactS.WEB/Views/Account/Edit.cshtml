@@ -1,9 +1,9 @@
 ﻿@model ContactS.BLL.DTO.UserDTO
 
-<div class="modal-content">
+<div class="modal-content border-primary">
     <div class="modal-header">
-        <h5 class="modal-title" id="EditTitle">Редагування акаунту!</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <h5 class="modal-title text-primary" id="EditTitle">Редагування акаунту!</h5>
+        <button type="button" class="close text-danger" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
@@ -19,47 +19,43 @@
 
                 <div class="form-group">
                     @Html.LabelFor(model => model.Password, new { @class = "control-label " })
-                    <div class="col">
-                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-                    </div>
+
+                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control border-primary" } })
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+
                 </div>
 
                 <div class="form-group">
                     @Html.LabelFor(model => model.Email, new { @class = "control-label" })
-                    <div class="col">
-                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-                    </div>
+
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control border-primary" } })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+
                 </div>
 
                 <div class="form-group">
                     @Html.LabelFor(model => model.UserName, new { @class = "control-label " })
-                    <div class="col">
-                        @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
-                    </div>
+
+                    @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control border-primary" } })
+                    @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+
                 </div>
 
                 <div class="form-group">
                     @Html.LabelFor(model => model.Name, new { @class = "control-label" })
-                    <div class="col">
-                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-                    </div>
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control border-primary" } })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                 </div>
 
                 <div class="form-group">
                     @Html.LabelFor(model => model.Address, new { @class = "control-label" })
-                    <div class="col">
-                        @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
-                    </div>
+                    @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control border-primary" } })
+                    @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
                 </div>
                 <div class="form-group">
-                    <div class="col-md-offset-2 col">
+                    <div class="btn-group float-right">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <input type="submit" value="Save" class="btn btn-success" />
+                        <input type="submit" value="Save" class="btn btn-primary" />
                     </div>
                 </div>
             </div>
