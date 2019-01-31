@@ -25,7 +25,7 @@ namespace ContactS.BLL.Services
 
         public async Task<int> Create(UserDTO userDto)
         {
-            ApplicationUser user = await Database.UserManager.FindByEmailAsync(userDto.Email);
+            ApplicationUser user = await Database.UserManager.FindByNameAsync(userDto.UserName);
             if (user == null)
             {
                 user = new ApplicationUser { Email = userDto.Email, UserName = userDto.Email };
@@ -44,6 +44,11 @@ namespace ContactS.BLL.Services
             {
                 return 0;
             }
+        }
+
+        public bool AreUserExist(string userName)
+        {
+            return (Database.UserManager.FindByName(userName) == null);
         }
 
         public async Task<ClaimsIdentity> Authenticate(UserDTO userDto)
@@ -240,5 +245,6 @@ namespace ContactS.BLL.Services
             FriendshipFilter filter = new FriendshipFilter { Account = User1Id, Account2 = User2Id };
             return GetQuery(filter).Execute().Any();
         }
+
     }
 }

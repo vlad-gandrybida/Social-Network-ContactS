@@ -162,6 +162,9 @@
   <data name="ConfirmAction" xml:space="preserve">
     <value>Confirm your action!</value>
   </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Confirm your password</value>
+  </data>
   <data name="Congratulations" xml:space="preserve">
     <value>Congratulations!</value>
   </data>
@@ -210,6 +213,9 @@
   <data name="EnterMessage" xml:space="preserve">
     <value>Enter your message</value>
   </data>
+  <data name="ErrorRequired" xml:space="preserve">
+    <value>The field needs to be completed</value>
+  </data>
   <data name="Friends" xml:space="preserve">
     <value>My friends</value>
   </data>
@@ -227,6 +233,9 @@
   </data>
   <data name="Login" xml:space="preserve">
     <value>LogIn</value>
+  </data>
+  <data name="LoginLengthError" xml:space="preserve">
+    <value>The length of the login is 3 to 20 characters</value>
   </data>
   <data name="LogOut" xml:space="preserve">
     <value>LogOut</value>
@@ -248,6 +257,15 @@
   </data>
   <data name="NoMessage" xml:space="preserve">
     <value>No messages yet.</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="PasswordLengthError" xml:space="preserve">
+    <value>The length of the password is from 8 to 16 characters</value>
+  </data>
+  <data name="PasswordsDoNotMatch" xml:space="preserve">
+    <value>Passwords do not match</value>
   </data>
   <data name="Posts" xml:space="preserve">
     <value>Posts</value>
@@ -318,6 +336,9 @@
   <data name="User" xml:space="preserve">
     <value>User</value>
   </data>
+  <data name="UserExist" xml:space="preserve">
+    <value>A user with such a login already exists</value>
+  </data>
   <data name="Username" xml:space="preserve">
     <value>Username</value>
   </data>
@@ -327,8 +348,17 @@
   <data name="Write" xml:space="preserve">
     <value>Write a message</value>
   </data>
+  <data name="WrongEmail" xml:space="preserve">
+    <value>Invalid Email</value>
+  </data>
+  <data name="WrongPassword" xml:space="preserve">
+    <value>The password must contain at least one uppercase letter, one lowercase letter and one digit</value>
+  </data>
   <data name="WrongSingIn" xml:space="preserve">
     <value>Invalid login or password!</value>
+  </data>
+  <data name="WrongUserName" xml:space="preserve">
+    <value>The login may contain Latin letters and numbers</value>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Yes</value>

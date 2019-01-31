@@ -29,7 +29,7 @@ namespace ContactS.WEB.Models.Filters
 
         public void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            //не реализован
+            
         }
     }
 }

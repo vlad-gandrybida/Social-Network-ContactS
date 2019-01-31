@@ -196,6 +196,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Підтвердіть пароль.
+        /// </summary>
+        public static string ConfirmPassword {
+            get {
+                return ResourceManager.GetString("ConfirmPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Вітаємо!.
         /// </summary>
         public static string Congratulations {
@@ -340,6 +349,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Поле потрібно заповнити.
+        /// </summary>
+        public static string ErrorRequired {
+            get {
+                return ResourceManager.GetString("ErrorRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Мої друзі.
         /// </summary>
         public static string Friends {
@@ -390,6 +408,15 @@ namespace Resources {
         public static string Login {
             get {
                 return ResourceManager.GetString("Login", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Довжина логіна від 3 до 20 символів.
+        /// </summary>
+        public static string LoginLengthError {
+            get {
+                return ResourceManager.GetString("LoginLengthError", resourceCulture);
             }
         }
         
@@ -453,6 +480,33 @@ namespace Resources {
         public static string NoMessage {
             get {
                 return ResourceManager.GetString("NoMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Пароль.
+        /// </summary>
+        public static string Password {
+            get {
+                return ResourceManager.GetString("Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Довжина пароля від 8 до 16 символів.
+        /// </summary>
+        public static string PasswordLengthError {
+            get {
+                return ResourceManager.GetString("PasswordLengthError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Паролі не співпадають.
+        /// </summary>
+        public static string PasswordsDoNotMatch {
+            get {
+                return ResourceManager.GetString("PasswordsDoNotMatch", resourceCulture);
             }
         }
         
@@ -664,6 +718,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Користувач з таким логіном уже існує.
+        /// </summary>
+        public static string UserExist {
+            get {
+                return ResourceManager.GetString("UserExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Логін.
         /// </summary>
         public static string Username {
@@ -691,11 +754,38 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Невірний Email.
+        /// </summary>
+        public static string WrongEmail {
+            get {
+                return ResourceManager.GetString("WrongEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Пароль повинен містити хоча б одну літеру верхнього регістру, одну літеру нижнього регісту, та одну цифру.
+        /// </summary>
+        public static string WrongPassword {
+            get {
+                return ResourceManager.GetString("WrongPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Невірний логін або пароль!.
         /// </summary>
         public static string WrongSingIn {
             get {
                 return ResourceManager.GetString("WrongSingIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Логін може містити латинські літери та цифри.
+        /// </summary>
+        public static string WrongUserName {
+            get {
+                return ResourceManager.GetString("WrongUserName", resourceCulture);
             }
         }
         

@@ -11,6 +11,7 @@ namespace ContactS.BLL.Interfaces
     {
         Task<int> Create(UserDTO userDto);
         Task<ClaimsIdentity> Authenticate(UserDTO userDto);
+        bool AreUserExist(string userName);
         Task DeleteUser(string id);
 
         Task EditUser(UserDTO account);

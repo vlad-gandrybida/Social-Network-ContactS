@@ -267,6 +267,9 @@
   <data name="ConfirmAction" xml:space="preserve">
     <value>Підтвердіть вашу дію!</value>
   </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Підтвердіть пароль</value>
+  </data>
   <data name="CreateDialog" xml:space="preserve">
     <value>Створити діалог</value>
   </data>
@@ -288,6 +291,9 @@
   <data name="EndRegistration" xml:space="preserve">
     <value>Ви були успішно зареєстровані!Використовуйте ваш логін і пароль щоб увійти на сайт!</value>
   </data>
+  <data name="ErrorRequired" xml:space="preserve">
+    <value>Поле потрібно заповнити</value>
+  </data>
   <data name="Friends" xml:space="preserve">
     <value>Мої друзі</value>
   </data>
@@ -297,8 +303,20 @@
   <data name="LeaveDialog" xml:space="preserve">
     <value>Ви бажаєте покинути бесіду</value>
   </data>
+  <data name="LoginLengthError" xml:space="preserve">
+    <value>Довжина логіна від 3 до 20 символів</value>
+  </data>
   <data name="NoMessage" xml:space="preserve">
     <value>Повідомлень ще немає.</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Пароль</value>
+  </data>
+  <data name="PasswordLengthError" xml:space="preserve">
+    <value>Довжина пароля від 8 до 16 символів</value>
+  </data>
+  <data name="PasswordsDoNotMatch" xml:space="preserve">
+    <value>Паролі не співпадають</value>
   </data>
   <data name="Posts" xml:space="preserve">
     <value>Публікації</value>
@@ -324,14 +342,26 @@
   <data name="TryAgain" xml:space="preserve">
     <value>Спробуйте ще раз!</value>
   </data>
+  <data name="UserExist" xml:space="preserve">
+    <value>Користувач з таким логіном уже існує</value>
+  </data>
   <data name="Username" xml:space="preserve">
     <value>Логін</value>
   </data>
   <data name="Write" xml:space="preserve">
     <value>Написати</value>
   </data>
+  <data name="WrongEmail" xml:space="preserve">
+    <value>Невірний Email</value>
+  </data>
+  <data name="WrongPassword" xml:space="preserve">
+    <value>Пароль повинен містити хоча б одну літеру верхнього регістру, одну літеру нижнього регісту, та одну цифру</value>
+  </data>
   <data name="WrongSingIn" xml:space="preserve">
     <value>Невірний логін або пароль!</value>
+  </data>
+  <data name="WrongUserName" xml:space="preserve">
+    <value>Логін може містити латинські літери та цифри</value>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Так</value>
