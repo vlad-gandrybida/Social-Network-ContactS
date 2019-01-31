@@ -84,7 +84,6 @@ namespace ContactS.WEB.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterModel model)
         {
-            await SetInitialDataAsync();
             if (ModelState.IsValid)
             {
                 UserDTO userDto = new UserDTO
@@ -97,8 +96,19 @@ namespace ContactS.WEB.Controllers
                     Role = "user"
                 };
                 int operation = await UserService.Create(userDto);
-                if (operation == 0)
+                if (operation == 1)
+                {
+                    ClaimsIdentity claim = await UserService.Authenticate(userDto);
+                    if(claim!=null)
+                    {
+                        AuthenticationManager.SignOut();
+                        AuthenticationManager.SignIn(new AuthenticationProperties
+                        {
+                            IsPersistent = true
+                        }, claim);
+                    }
                     return View("SuccessRegister");
+                }
                 else
                     ModelState.AddModelError("", Resources.Resource.TryAgain);
             }
@@ -125,10 +135,17 @@ namespace ContactS.WEB.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(UserDTO account)
+        public ActionResult Edit(UserViewModel user)
         {
             string Url = Request.UrlReferrer.AbsolutePath;
-            UserService.EditUser(account);
+            UserService.EditUser(new UserDTO {
+                Id = user.Id,
+                Name = user.Name,
+                Email = user.Email,
+                Address = user.Address,
+                UserName = user.UserName,
+                Password = user.Password
+            });
             return Redirect(Url);
         }
 
@@ -145,7 +162,13 @@ namespace ContactS.WEB.Controllers
             UserDTO user = UserService.GetUserById(id);
             return View(new ClientProfileViewModel
             {
-                userInfo = user,
+                userInfo = new UserViewModel {
+                    Id = user.Id,
+                    Name = user.Name,
+                    Email = user.Email,
+                    Address = user.Address,
+                    UserName = user.UserName
+                },
                 Relation = UserService.AreUsersIsFriends(user,
                     UserService.GetUserById(User.Identity.GetUserId())) ? 1 : user.Id == User.Identity.GetUserId() ? 0 : -1
             });

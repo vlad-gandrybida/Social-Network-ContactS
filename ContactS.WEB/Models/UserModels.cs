@@ -25,10 +25,10 @@ namespace ContactS.WEB.Models
 
     public class ClientProfileViewModel
     {
-        public UserDTO userInfo { get; set; }
+        public UserViewModel userInfo { get; set; }
         public int Relation { get; set; }
     }
-    public class EditViewModel
+    public class UserViewModel
     {
         [Required(ErrorMessageResourceType = typeof(Resources.Resource),
                   ErrorMessageResourceName = "ErrorRequired")]
@@ -52,8 +52,6 @@ namespace ContactS.WEB.Models
         [Display(Name = "Email", ResourceType = typeof(Resources.Resource))]
         public string Email { get; set; }
 
-        [Required(ErrorMessageResourceType = typeof(Resources.Resource),
-                  ErrorMessageResourceName = "ErrorRequired")]
         [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])\S{8,16}$",
                            ErrorMessageResourceType = typeof(Resources.Resource),
                            ErrorMessageResourceName = "WrongPassword")]
