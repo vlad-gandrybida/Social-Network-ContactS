@@ -33,9 +33,9 @@
             using (Html.BeginForm("Create", "Dialog", FormMethod.Post, new { @class = "form-group mt-2" }))
             {
                 <div class="btn-group-vertical btn-block mt-2">
-                    @Html.ActionLink("Вилучити з друзів", "RemoveFromFriends", new { id = Model.userInfo.Id }, new { @class = "btn btn-danger btn-block mt-2" })
+                    @Html.ActionLink(Resources.Resource.RemoveFromFriends, "RemoveFromFriends", new { id = Model.userInfo.Id }, new { @class = "btn btn-danger btn-block mt-2" })
                     <input value="@Model.userInfo.Id" name="id" type="hidden" />
-                    <input type="submit" name="Send" value="Написати" class="btn btn-primary" />
+                    <input type="submit" name="Send" value="@Resources.Resource.Write" class="btn btn-primary" />
                 </div>
             }
         }
@@ -44,9 +44,9 @@
             using (Html.BeginForm("Create", "Dialog", FormMethod.Post, new { @class = "form-group mt-2" }))
             {
                 <div class="btn-group-vertical btn-block mt-2">
-                    @Html.ActionLink("Додати до друзів", "AddToFriend", new { id = Model.userInfo.Id }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink(Resources.Resource.AddToFriend, "AddToFriend", new { id = Model.userInfo.Id }, new { @class = "btn btn-primary" })
                     <input value="@Model.userInfo.Id" name="id" type="hidden" />
-                    <input type="submit" name="Send" value="Написати" class="btn btn-primary" />
+                    <input type="submit" name="Send" value="@Resources.Resource.Write" class="btn btn-primary" />
                 </div>
             }
 
@@ -55,10 +55,10 @@
         {
             <div class="btn-group-vertical btn-block mt-2">
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Edit">
-                    Змінити
+                    @Resources.Resource.Edit
                 </button>
                 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#Delete">
-                    Видалити
+                    @Resources.Resource.Delete
                 </button>
             </div>
 
@@ -84,10 +84,10 @@
             </div>
         </div>
         <hr />
-        <p>Address: @Model.userInfo.Address</p>
-        <p>Email: @Model.userInfo.Email</p>
+        <p>@Resources.Resource.Address: @Model.userInfo.Address</p>
+        <p>@Resources.Resource.Email: @Model.userInfo.Email</p>
         <hr />
-        <h2>Posts</h2>
-        <p>Posts in develop now!</p>
+        <h2>@Resources.Resource.Posts</h2>
+        <p>@Resources.Resource.PostsText</p>
     </div>
 </div>

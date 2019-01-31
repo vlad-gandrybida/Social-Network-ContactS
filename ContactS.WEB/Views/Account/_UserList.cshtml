@@ -34,13 +34,13 @@
             @if (item.IsFriend == 1)
             {
                 <div class="card-footer text-center ">
-                    @Html.ActionLink("Your friend", "ClientProfile", new { Id = item.user.Id }, new { @class = "btn btn-outline-success btn-block" })
+                    @Html.ActionLink(Resources.Resource.YourFriend, "ClientProfile", new { Id = item.user.Id }, new { @class = "btn btn-outline-success btn-block" })
                 </div>
             }
             else if (item.IsFriend == -1)
             {
                 <div class="card-footer text-center ">
-                    @Html.ActionLink("Add to friend", "AddToFriend", new { Id = item.user.Id }, new { @class = "btn btn-outline-primary btn-block" })
+                    @Html.ActionLink(Resources.Resource.AddToFriend, "AddToFriend", new { Id = item.user.Id }, new { @class = "btn btn-outline-primary btn-block" })
                 </div>
             }
             else

@@ -2,8 +2,8 @@
 
 <div class="modal-content border-primary">
     <div class="modal-header">
-        <h5 class="modal-title text-primary">Змініть назву діалогу</h5>
-        <button type="button" class="close text-danger" data-dismiss="modal" aria-label="Close">
+        <h5 class="modal-title text-primary">@Resources.Resource.ChangeDialog</h5>
+        <button type="button" class="close text-danger" data-dismiss="modal" aria-label="@Resources.Resource.Close">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
@@ -15,8 +15,8 @@
 
                 @Html.HiddenFor(model => model.Id)
                     <div class="btn-group float-right mt-3 ">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <input type="submit" value="Save" class="btn btn-primary" />
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">@Resources.Resource.Close</button>
+                        <input type="submit" value="@Resources.Resource.Edit" class="btn btn-primary" />
                     </div>
         }
     </div>

@@ -50,7 +50,7 @@ namespace ContactS.WEB.Controllers
                 }
                 else
                 {
-                    message = "Історія переписки пуста";
+                    message = Resources.Resource.NoMessage;
                 }
                 result.dialogs.Add(new DialogViewModel
                 {
@@ -109,7 +109,7 @@ namespace ContactS.WEB.Controllers
 
             UserDTO user = UserService.GetUserById(User.Identity.GetUserId());
             if (userList.Find(x => x.Id == user.Id) == null)
-                return RedirectToAction("AccessDenied", "Page");
+                return RedirectToAction("AccessDenied", "Home");
 
             List<MessageDTO> list = MessageService
                 .ListDialogMessages(new MessageFilter { Chat = dialog }, page)
@@ -162,7 +162,7 @@ namespace ContactS.WEB.Controllers
         {
             DialogDTO Dialog = DialogService.GetDialogById(id);
 
-            if (!DialogService.GetUsersInDialog(Dialog).Any(x => x.Id == User.Identity.GetUserId())) return RedirectToAction("AccessDenied", "Page");
+            if (!DialogService.GetUsersInDialog(Dialog).Any(x => x.Id == User.Identity.GetUserId())) return RedirectToAction("AccessDenied", "Home");
 
             return PartialView(Dialog);
         }
@@ -179,7 +179,7 @@ namespace ContactS.WEB.Controllers
             DialogDTO dialog = DialogService.GetDialogById(id);
             UserDTO user = UserService.GetUserById(User.Identity.GetUserId());
             List<UserDTO> userList = DialogService.GetUsersInDialog(dialog);
-            if (!userList.Contains(user)) return RedirectToAction("AccessDenied", "Page");
+            if (!userList.Contains(user)) return RedirectToAction("AccessDenied", "Home");
             userList.Remove(user);
             List<SelectModel> list = new List<SelectModel>();
             userList.ForEach(f => list.Add(new SelectModel { User = f }));
@@ -197,7 +197,7 @@ namespace ContactS.WEB.Controllers
         public ActionResult Leave(int id)
         {
             DialogDTO Dialog = DialogService.GetDialogById(id);
-            if (!DialogService.GetUsersInDialog(Dialog).Any(x => x.Id == User.Identity.GetUserId())) return RedirectToAction("AccessDenied", "Page");
+            if (!DialogService.GetUsersInDialog(Dialog).Any(x => x.Id == User.Identity.GetUserId())) return RedirectToAction("AccessDenied", "Home");
 
             return PartialView(Dialog);
         }

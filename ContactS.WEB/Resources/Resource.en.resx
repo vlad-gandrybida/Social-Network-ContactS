@@ -117,20 +117,92 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="About" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="AccessDenied" xml:space="preserve">
+    <value>Access denied!!!</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="AddToFriend" xml:space="preserve">
+    <value>Add to friends</value>
+  </data>
+  <data name="Admin" xml:space="preserve">
+    <value>Administrator</value>
+  </data>
+  <data name="AdminMessagesText" xml:space="preserve">
+    <value>You can moderate messages from users.</value>
+  </data>
+  <data name="AdminText" xml:space="preserve">
+    <value>You are now an administrator. You have the right to edit and moderate users.</value>
+  </data>
+  <data name="AdminUsersText" xml:space="preserve">
+    <value>You can change user roles, just click the button next to the user.</value>
+  </data>
+  <data name="Attention" xml:space="preserve">
+    <value>Attention!</value>
+  </data>
   <data name="Author" xml:space="preserve">
     <value>Gandrybida Vladyslav</value>
   </data>
   <data name="Back" xml:space="preserve">
     <value>Back</value>
   </data>
+  <data name="ChangeDialog" xml:space="preserve">
+    <value>Change the name of the dialog</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="ConfirmAction" xml:space="preserve">
+    <value>Confirm your action!</value>
+  </data>
+  <data name="Congratulations" xml:space="preserve">
+    <value>Congratulations!</value>
+  </data>
+  <data name="Contact" xml:space="preserve">
+    <value>Contact</value>
+  </data>
   <data name="ContactHeader" xml:space="preserve">
     <value>Contact us!</value>
+  </data>
+  <data name="CreateDialog" xml:space="preserve">
+    <value>Create dialog</value>
   </data>
   <data name="CurrentLang" xml:space="preserve">
     <value>English</value>
   </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="DeleteConfirm" xml:space="preserve">
+    <value>Do you want to delete your page?</value>
+  </data>
+  <data name="DeleteMessage" xml:space="preserve">
+    <value>Delete message</value>
+  </data>
   <data name="Dialogs" xml:space="preserve">
-    <value>Daiolgs</value>
+    <value>My dialogs</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="EditMessage" xml:space="preserve">
+    <value>Edit message</value>
+  </data>
+  <data name="EditUser" xml:space="preserve">
+    <value>Editing personal information!</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="EndRegistration" xml:space="preserve">
+    <value>You have been successfully registered! Use your login and password to login!</value>
   </data>
   <data name="Enter" xml:space="preserve">
     <value>Enter</value>
@@ -138,14 +210,29 @@
   <data name="EnterMessage" xml:space="preserve">
     <value>Enter your message</value>
   </data>
+  <data name="Friends" xml:space="preserve">
+    <value>My friends</value>
+  </data>
   <data name="LearnMore" xml:space="preserve">
-    <value>Learn More</value>
+    <value>Learn more</value>
+  </data>
+  <data name="Leave" xml:space="preserve">
+    <value>Leave</value>
+  </data>
+  <data name="LeaveDialog" xml:space="preserve">
+    <value>Do you want to leave the conversation</value>
+  </data>
+  <data name="Loading" xml:space="preserve">
+    <value>Loading...</value>
   </data>
   <data name="Login" xml:space="preserve">
-    <value>Sing in</value>
+    <value>LogIn</value>
   </data>
   <data name="LogOut" xml:space="preserve">
     <value>LogOut</value>
+  </data>
+  <data name="Main" xml:space="preserve">
+    <value>Home page</value>
   </data>
   <data name="MainText" xml:space="preserve">
     <value>Hello! Welcome to the social network of the new generation ContactS!</value>
@@ -159,64 +246,94 @@
   <data name="Name" xml:space="preserve">
     <value>Name</value>
   </data>
+  <data name="NoMessage" xml:space="preserve">
+    <value>No messages yet.</value>
+  </data>
+  <data name="Posts" xml:space="preserve">
+    <value>Posts</value>
+  </data>
+  <data name="PostsText" xml:space="preserve">
+    <value>Posts in develop now</value>
+  </data>
   <data name="Registration" xml:space="preserve">
-    <value>Sing up</value>
+    <value>Registration</value>
   </data>
-  <data name="Security" xml:space="preserve">
-    <value>Security</value>
-  </data>
-  <data name="Social" xml:space="preserve">
-    <value>Social</value>
-  </data>
-  <data name="SocialText" xml:space="preserve">
-    <value>ContactS is absolutely free, and the first truly social network.</value>
-  </data>
-  <data name="Speed" xml:space="preserve">
-    <value>Speed</value>
-  </data>
-  <data name="SpeedText" xml:space="preserve">
-    <value>ContactS is an extremely fast social network that instantly hits your commands.</value>
-  </data>
-  <data name="Style" xml:space="preserve">
-    <value>Style</value>
-  </data>
-  <data name="StyleText" xml:space="preserve">
-    <value>ContactS - works on Bootstrap 4, which gives it an opportunity to look equally attractive on all devices.</value>
-  </data>
-  <data name="Submit" xml:space="preserve">
-    <value>Submit</value>
-  </data>
-  <data name="Users" xml:space="preserve">
-    <value>Users</value>
-  </data>
-  <data name="Admin" xml:space="preserve">
-    <value>Admin</value>
-  </data>
-  <data name="AdminMessagesText" xml:space="preserve">
-    <value>You can moderate messages from users.</value>
-  </data>
-  <data name="AdminText" xml:space="preserve">
-    <value>You are now an administrator. You have the right to edit messages and moderate users.</value>
-  </data>
-  <data name="AdminUsersText" xml:space="preserve">
-    <value>You can change user roles, just click the button next to the user.</value>
-  </data>
-  <data name="Congratulations" xml:space="preserve">
-    <value>Congratulations!</value>
-  </data>
-  <data name="Edit" xml:space="preserve">
-    <value>Edit</value>
-  </data>
-  <data name="Loading" xml:space="preserve">
-    <value>Loading...</value>
-  </data>
-  <data name="Main" xml:space="preserve">
-    <value>Main Page</value>
+  <data name="RemoveFromFriends" xml:space="preserve">
+    <value>Remove from friends</value>
   </data>
   <data name="Role" xml:space="preserve">
     <value>Role</value>
   </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="Security" xml:space="preserve">
+    <value>Security</value>
+  </data>
+  <data name="SecurityListText" xml:space="preserve">
+    <value>Odio ut enim blandit volutpat maecenas volutpat. Dictum non consectetur a erat nam at lectus. Amet justo donec enim diam vulputate ut pharetra sit. Pulvinar elementum integer enim neque volutpat ac tincidunt vitae. Mattis aliquam faucibus purus in massa tempor nec. Nec nam aliquam sem et tortor consequat id porta. Diam maecenas sed enim ut sem viverra aliquet eget. Commodo odio aenean sed adipiscing diam donec adipiscing. Convallis a cras semper auctor. Nibh sit amet commodo nulla facilisi nullam vehicula ipsum. Ornare massa eget egestas purus. Id eu nisl nunc mi ipsum.</value>
+  </data>
+  <data name="SendMessage" xml:space="preserve">
+    <value>Send</value>
+  </data>
+  <data name="SendMessagePlaceholder" xml:space="preserve">
+    <value>Write a message ...</value>
+  </data>
+  <data name="SingIn" xml:space="preserve">
+    <value>SingIn</value>
+  </data>
+  <data name="Social" xml:space="preserve">
+    <value>Social</value>
+  </data>
+  <data name="SocialListText" xml:space="preserve">
+    <value>Tincidunt arcu non sodales neque sodales. Aliquam sem fringilla ut morbi tincidunt augue. Est pellentesque elit ullamcorper dignissim cras tincidunt lobortis. Pharetra diam sit amet nisl suscipit adipiscing bibendum. Tristique nulla aliquet enim tortor at. Nec nam aliquam sem et tortor consequat. A condimentum vitae sapien pellentesque habitant morbi. Sit amet nulla facilisi morbi tempus iaculis urna. Vel eros donec ac odio tempor orci dapibus ultrices. Elementum facilisis leo vel fringilla est ullamcorper eget.</value>
+  </data>
+  <data name="SocialText" xml:space="preserve">
+    <value>ContactS - абсолютно безкоштовна, та перша по-справжньому соціальна мережа.</value>
+  </data>
+  <data name="Speed" xml:space="preserve">
+    <value>Speed</value>
+  </data>
+  <data name="SpeedListText" xml:space="preserve">
+    <value>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</value>
+  </data>
+  <data name="SpeedText" xml:space="preserve">
+    <value>ContactS - надзвичайно швидка соціальна мережа, яка миттєво відзивається на ваші команди.</value>
+  </data>
+  <data name="Style" xml:space="preserve">
+    <value>Style</value>
+  </data>
+  <data name="StyleListText" xml:space="preserve">
+    <value>Libero enim sed faucibus turpis in eu mi bibendum. Quis commodo odio aenean sed adipiscing diam donec adipiscing tristique. In hendrerit gravida rutrum quisque non. Neque volutpat ac tincidunt vitae semper quis lectus nulla at. Erat velit scelerisque in dictum. Tortor at auctor urna nunc id. Justo donec enim diam vulputate. Scelerisque eu ultrices vitae auctor. Leo in vitae turpis massa sed elementum tempus egestas sed. At volutpat diam ut venenatis tellus in metus.</value>
+  </data>
+  <data name="StyleText" xml:space="preserve">
+    <value>ContactS - працює на Bootstrap 4, що дає їй можливіть вглядати однаково привабливо на всіх пристроя.</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>Submit</value>
+  </data>
+  <data name="TryAgain" xml:space="preserve">
+    <value>Try again!</value>
+  </data>
   <data name="User" xml:space="preserve">
     <value>User</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>Username</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>Users</value>
+  </data>
+  <data name="Write" xml:space="preserve">
+    <value>Write a message</value>
+  </data>
+  <data name="WrongSingIn" xml:space="preserve">
+    <value>Invalid login or password!</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="YourFriend" xml:space="preserve">
+    <value>Your friend</value>
   </data>
 </root>

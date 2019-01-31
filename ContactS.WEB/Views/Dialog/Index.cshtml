@@ -1,12 +1,12 @@
 ﻿@model ContactS.WEB.Models.DialogListModel
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = Resources.Resource.Dialogs;
 }
 
-<h2 class="mt-4 text-center">Діалоги</h2>
+<h2 class="mt-4 text-center">@Resources.Resource.Dialogs</h2>
 
-@Html.ActionLink("Create Dialog", "Create", "Dialog", null, new { @class = "btn btn-primary m-3" })
+@Html.ActionLink(Resources.Resource.CreateDialog, "Create", "Dialog", null, new { @class = "btn btn-primary m-3" })
 <div class="list-group">
     @foreach (var chat in Model.dialogs)
     {

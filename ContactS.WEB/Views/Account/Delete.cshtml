@@ -2,20 +2,20 @@
 
 <div class="modal-content border-danger">
     <div class="modal-header">
-        <h5 class="modal-title text-danger" id="LeaveTitle">Увага</h5>
+        <h5 class="modal-title text-danger" id="LeaveTitle">@Resources.Resource.Attention</h5>
         <button type="button" class="close text-danger" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
     <div class="modal-body">
-        <p>Ви бажаєте видалити вашу сторінку?</p>
+        <p>@Resources.Resource.DeleteConfirm</p>
         @using (Html.BeginForm("Delete", "Account", FormMethod.Post))
         {
             @Html.HiddenFor(model => model.Id)
 
             <div class="btn-group float-right mt-3">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <input type="submit" value="Так" class="btn btn-danger" />
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">@Resources.Resource.Close</button>
+                <input type="submit" value="@Resources.Resource.Yes" class="btn btn-danger" />
             </div>
         }
     </div>

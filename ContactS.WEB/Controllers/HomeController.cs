@@ -48,5 +48,10 @@ namespace ContactS.WEB.Controllers
             Response.Cookies.Add(cookie);
             return Redirect(returnUrl);
         }
+
+        public ActionResult AccessDenied()
+        {
+            return View();
+        }
     }
 }

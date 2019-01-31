@@ -3,10 +3,10 @@
 @{
     /**/
 
-    ViewBag.Title = "Create";
+    ViewBag.Title = Resources.Resource.Dialogs;
 }
 
-<h2 class="mt-4 text-center">Оберіть кому написати</h2>
+<h2 class="mt-4 text-center">@Resources.Resource.Friends</h2>
 
 <ul class="list-group">
     @foreach (var user in Model)
@@ -19,7 +19,7 @@
                     {
 
                         <input value="@user.Id" name="id" type="hidden" />
-                        <input type="submit" name="Send" value="Write" class="btn btn-primary" />
+                        <input type="submit" name="Send" value="@Resources.Resource.Write" class="btn btn-primary" />
                     }
                 </div>
                 <div class="col-10">

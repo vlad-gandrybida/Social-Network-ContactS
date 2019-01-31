@@ -44,7 +44,7 @@ namespace ContactS.WEB.Controllers
                 ClaimsIdentity claim = await UserService.Authenticate(userDto);
                 if (claim == null)
                 {
-                    ModelState.AddModelError("", "Неверный логин или пароль.");
+                    ModelState.AddModelError("", Resources.Resource.WrongSingIn);
                 }
                 else
                 {
@@ -91,7 +91,7 @@ namespace ContactS.WEB.Controllers
                 if (operation == 0)
                     return View("SuccessRegister");
                 else
-                    ModelState.AddModelError("", "Попробуйте ещё раз");
+                    ModelState.AddModelError("", Resources.Resource.TryAgain);
             }
             return View(model);
         }
