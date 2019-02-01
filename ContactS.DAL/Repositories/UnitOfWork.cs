@@ -65,6 +65,8 @@ namespace ContactS.DAL.Repositories
                     userManager.Dispose();
                     roleManager.Dispose();
                     clientManager.Dispose();
+                    dialogManager.Dispose();
+                    friendshipManager.Dispose();
                 }
                 disposed = true;
             }

@@ -2,12 +2,14 @@
 using ContactS.DAL.Entities;
 using ContactS.DAL.Interfaces;
 using System.Data.Entity;
+using System.Threading.Tasks;
 
 namespace ContactS.DAL.Repositories
 {
     public class MessageManager : IMessageManager
     {
         public ApplicationContext Database { get; set; }
+
         public MessageManager(ApplicationContext db)
         {
             Database = db;
@@ -16,10 +18,10 @@ namespace ContactS.DAL.Repositories
             Database.Dialogs.Load();
         }
 
-        public void Create(Message item)
+        public async Task Create(Message item)
         {
             Database.Messages.Add(item);
-            Database.SaveChanges();
+            await Database.SaveChangesAsync();
         }
 
         public void Dispose()
@@ -27,28 +29,28 @@ namespace ContactS.DAL.Repositories
             Database.Dispose();
         }
 
-        public Message GetById(int id)
+        public async Task<Message> GetById(int id)
         {
-            return Database.Messages.Find(id);
+            return await Database.Messages.FindAsync(id);
         }
 
-        public void Update(Message message)
+        public async Task Update(Message message)
         {
             Database.Entry(message).State = EntityState.Modified;
-            Database.SaveChanges();
+            await Database.SaveChangesAsync();
         }
 
-        public void Delete(Message message)
+        public async Task Delete(Message message)
         {
             Database.Messages.Remove(message);
-            Database.SaveChanges();
+            await Database.SaveChangesAsync();
         }
 
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
-            Message message = Database.Messages.Find(id);
+            Message message = await Database.Messages.FindAsync(id);
             Database.Messages.Remove(message);
-            Database.SaveChanges();
+            await Database.SaveChangesAsync();
         }
     }
 }

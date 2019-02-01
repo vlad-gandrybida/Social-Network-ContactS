@@ -24,21 +24,22 @@ namespace ContactS.WEB.Controllers
 
         private IUserService UserService => HttpContext.GetOwinContext().GetUserManager<IUserService>();
 
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            List<DialogDTO> usersDialogs = DialogService
+            UserDTO user = await UserService
+                    .GetUserById(User.Identity.GetUserId());
+            List<DialogDTO> usersDialogs = (await DialogService
                 .ListDialogs(new DialogFilter
                 {
-                    Account = UserService
-                    .GetUserById(User.Identity.GetUserId())
-                }).ResultDialogs.ToList();
+                    Account = user,
+                })).ResultDialogs.ToList();
             DialogListModel result = new DialogListModel();
             foreach (DialogDTO dialog in usersDialogs)
             {
-                MessageDTO lastMessage = MessageService.ListDialogMessages(new MessageFilter
+                MessageDTO lastMessage = (await MessageService.ListDialogMessages(new MessageFilter
                 {
                     Chat = dialog
-                }).ResultMessages.OrderBy(x => x.Time).LastOrDefault();
+                })).ResultMessages.OrderBy(x => x.Time).LastOrDefault();
                 string message;
                 if (lastMessage != null)
                 {
@@ -66,53 +67,54 @@ namespace ContactS.WEB.Controllers
             return View(result);
         }
 
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
-            List<UserDTO> friends = UserService.ListFriendsOfUser(UserService.GetUserById(User.Identity.GetUserId()));
+            List<UserDTO> friends = await UserService.ListFriendsOfUser(await UserService.GetUserById(User.Identity.GetUserId()));
             return View(friends);
         }
 
         [HttpPost]
         public async Task<ActionResult> Create(string id)
         {
-            UserDTO creator = UserService.GetUserById(User.Identity.GetUserId());
-            UserDTO reciver = UserService.GetUserById(id);
+            Task<UserDTO> creator = UserService.GetUserById(User.Identity.GetUserId());
+            Task<UserDTO> reciver = UserService.GetUserById(id);
+            await Task.WhenAll(creator, reciver);
             int DialogId = await DialogService.CreateDialog(new DialogDTO
             {
-                Users = new List<UserDTO> { creator, reciver },
-                Name = $"{creator.Name} and {reciver.Name} dialog"
+                Users = new List<UserDTO> { creator.Result, reciver.Result },
+                Name = $"{creator.Result.Name} and {reciver.Result.Name} dialog"
             });
             return RedirectToAction("OpenDialog", new { id = DialogId });
         }
 
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            DialogDTO Dialog = DialogService.GetDialogById(id);
-            UserDTO user = UserService.GetUserById(User.Identity.GetUserId());
-            if (!DialogService.GetUsersInDialog(Dialog).Contains(user)) return RedirectToAction("AccessDenied", "Page");
+            Task<UserDTO> user = UserService.GetUserById(User.Identity.GetUserId());
+            Task<DialogDTO> Dialog = DialogService.GetDialogById(id);
+            await Task.WhenAll(user, Dialog);
+            if (!(await DialogService.GetUsersInDialog(Dialog.Result)).Contains(user.Result)) return RedirectToAction("AccessDenied", "Page");
 
             return View(Dialog);
         }
 
         [HttpPost]
-        public ActionResult Delete(DialogDTO Dialog)
+        public async  Task<ActionResult> Delete(DialogDTO Dialog)
         {
-            DialogService.DeleteDialog(Dialog.Id);
-
+            await DialogService.DeleteDialog(Dialog.Id);
             return RedirectToAction("Index");
         }
 
-        public ActionResult OpenDialog(int id, int page = 1)
+        public async Task<ActionResult> OpenDialog(int id, int page = 1)
         {
-            DialogDTO dialog = DialogService.GetDialogById(id);
-            List<UserDTO> userList = DialogService.GetUsersInDialog(dialog);
+            DialogDTO dialog = await DialogService.GetDialogById(id);
+            List<UserDTO> userList = await DialogService.GetUsersInDialog(dialog);
 
-            UserDTO user = UserService.GetUserById(User.Identity.GetUserId());
+            UserDTO user = await UserService.GetUserById(User.Identity.GetUserId());
             if (userList.Find(x => x.Id == user.Id) == null)
                 return RedirectToAction("AccessDenied", "Home");
 
-            List<MessageDTO> list = MessageService
-                .ListDialogMessages(new MessageFilter { Chat = dialog }, page)
+            List<MessageDTO> list = (await MessageService
+                .ListDialogMessages(new MessageFilter { Chat = dialog }, page))
                 .ResultMessages.ToList();
 
             if (Request.IsAjaxRequest())
@@ -131,59 +133,61 @@ namespace ContactS.WEB.Controllers
         }
 
         [HttpPost]
-        public ActionResult OpenDialog(OpenDialogModel model)
+        public async Task<ActionResult> OpenDialog(OpenDialogModel model)
         {
-            UserDTO user = UserService.GetUserById(User.Identity.GetUserId());
-            DialogDTO dialog = DialogService.GetDialogById(model.DialogId);
-            MessageService.PostMessageToDialog(dialog, user, model.NewMessage);
-            return RedirectToAction("OpenDialog", new { id = dialog.Id });
+            Task<UserDTO> user = UserService.GetUserById(User.Identity.GetUserId());
+            Task<DialogDTO> Dialog = DialogService.GetDialogById(model.DialogId);
+            await Task.WhenAll(user, Dialog);
+            await MessageService.PostMessageToDialog(Dialog.Result, user.Result, model.NewMessage);
+            return RedirectToAction("OpenDialog", new { id = Dialog.Result.Id });
         }
 
         [HttpPost]
-        public ActionResult DeleteMessage(MessageViewModel model)
+        public async Task<ActionResult> DeleteMessage(MessageViewModel model)
         {
             string Url = Request.UrlReferrer.AbsolutePath;
-            var message = MessageService.GetMessageById(model.Id);
-            MessageService.DeleteMessage(message);
+            var message = await MessageService.GetMessageById(model.Id);
+            await MessageService.DeleteMessage(message);
             return Redirect(Url);
         }
 
         [HttpPost]
-        public ActionResult EditMessage(MessageViewModel model)
+        public async Task<ActionResult> EditMessage(MessageViewModel model)
         {
             string Url = Request.UrlReferrer.AbsolutePath;
-            var message = MessageService.GetMessageById(model.Id);
+            var message = await MessageService.GetMessageById(model.Id);
             message.Content = model.Content;
-            MessageService.EditMessage(message);
+            await MessageService.EditMessage(message);
             return Redirect(Url);
         }
 
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
-            DialogDTO Dialog = DialogService.GetDialogById(id);
+            DialogDTO Dialog = await DialogService.GetDialogById(id);
 
-            if (!DialogService.GetUsersInDialog(Dialog).Any(x => x.Id == User.Identity.GetUserId())) return RedirectToAction("AccessDenied", "Home");
+            if (!(await DialogService.GetUsersInDialog(Dialog)).Any(x => x.Id == User.Identity.GetUserId())) return RedirectToAction("AccessDenied", "Home");
 
             return PartialView(Dialog);
         }
 
         [HttpPost]
-        public ActionResult Edit(DialogDTO dialog)
+        public async Task<ActionResult> Edit(DialogDTO dialog)
         {
-            DialogService.EditDialogName(dialog);
+            await DialogService.EditDialogName(dialog);
             return RedirectToAction("OpenDialog", new { id = dialog.Id });
         }
 
-        public ActionResult RemovePeople(int id)
+        public async Task<ActionResult> RemovePeople(int id)
         {
-            DialogDTO dialog = DialogService.GetDialogById(id);
-            UserDTO user = UserService.GetUserById(User.Identity.GetUserId());
-            List<UserDTO> userList = DialogService.GetUsersInDialog(dialog);
-            if (!userList.Contains(user)) return RedirectToAction("AccessDenied", "Home");
-            userList.Remove(user);
+            Task<DialogDTO> dialog = DialogService.GetDialogById(id);
+            Task<UserDTO> user = UserService.GetUserById(User.Identity.GetUserId());
+            await Task.WhenAll(dialog, user);
+            List<UserDTO> userList = await DialogService.GetUsersInDialog(dialog.Result);
+            if (!userList.Contains(user.Result)) return RedirectToAction("AccessDenied", "Home");
+            userList.Remove(user.Result);
             List<SelectModel> list = new List<SelectModel>();
             userList.ForEach(f => list.Add(new SelectModel { User = f }));
-            return View(new RemovePeopleModel { Accounts = list, Dialog = dialog });
+            return View(new RemovePeopleModel { Accounts = list, Dialog = dialog.Result });
         }
 
         [HttpPost]
@@ -194,20 +198,19 @@ namespace ContactS.WEB.Controllers
             return RedirectToAction("OpenDialog", "Dialog", new { id = model.Dialog.Id });
         }
 
-        public ActionResult Leave(int id)
+        public async Task<ActionResult> Leave(int id)
         {
-            DialogDTO Dialog = DialogService.GetDialogById(id);
-            if (!DialogService.GetUsersInDialog(Dialog).Any(x => x.Id == User.Identity.GetUserId())) return RedirectToAction("AccessDenied", "Home");
+            DialogDTO Dialog = await DialogService.GetDialogById(id);
+            if (!(await DialogService.GetUsersInDialog(Dialog)).Any(x => x.Id == User.Identity.GetUserId())) return RedirectToAction("AccessDenied", "Home");
 
             return PartialView(Dialog);
         }
 
         [HttpPost]
-        public ActionResult Leave(DialogDTO Dialog)
+        public async Task<ActionResult> Leave(DialogDTO Dialog)
         {
-            UserDTO user = UserService.GetUserById(User.Identity.GetUserId());
-            DialogService.RemoveUserFromDialog(Dialog, user);
-
+            UserDTO user = await UserService.GetUserById(User.Identity.GetUserId());
+            await DialogService.RemoveUserFromDialog(Dialog, user);
             return RedirectToAction("Index");
         }
     }

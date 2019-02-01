@@ -22,7 +22,6 @@ namespace ContactS.BLL.Queries
         protected override IQueryable<MessageDTO> GetQueryable()
         {
             IQueryable<Message> query = Database.Context.Messages;
-
             Database.Context.ClientProfiles.Load();
             Database.Context.Dialogs.Load();
             Database.Context.Users.Load();
@@ -61,7 +60,6 @@ namespace ContactS.BLL.Queries
 
                 result.Add(message);
             }
-
             return result.AsQueryable();
         }
     }

@@ -33,10 +33,10 @@ namespace ContactS.BLL.Services
 
         public async Task AddUserToDialog(DialogDTO dialog, UserDTO account)
         {
-            DAL.Entities.Dialog dialogEnt = Database.DialogManager.GetById(dialog.Id);
-            DAL.Entities.ClientProfile userEnt = Database.ClientManager.GetById(account.Id);
+            DAL.Entities.Dialog dialogEnt = await Database.DialogManager.GetById(dialog.Id);
+            DAL.Entities.ClientProfile userEnt = await Database.ClientManager.GetById(account.Id);
             dialogEnt.ChatUsers.Add(userEnt);
-            Database.DialogManager.Update(dialogEnt);
+            await Database.DialogManager.Update(dialogEnt);
             await Database.SaveAsync();
         }
 
@@ -45,11 +45,11 @@ namespace ContactS.BLL.Services
             int id;
             if (dialogDto.Users.Count == 2)
             {
-                int tmp = CheckIfPrivateDialogExists(dialogDto);
+                int tmp = await CheckIfPrivateDialogExists(dialogDto);
                 if (tmp != -1) return tmp;
             }
             List<DAL.Entities.ClientProfile> list = dialogDto.Users
-                .Select(User => Database.ClientManager.GetById(User.Id))
+                .Select(User => Database.ClientManager.GetById(User.Id).Result)
                 .ToList();
 
             StringBuilder dialogName = new StringBuilder();
@@ -64,7 +64,7 @@ namespace ContactS.BLL.Services
             };
             dialogEnt.ChatUsers.AddRange(list);
 
-            Database.DialogManager.Create(dialogEnt);
+            await Database.DialogManager.Create(dialogEnt);
             await Database.SaveAsync();
             id = dialogEnt.Id;
             return id;
@@ -72,7 +72,7 @@ namespace ContactS.BLL.Services
 
         public async Task DeleteDialog(int dialogId)
         {
-            Database.DialogManager.Delete(dialogId);
+            await Database.DialogManager.Delete(dialogId);
             await Database.SaveAsync();
         }
 
@@ -83,15 +83,15 @@ namespace ContactS.BLL.Services
 
         public async Task EditDialogName(DialogDTO dialogDto)
         {
-            DAL.Entities.Dialog dialog = Database.DialogManager.GetById(dialogDto.Id);
+            DAL.Entities.Dialog dialog = await Database.DialogManager.GetById(dialogDto.Id);
             dialog.Name = dialogDto.Name;
-            Database.DialogManager.Update(dialog);
+            await Database.DialogManager.Update(dialog);
             await Database.SaveAsync();
         }
 
-        public DialogDTO GetDialogById(int Id)
+        public async Task<DialogDTO> GetDialogById(int Id)
         {
-            DAL.Entities.Dialog dialog = Database.DialogManager.GetById(Id);
+            DAL.Entities.Dialog dialog = await Database.DialogManager.GetById(Id);
 
             DialogDTO result = new DialogDTO
             {
@@ -111,9 +111,9 @@ namespace ContactS.BLL.Services
             return result;
         }
 
-        public List<UserDTO> GetUsersInDialog(DialogDTO dialog)
+        public async Task<List<UserDTO>> GetUsersInDialog(DialogDTO dialog)
         {
-            DAL.Entities.Dialog dialogEnt = Database.DialogManager.GetById(dialog.Id);
+            DAL.Entities.Dialog dialogEnt = await Database.DialogManager.GetById(dialog.Id);
 
             List<UserDTO> result = new List<UserDTO>();
             dialogEnt.ChatUsers.ForEach(m => result.Add(new UserDTO
@@ -127,7 +127,7 @@ namespace ContactS.BLL.Services
             return result;
         }
 
-        public DialogListDTO ListDialogs(DialogFilter filter, int page = 0)
+        public async Task<DialogListDTO> ListDialogs(DialogFilter filter, int page = 0)
         {
             IQuery<DialogDTO> query = GetChatQuery(filter);
             query.Skip = (page > 0 ? page - 1 : 0) * DialogPageSize;
@@ -145,17 +145,17 @@ namespace ContactS.BLL.Services
 
         public async Task RemoveUserFromDialog(DialogDTO dialog, UserDTO account)
         {
-            DAL.Entities.Dialog dialogEnt = Database.DialogManager.GetById(dialog.Id);
-            DAL.Entities.ClientProfile userEnt = Database.ClientManager.GetById(account.Id);
+            DAL.Entities.Dialog dialogEnt = await Database.DialogManager.GetById(dialog.Id);
+            DAL.Entities.ClientProfile userEnt = await Database.ClientManager.GetById(account.Id);
 
             dialogEnt.ChatUsers.Remove(userEnt);
 
             if (dialogEnt.ChatUsers.Count == 0)
             {
-                Database.DialogManager.Delete(dialogEnt);
+                await Database.DialogManager.Delete(dialogEnt);
                 return;
             }
-            Database.DialogManager.Update(dialogEnt);
+            await Database.DialogManager.Update(dialogEnt);
             await Database.SaveAsync();
         }
 
@@ -167,9 +167,9 @@ namespace ContactS.BLL.Services
             return query;
         }
 
-        private int CheckIfPrivateDialogExists(DialogDTO privateChat)
+        private async Task<int> CheckIfPrivateDialogExists(DialogDTO privateChat)
         {
-            DialogListDTO tmpChatList = ListDialogs(new DialogFilter { Account = privateChat.Users[0] });
+            DialogListDTO tmpChatList = await ListDialogs(new DialogFilter { Account = privateChat.Users[0] });
             foreach (DialogDTO chatTmp in tmpChatList.ResultDialogs)
             {
                 if (chatTmp.Users.Count != 2) continue;
@@ -180,9 +180,9 @@ namespace ContactS.BLL.Services
             return -1;
         }
 
-        public int HavePrivateDailog(string id1, string id2)
+        public async Task<int> HavePrivateDailog(string id1, string id2)
         {
-            DialogListDTO tmpChatList = ListDialogs(new DialogFilter { Account = new UserDTO { Id = id1 } });
+            DialogListDTO tmpChatList = await ListDialogs(new DialogFilter { Account = new UserDTO { Id = id1 } });
             foreach (DialogDTO chatTmp in tmpChatList.ResultDialogs)
             {
                 if (chatTmp.Users.Count != 2) continue;

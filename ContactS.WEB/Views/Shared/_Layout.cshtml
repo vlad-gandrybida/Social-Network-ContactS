@@ -20,43 +20,57 @@
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent" style="font-size:16px">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        @Html.ActionLink(Resources.Resource.Dialogs, "Index", "Dialog", null, new { @class = "nav-link" })
-                    </li>
-                    <li class="nav-item">
-                        @Html.ActionLink(Resources.Resource.Users, "Index", "Account", null, new { @class = "nav-link" })
-                    </li>
-                    @if (User.IsInRole("admin"))
-                    {
+
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a href="/Admin/Page/Index" class="nav-link">Admin</a>
+                            @Html.ActionLink(Resources.Resource.Dialogs, "Index", "Dialog", null, new { @class = "nav-link" })
                         </li>
-                    }
-                </ul>
-                <ul class="navbar-nav navbar-right">
-                    @if (!User.Identity.IsAuthenticated)
-                    {
-                        <li class="nav-item">@Html.ActionLink(Resources.Resource.Login, "Login", "Account", null, new { @class = "nav-link" })</li>
-                        <li class="nav-item">@Html.ActionLink(Resources.Resource.Registration, "Register", "Account", null, new { @class = "nav-link" })</li>
-                    }
-                    else
-                    {
+                        <li class="nav-item">
+                            @Html.ActionLink(Resources.Resource.Users, "Index", "Account", null, new { @class = "nav-link" })
+                        </li>
+                        @if (User.IsInRole("admin"))
+                        {
+                            <li class="nav-item">
+                                <a href="/Admin/Page/Index" class="nav-link">Admin</a>
+                            </li>
+                        }
+                    </ul>
+                    <ul class="navbar-nav navbar-right">
                         <li class="nav-item">
                             @Html.ActionLink(Resources.Resource.MyPage, "ClientProfile", "Account", new { id = User.Identity.GetUserId() }, new { @class = "nav-link" })
                         </li>
                         <li class="nav-item">@Html.ActionLink(Resources.Resource.LogOut, "Logout", "Account", null, new { @class = "nav-link" })</li>
-                    }
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            @Resources.Resource.CurrentLang
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            @Html.ActionLink("Українська", "ChangeCulture", "Home", new { lang = "ua" }, new { @class = "dropdown-item" })
-                            @Html.ActionLink("English", "ChangeCulture", "Home", new { lang = "en" }, new { @class = "dropdown-item" })
-                        </div>
-                    </li>
-                </ul>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                @Resources.Resource.CurrentLang
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                @Html.ActionLink("Українська", "ChangeCulture", "Home", new { lang = "ua" }, new { @class = "dropdown-item" })
+                                @Html.ActionLink("English", "ChangeCulture", "Home", new { lang = "en" }, new { @class = "dropdown-item" })
+                            </div>
+                        </li>
+                    </ul>
+                }
+                else
+                {
+                    <ul class="navbar-nav mr-auto">
+                    </ul>
+                    <ul class="navbar-nav navbar-right">
+                        <li class="nav-item">@Html.ActionLink(Resources.Resource.Login, "Login", "Account", null, new { @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink(Resources.Resource.Registration, "Register", "Account", null, new { @class = "nav-link" })</li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                @Resources.Resource.CurrentLang
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                @Html.ActionLink("Українська", "ChangeCulture", "Home", new { lang = "ua" }, new { @class = "dropdown-item" })
+                                @Html.ActionLink("English", "ChangeCulture", "Home", new { lang = "en" }, new { @class = "dropdown-item" })
+                            </div>
+                        </li>
+                    </ul>
+                }
             </div>
         </div>
     </nav>
@@ -66,7 +80,7 @@
     <hr />
     <footer class="footer m-0 p-0">
         <div class="container m-0 p-0 pl-4">
-            &copy; @DateTime.Now.Year – @Html.ActionLink(Resources.Resource.Author,"Contact","Home",null,null)
+            &copy; @DateTime.Now.Year – @Html.ActionLink(Resources.Resource.Author, "Contact", "Home", null, null)
         </div>
     </footer>
     @Scripts.Render("~/bundles/jquery")

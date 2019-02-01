@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace ContactS.BLL.Infrastructure
 {
@@ -35,7 +36,7 @@ namespace ContactS.BLL.Infrastructure
             AddSortCriteriaCore(field, direction);
         }
 
-        public IList<TResult> Execute()
+        public  IList<TResult> Execute()
         {
             IQueryable<TResult> query = GetQueryable();
 

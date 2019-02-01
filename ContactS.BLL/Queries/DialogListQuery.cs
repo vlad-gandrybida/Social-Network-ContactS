@@ -6,12 +6,14 @@ using ContactS.DAL.Repositories;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace ContactS.BLL.Queries
 {
     public class DialogListQuery : QueryBase<DialogDTO>
     {
         private UnitOfWork Database;
+
         public DialogListQuery(UnitOfWork unitOfWork)
         {
             Database = unitOfWork;
@@ -23,12 +25,9 @@ namespace ContactS.BLL.Queries
         {
             Database.Context.ClientProfiles.Load();
             Database.Context.Users.Load();
-            Database.Context.Dialogs.Load();
-
+            
             IQueryable<Dialog> query = Database.Context.Dialogs.Local.AsQueryable();
-
-
-
+            
             if (!string.IsNullOrEmpty(Filter.Name))
                 query = query.Where(u => u.Name.ToLower()
                     .Contains(Filter.Name.ToLower()));
@@ -39,6 +38,7 @@ namespace ContactS.BLL.Queries
                         .FirstOrDefault(user => user.Id == Filter.Account.Id)));
 
             List<DialogDTO> result = new List<DialogDTO>();
+
             foreach (Dialog elem in query)
             {
                 DialogDTO dialog = new DialogDTO
@@ -60,7 +60,6 @@ namespace ContactS.BLL.Queries
                 }
                 result.Add(dialog);
             }
-
             return result.AsQueryable();
         }
     }

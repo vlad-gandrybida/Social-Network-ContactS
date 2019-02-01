@@ -23,7 +23,7 @@ namespace ContactS.BLL.Services
 
         public async Task DeleteMessage(int messageId)
         {
-            Database.MessageManager.Delete(messageId);
+            await Database.MessageManager.Delete(messageId);
             await Database.SaveAsync();
         }
 
@@ -39,15 +39,15 @@ namespace ContactS.BLL.Services
 
         public async Task EditMessage(MessageDTO messageDto)
         {
-            DAL.Entities.Message message = Database.MessageManager.GetById(messageDto.Id);
+            DAL.Entities.Message message = await Database.MessageManager.GetById(messageDto.Id);
             message.Content = messageDto.Content;
-            Database.MessageManager.Update(message);
+            await Database.MessageManager.Update(message);
             await Database.SaveAsync();
         }
 
-        public MessageDTO GetMessageById(int id)
+        public async Task<MessageDTO> GetMessageById(int id)
         {
-            DAL.Entities.Message message = Database.MessageManager.GetById(id);
+            DAL.Entities.Message message = await Database.MessageManager.GetById(id);
             MessageDTO result;
             if (message != null)
             {
@@ -73,7 +73,7 @@ namespace ContactS.BLL.Services
             return result;
         }
 
-        public MessageListDTO ListDialogMessages(MessageFilter filter, int page = 0)
+        public async Task<MessageListDTO> ListDialogMessages(MessageFilter filter, int page = 0)
         {
             IQuery<MessageDTO> query = GetMessageQuery(filter);
 
@@ -101,8 +101,8 @@ namespace ContactS.BLL.Services
 
         public async Task<int> PostMessageToDialog(DialogDTO dialog, UserDTO user, MessageDTO message)
         {
-            DAL.Entities.Dialog dialogEnt = Database.DialogManager.GetById(dialog.Id);
-            DAL.Entities.ClientProfile userEnt = Database.ClientManager.GetById(user.Id);
+            DAL.Entities.Dialog dialogEnt = await Database.DialogManager.GetById(dialog.Id);
+            DAL.Entities.ClientProfile userEnt = await Database.ClientManager.GetById(user.Id);
 
             DAL.Entities.Message newMessage = new DAL.Entities.Message
             {
@@ -111,7 +111,7 @@ namespace ContactS.BLL.Services
             newMessage.Time = DateTime.Now;
             newMessage.Sender = userEnt;
             newMessage.Dialog = dialogEnt;
-            Database.MessageManager.Create(newMessage);
+            await Database.MessageManager.Create(newMessage);
             await Database.SaveAsync();
             return newMessage.Id;
         }

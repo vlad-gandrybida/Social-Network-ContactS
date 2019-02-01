@@ -15,8 +15,8 @@ namespace ContactS.BLL.Interfaces
 
         Task DeleteMessage(MessageDTO DialogMessage);
 
-        MessageDTO GetMessageById(int id);
+        Task<MessageDTO> GetMessageById(int id);
 
-        MessageListDTO ListDialogMessages(MessageFilter filter, int page = 0);
+        Task<MessageListDTO> ListDialogMessages(MessageFilter filter, int page = 0);
     }
 }

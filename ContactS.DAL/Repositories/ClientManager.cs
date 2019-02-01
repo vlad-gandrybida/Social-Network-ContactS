@@ -2,6 +2,7 @@
 using ContactS.DAL.Entities;
 using ContactS.DAL.Interfaces;
 using System.Data.Entity;
+using System.Threading.Tasks;
 
 namespace ContactS.DAL.Repositories
 {
@@ -14,10 +15,10 @@ namespace ContactS.DAL.Repositories
             Database = db;
         }
 
-        public void Create(ClientProfile item)
+        public async Task Create(ClientProfile item)
         {
             Database.ClientProfiles.Add(item);
-            Database.SaveChanges();
+            await Database.SaveChangesAsync();
         }
 
         public void Dispose()
@@ -25,28 +26,28 @@ namespace ContactS.DAL.Repositories
             Database.Dispose();
         }
 
-        public ClientProfile GetById(string id)
+        public async Task<ClientProfile> GetById(string id)
         {
-            return Database.ClientProfiles.Find(id);
+            return await Database.ClientProfiles.FindAsync(id);
         }
 
-        public void Update(ClientProfile clientProfile)
+        public async Task Update(ClientProfile clientProfile)
         {
             Database.Entry(clientProfile).State = EntityState.Modified;
-            Database.SaveChanges();
+            await Database.SaveChangesAsync();
         }
 
-        public void Delete(ClientProfile clientProfile)
+        public async Task Delete(ClientProfile clientProfile)
         {
             Database.ClientProfiles.Remove(clientProfile);
-            Database.SaveChanges();
+            await Database.SaveChangesAsync();
         }
 
-        public void Delete(string id)
+        public async Task Delete(string id)
         {
-            ClientProfile clientProfile = Database.ClientProfiles.Find(id);
+            ClientProfile clientProfile = await Database.ClientProfiles.FindAsync(id);
             Database.ClientProfiles.Remove(clientProfile);
-            Database.SaveChanges();
+            await Database.SaveChangesAsync();
         }
     }
 }

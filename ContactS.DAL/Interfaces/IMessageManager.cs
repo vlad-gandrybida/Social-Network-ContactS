@@ -1,18 +1,19 @@
 ﻿using ContactS.DAL.Entities;
 using System;
+using System.Threading.Tasks;
 
 namespace ContactS.DAL.Interfaces
 {
     public interface IMessageManager:IDisposable
     {
-        void Create(Message message);
+        Task Create(Message message);
 
-        Message GetById(int id);
+        Task<Message> GetById(int id);
 
-        void Update(Message message);
+        Task Update(Message message);
 
-        void Delete(Message message);
+        Task Delete(Message message);
 
-        void Delete(int id);
+        Task Delete(int id);
     }
 }

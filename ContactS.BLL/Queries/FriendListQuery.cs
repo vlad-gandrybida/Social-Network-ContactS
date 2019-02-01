@@ -6,12 +6,14 @@ using ContactS.DAL.Repositories;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace ContactS.BLL.Queries
 {
     public class FriendListQuery : QueryBase<FriendshipDTO>
     {
         private UnitOfWork Database;
+
         public FriendListQuery(UnitOfWork unitOfWork)
         {
             Database = unitOfWork;
@@ -31,6 +33,7 @@ namespace ContactS.BLL.Queries
                     || (f.User2.Id.Equals(Filter.Account.Id) && f.User1.Id.Equals(Filter.Account2.Id)));
 
             List<FriendshipDTO> result = new List<FriendshipDTO>();
+
             foreach (Friendship frndshp in query)
             {
                 FriendshipDTO friendship = new FriendshipDTO
@@ -41,7 +44,6 @@ namespace ContactS.BLL.Queries
                 };
                 result.Add(friendship);
             }
-
             return result.AsQueryable();
         }
     }

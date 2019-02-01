@@ -1,18 +1,19 @@
 ﻿using ContactS.DAL.Entities;
 using System;
+using System.Threading.Tasks;
 
 namespace ContactS.DAL.Interfaces
 {
     public interface IFriendshipManager:IDisposable
     {
-        void Create(Friendship friendship);
+        Task Create(Friendship friendship);
 
-        Friendship GetById(int id);
+        Task<Friendship> GetById(int id);
 
-        void Update(Friendship friendship);
+        Task Update(Friendship friendship);
 
-        void Delete(Friendship friendship);
+        Task Delete(Friendship friendship);
 
-        void Delete(int id);
+        Task Delete(int id);
     }
 }

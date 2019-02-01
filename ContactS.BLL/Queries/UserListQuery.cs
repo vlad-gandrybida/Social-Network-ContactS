@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace ContactS.BLL.Queries
 {
@@ -18,8 +19,7 @@ namespace ContactS.BLL.Queries
         {
             Database = unitOfWork;
         }
-
-
+        
         public UserFilter Filter { get; set; }
 
         protected override IQueryable<UserDTO> GetQueryable()
@@ -56,7 +56,6 @@ namespace ContactS.BLL.Queries
                 };
                 result.Add(user);
             }
-
             return result.AsQueryable();
         }
     }

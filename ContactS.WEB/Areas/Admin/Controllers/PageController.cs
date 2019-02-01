@@ -3,6 +3,7 @@ using ContactS.WEB.Areas.Admin.Models;
 using ContactS.WEB.Models.Filters;
 using Microsoft.AspNet.Identity.Owin;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -14,14 +15,15 @@ namespace ContactS.WEB.Areas.Admin.Controllers
     {
         private IUserService UserService => HttpContext.GetOwinContext().GetUserManager<IUserService>();
         private IMessageService MessageService => HttpContext.GetOwinContext().GetUserManager<IMessageService>();
+
         public ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult Messages(int page = 1)
+        public async Task<ActionResult> Messages(int page = 1)
         {
-            BLL.DTO.MessageListDTO ListMessages = MessageService.ListDialogMessages(new BLL.DTO.Filtres.MessageFilter(), page);
+            BLL.DTO.MessageListDTO ListMessages = await MessageService.ListDialogMessages(new BLL.DTO.Filtres.MessageFilter(), page);
             List<AdminMessageViewModel> messages = new List<AdminMessageViewModel>();
             foreach (BLL.DTO.MessageDTO message in ListMessages.ResultMessages)
             {
@@ -39,18 +41,18 @@ namespace ContactS.WEB.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult Messages(AdminMessageViewModel message)
+        public async Task<ActionResult> Messages(AdminMessageViewModel message)
         {
             string Url = Request.UrlReferrer.AbsolutePath;
-            BLL.DTO.MessageDTO edit = MessageService.GetMessageById(message.Id);
+            BLL.DTO.MessageDTO edit = await MessageService.GetMessageById(message.Id);
             edit.Content = message.Content;
-            MessageService.EditMessage(edit);
+            await MessageService.EditMessage(edit);
             return Redirect(Url);
         }
 
-        public ActionResult Users(int page = 1)
+        public async Task<ActionResult> Users(int page = 1)
         {
-            BLL.DTO.UserListDTO ListUsers = UserService.ListUsers(new BLL.DTO.Filtres.UserFilter(), page);
+            BLL.DTO.UserListDTO ListUsers = await UserService.ListUsers(new BLL.DTO.Filtres.UserFilter(), page);
             List<AdminUsersViewModel> users = new List<AdminUsersViewModel>();
             foreach (BLL.DTO.UserDTO user in ListUsers.ResultUsers)
             {
@@ -70,12 +72,12 @@ namespace ContactS.WEB.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult Users(AdminUsersViewModel user)
+        public async Task<ActionResult> Users(AdminUsersViewModel user)
         {
             string Url = Request.UrlReferrer.AbsolutePath;
-            BLL.DTO.UserDTO edit = UserService.GetUserById(user.Id);
+            BLL.DTO.UserDTO edit = await UserService.GetUserById(user.Id);
             edit.Role = user.Role;
-            UserService.EditUser(edit);
+            await UserService.EditUser(edit);
             return Redirect(Url);
         }
     }

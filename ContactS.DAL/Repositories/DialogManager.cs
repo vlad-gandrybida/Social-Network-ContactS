@@ -2,6 +2,7 @@
 using ContactS.DAL.Entities;
 using ContactS.DAL.Interfaces;
 using System.Data.Entity;
+using System.Threading.Tasks;
 
 namespace ContactS.DAL.Repositories
 {
@@ -14,10 +15,10 @@ namespace ContactS.DAL.Repositories
             Database = db;
         }
 
-        public void Create(Dialog item)
+        public async Task Create(Dialog item)
         {
             Database.Dialogs.Add(item);
-            Database.SaveChanges();
+            await Database.SaveChangesAsync();
         }
 
         public void Dispose()
@@ -25,28 +26,28 @@ namespace ContactS.DAL.Repositories
             Database.Dispose();
         }
 
-        public Dialog GetById(int id)
+        public async Task<Dialog> GetById(int id)
         {
-            return Database.Dialogs.Find(id);
+            return await Database.Dialogs.FindAsync(id);
         }
 
-        public void Update(Dialog dialog)
+        public async Task Update(Dialog dialog)
         {
             Database.Entry(dialog).State = EntityState.Modified;
-            Database.SaveChanges();
+            await Database.SaveChangesAsync();
         }
 
-        public void Delete(Dialog dialog)
+        public async Task Delete(Dialog dialog)
         {
             Database.Dialogs.Remove(dialog);
-            Database.SaveChanges();
+            await Database.SaveChangesAsync();
         }
 
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
-            Dialog dialog = Database.Dialogs.Find(id);
+            Dialog dialog = await Database.Dialogs.FindAsync(id);
             Database.Dialogs.Remove(dialog);
-            Database.SaveChanges();
+            await Database.SaveChangesAsync();
         }
     }
 }

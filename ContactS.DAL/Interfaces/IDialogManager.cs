@@ -1,18 +1,19 @@
 ﻿using ContactS.DAL.Entities;
 using System;
+using System.Threading.Tasks;
 
 namespace ContactS.DAL.Interfaces
 {
     public interface IDialogManager:IDisposable
     {
-        void Create(Dialog dialog);
+        Task Create(Dialog dialog);
 
-        Dialog GetById(int id);
+        Task<Dialog> GetById(int id);
 
-        void Update(Dialog dialog);
+        Task Update(Dialog dialog);
 
-        void Delete(Dialog dialog);
+        Task Delete(Dialog dialog);
 
-        void Delete(int id);
+        Task Delete(int id);
     }
 }

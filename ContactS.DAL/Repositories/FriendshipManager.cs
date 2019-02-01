@@ -2,6 +2,7 @@
 using ContactS.DAL.Entities;
 using ContactS.DAL.Interfaces;
 using System.Data.Entity;
+using System.Threading.Tasks;
 
 namespace ContactS.DAL.Repositories
 {
@@ -13,10 +14,10 @@ namespace ContactS.DAL.Repositories
             Database = db;
         }
 
-        public void Create(Friendship item)
+        public async Task Create(Friendship item)
         {
             Database.Friendships.Add(item);
-            Database.SaveChanges();
+            await Database.SaveChangesAsync();
         }
 
         public void Dispose()
@@ -24,28 +25,28 @@ namespace ContactS.DAL.Repositories
             Database.Dispose();
         }
 
-        public Friendship GetById(int id)
+        public async Task<Friendship> GetById(int id)
         {
-            return Database.Friendships.Find(id);
+            return await Database.Friendships.FindAsync(id);
         }
 
-        public void Update(Friendship friendship)
+        public async Task Update(Friendship friendship)
         {
             Database.Entry(friendship).State = EntityState.Modified;
-            Database.SaveChanges();
+            await Database.SaveChangesAsync();
         }
 
-        public void Delete(Friendship friendship)
+        public async Task Delete(Friendship friendship)
         {
             Database.Friendships.Remove(friendship);
-            Database.SaveChanges();
+            await Database.SaveChangesAsync();
         }
 
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
-            Friendship friendship = Database.Friendships.Find(id);
+            Friendship friendship = await Database.Friendships.FindAsync(id);
             Database.Friendships.Remove(friendship);
-            Database.SaveChanges();
+            await Database.SaveChangesAsync();
         }
     }
 }

@@ -115,30 +115,30 @@ namespace ContactS.WEB.Controllers
             return View(model);
         }
 
-        public ActionResult Delete(string id)
+        public async Task<ActionResult> Delete(string id)
         {
-            return View(UserService.GetUserById(User.Identity.GetUserId()));
+            return View(await UserService.GetUserById(User.Identity.GetUserId()));
         }
 
         [HttpPost]
-        public ActionResult Delete(UserDTO account)
+        public async Task<ActionResult> Delete(UserDTO account)
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
 
-            UserService.DeleteUser(account.Id);
+            await UserService.DeleteUser(account.Id);
             return RedirectToAction("Index", "Home");
         }
 
-        public ActionResult Edit()
+        public async Task<ActionResult> Edit()
         {
-            return View(UserService.GetUserById(User.Identity.GetUserId()));
+            return View(await UserService.GetUserById(User.Identity.GetUserId()));
         }
 
         [HttpPost]
-        public ActionResult Edit(UserViewModel user)
+        public async Task<ActionResult> Edit(UserViewModel user)
         {
             string Url = Request.UrlReferrer.AbsolutePath;
-            UserService.EditUser(new UserDTO {
+            await UserService.EditUser(new UserDTO {
                 Id = user.Id,
                 Name = user.Name,
                 Email = user.Email,
@@ -149,17 +149,20 @@ namespace ContactS.WEB.Controllers
             return Redirect(Url);
         }
 
-        public ActionResult AddToFriend(string Id)
+        public async Task<ActionResult> AddToFriend(string Id)
         {
             string Url = Request.UrlReferrer.AbsolutePath;
-            UserService.AddUsersToFriends(UserService.GetUserById(User.Identity.GetUserId()),
-                UserService.GetUserById(Id));
+            Task<UserDTO> user1 = UserService.GetUserById(User.Identity.GetUserId());
+            Task<UserDTO> user2 = UserService.GetUserById(Id);
+            await Task.WhenAll(user1, user2);
+            await UserService.AddUsersToFriends(user1.Result,
+                user2.Result);
             return Redirect(Url);
         }
 
-        public ActionResult ClientProfile(string id)
+        public async Task<ActionResult> ClientProfile(string id)
         {
-            UserDTO user = UserService.GetUserById(id);
+            UserDTO user = await UserService.GetUserById(id);
             return View(new ClientProfileViewModel
             {
                 userInfo = new UserViewModel {
@@ -169,8 +172,8 @@ namespace ContactS.WEB.Controllers
                     Address = user.Address,
                     UserName = user.UserName
                 },
-                Relation = UserService.AreUsersIsFriends(user,
-                    UserService.GetUserById(User.Identity.GetUserId())) ? 1 : user.Id == User.Identity.GetUserId() ? 0 : -1
+                Relation = await UserService.AreUsersIsFriends(user,
+                    await UserService.GetUserById(User.Identity.GetUserId())) ? 1 : user.Id == User.Identity.GetUserId() ? 0 : -1
             });
         }
 
@@ -188,9 +191,9 @@ namespace ContactS.WEB.Controllers
         }
 
 
-        public ActionResult Search(SearchModel search, int page = 1)
+        public async Task<ActionResult> Search(SearchModel search, int page = 1)
         {
-            UserListDTO users = UserService.ListUsers(new BLL.DTO.Filtres.UserFilter
+            UserListDTO users = await UserService.ListUsers(new BLL.DTO.Filtres.UserFilter
             {
                 Login = search.UserName,
                 Name = search.Name,
@@ -203,8 +206,8 @@ namespace ContactS.WEB.Controllers
                 items.Add(new UserListItemModel
                 {
                     user = item,
-                    IsFriend = UserService.AreUsersIsFriends(item,
-                    UserService.GetUserById(User.Identity.GetUserId())) ? 1 : item.Id == User.Identity.GetUserId() ? 0 : -1,
+                    IsFriend = await UserService.AreUsersIsFriends(item,
+                    await UserService.GetUserById(User.Identity.GetUserId())) ? 1 : item.Id == User.Identity.GetUserId() ? 0 : -1,
                 });
             }
             if (Request.IsAjaxRequest())
@@ -214,10 +217,13 @@ namespace ContactS.WEB.Controllers
             return View(new SearcModelList { SearchModel = search, Users = items });
         }
 
-        public ActionResult RemoveFromFriends(string id)
+        public async Task<ActionResult> RemoveFromFriends(string id)
         {
             string Url = Request.UrlReferrer.AbsolutePath;
-            UserService.RemoveUsersFromFriends(UserService.GetUserById(id), UserService.GetUserById(User.Identity.GetUserId()));
+            Task<UserDTO> user1 = UserService.GetUserById(User.Identity.GetUserId());
+            Task<UserDTO> user2 = UserService.GetUserById(id);
+            await Task.WhenAll(user1, user2);
+            await UserService.RemoveUsersFromFriends(user1.Result, user2.Result);
             return Redirect(Url);
         }
     }

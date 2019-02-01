@@ -20,10 +20,10 @@ namespace ContactS.BLL.Interfaces
         Task AddUserToDialog(DialogDTO Dialog, UserDTO account);
         Task AddUsersToDialog(DialogDTO Dialog, List<UserDTO> accounts);
 
-        DialogDTO GetDialogById(int id);
-        int HavePrivateDailog(string id1, string id2);
-        DialogListDTO ListDialogs(DialogFilter filter, int page = 0);
+        Task<DialogDTO> GetDialogById(int id);
+        Task<int> HavePrivateDailog(string id1, string id2);
+        Task<DialogListDTO> ListDialogs(DialogFilter filter, int page = 0);
 
-        List<UserDTO> GetUsersInDialog(DialogDTO Dialog);
+        Task<List<UserDTO>> GetUsersInDialog(DialogDTO Dialog);
     }
 }

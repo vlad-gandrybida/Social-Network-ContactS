@@ -36,7 +36,7 @@ namespace ContactS.BLL.Services
                 await Database.UserManager.AddToRoleAsync(user.Id, "user");
 
                 ClientProfile clientProfile = new ClientProfile { Id = user.Id, Address = userDto.Address, Name = userDto.Name };
-                Database.ClientManager.Create(clientProfile);
+                await Database.ClientManager.Create(clientProfile);
                 await Database.SaveAsync();
                 return 1;
             }
@@ -46,9 +46,9 @@ namespace ContactS.BLL.Services
             }
         }
 
-        public bool AreUserExist(string userName)
+        public async Task<bool> AreUserExist(string userName)
         {
-            return (Database.UserManager.FindByName(userName) == null);
+            return (await Database.UserManager.FindByNameAsync(userName) == null);
         }
 
         public async Task<ClaimsIdentity> Authenticate(UserDTO userDto)
@@ -65,18 +65,18 @@ namespace ContactS.BLL.Services
 
         public async Task DeleteUser(string id)
         {
-            ClientProfile user = Database.ClientManager.GetById(id);
-            Database.ClientManager.Delete(id);
-            Database.UserManager.Delete(Database.UserManager.FindById(id));
+            ClientProfile user = await Database.ClientManager.GetById(id);
+            await Database.ClientManager.Delete(id);
+            await Database.UserManager.DeleteAsync(Database.UserManager.FindById(id));
             await Database.SaveAsync();
         }
 
         public async Task EditUser(UserDTO account)
         {
-            ClientProfile acc = Database.ClientManager.GetById(account.Id);
+            ClientProfile acc = await Database.ClientManager.GetById(account.Id);
             acc.Address = account.Address;
             acc.Name = account.Name;
-            Database.ClientManager.Update(acc);
+            await Database.ClientManager.Update(acc);
             ApplicationUser user = Database.UserManager.Users.FirstOrDefault(u => u.Id == account.Id);
             if (user == null) return;
 
@@ -97,7 +97,7 @@ namespace ContactS.BLL.Services
             }
                 
 
-            Database.UserManager.Update(user);
+            await Database.UserManager.UpdateAsync(user);
             await Database.SaveAsync();
         }
 
@@ -108,10 +108,10 @@ namespace ContactS.BLL.Services
 
         public async Task AddUsersToFriends(string id1, string id2)
         {
-            ClientProfile user1 = Database.ClientManager.GetById(id1);
-            ClientProfile user2 = Database.ClientManager.GetById(id2);
+            ClientProfile user1 = await Database.ClientManager.GetById(id1);
+            ClientProfile user2 = await Database.ClientManager.GetById(id2);
 
-            Database.FriendshipManager.Create(new Friendship(user1, user2));
+            await Database.FriendshipManager.Create(new Friendship(user1, user2));
             await Database.SaveAsync();
         }
 
@@ -126,13 +126,13 @@ namespace ContactS.BLL.Services
 
         public async Task RemoveFriendship(FriendshipDTO friendship)
         {
-            Database.FriendshipManager.Delete(Database.FriendshipManager.GetById(friendship.Id));
+            await Database.FriendshipManager.Delete(await Database.FriendshipManager.GetById(friendship.Id));
             await Database.SaveAsync();
         }
 
-        public UserDTO GetUserById(string id)
+        public async Task<UserDTO> GetUserById(string id)
         {
-            ClientProfile client = Database.ClientManager.GetById(id);
+            ClientProfile client = await Database.ClientManager.GetById(id);
             return new UserDTO
             {
                 Id = client.Id,
@@ -146,7 +146,7 @@ namespace ContactS.BLL.Services
 
         private int UserPageSize => 15;
 
-        public UserListDTO ListUsers(UserFilter filter, int page = 0)
+        public async Task<UserListDTO> ListUsers(UserFilter filter, int page = 0)
         {
             IQuery<UserDTO> query = GetQuery(filter);
             query.Skip = (page > 0 ? page - 1 : 0) * UserPageSize;
@@ -163,7 +163,7 @@ namespace ContactS.BLL.Services
             };
         }
 
-        public List<UserDTO> ListFriendsOfUser(UserDTO account, int page = 0)
+        public async Task<List<UserDTO>> ListFriendsOfUser(UserDTO account, int page = 0)
         {
             FriendshipFilter filter = new FriendshipFilter { Account = account };
 
@@ -186,8 +186,8 @@ namespace ContactS.BLL.Services
                 ClientProfile tmpUs = null;
 
 
-                if (friendship.User1Id.Equals(account.Id)) tmpUs = Database.ClientManager.GetById(friendship.User2Id);
-                else if (friendship.User2Id.Equals(account.Id)) tmpUs = Database.ClientManager.GetById(friendship.User1Id);
+                if (friendship.User1Id.Equals(account.Id)) tmpUs = await Database.ClientManager.GetById(friendship.User2Id);
+                else if (friendship.User2Id.Equals(account.Id)) tmpUs = await Database.ClientManager.GetById(friendship.User1Id);
 
                 retList.Add(new UserDTO
                 {
@@ -240,10 +240,10 @@ namespace ContactS.BLL.Services
             return query;
         }
 
-        public bool AreUsersIsFriends(UserDTO User1Id, UserDTO User2Id)
+        public async Task<bool> AreUsersIsFriends(UserDTO User1Id, UserDTO User2Id)
         {
             FriendshipFilter filter = new FriendshipFilter { Account = User1Id, Account2 = User2Id };
-            return GetQuery(filter).Execute().Any();
+            return (GetQuery(filter).Execute()).Any();
         }
 
     }

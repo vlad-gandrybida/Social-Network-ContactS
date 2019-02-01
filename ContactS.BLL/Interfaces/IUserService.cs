@@ -11,7 +11,7 @@ namespace ContactS.BLL.Interfaces
     {
         Task<int> Create(UserDTO userDto);
         Task<ClaimsIdentity> Authenticate(UserDTO userDto);
-        bool AreUserExist(string userName);
+        Task<bool> AreUserExist(string userName);
         Task DeleteUser(string id);
 
         Task EditUser(UserDTO account);
@@ -21,10 +21,10 @@ namespace ContactS.BLL.Interfaces
         Task RemoveFriendship(FriendshipDTO friendship);
 
 
-        UserDTO GetUserById(string id);
-        UserListDTO ListUsers(UserFilter filter, int page = 0);
-        List<UserDTO> ListFriendsOfUser(UserDTO account, int page = 0);
-        bool AreUsersIsFriends(UserDTO User1Id, UserDTO User2Id);
+        Task<UserDTO> GetUserById(string id);
+        Task<UserListDTO> ListUsers(UserFilter filter, int page = 0);
+        Task<List<UserDTO>> ListFriendsOfUser(UserDTO account, int page = 0);
+        Task<bool> AreUsersIsFriends(UserDTO User1Id, UserDTO User2Id);
 
         Task SetInitialData(UserDTO adminDto, List<string> roles);
     }

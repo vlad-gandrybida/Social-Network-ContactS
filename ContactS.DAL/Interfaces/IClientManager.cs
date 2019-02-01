@@ -1,18 +1,19 @@
 ﻿using ContactS.DAL.Entities;
 using System;
+using System.Threading.Tasks;
 
 namespace ContactS.DAL.Interfaces
 {
     public interface IClientManager:IDisposable
     {
-        void Create(ClientProfile clientProfile);
+        Task Create(ClientProfile clientProfile);
 
-        ClientProfile GetById(string id);
+        Task<ClientProfile> GetById(string id);
 
-        void Update(ClientProfile clientProfile);
+        Task Update(ClientProfile clientProfile);
 
-        void Delete(ClientProfile clientProfile);
+        Task Delete(ClientProfile clientProfile);
 
-        void Delete(string id);
+        Task Delete(string id);
     }
 }
