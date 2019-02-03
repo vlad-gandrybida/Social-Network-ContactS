@@ -307,7 +307,7 @@
     <value>Tincidunt arcu non sodales neque sodales. Aliquam sem fringilla ut morbi tincidunt augue. Est pellentesque elit ullamcorper dignissim cras tincidunt lobortis. Pharetra diam sit amet nisl suscipit adipiscing bibendum. Tristique nulla aliquet enim tortor at. Nec nam aliquam sem et tortor consequat. A condimentum vitae sapien pellentesque habitant morbi. Sit amet nulla facilisi morbi tempus iaculis urna. Vel eros donec ac odio tempor orci dapibus ultrices. Elementum facilisis leo vel fringilla est ullamcorper eget.</value>
   </data>
   <data name="SocialText" xml:space="preserve">
-    <value>ContactS - абсолютно безкоштовна, та перша по-справжньому соціальна мережа.</value>
+    <value>ContactS is absolutely free, and the first truly social network.</value>
   </data>
   <data name="Speed" xml:space="preserve">
     <value>Speed</value>
@@ -316,7 +316,7 @@
     <value>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</value>
   </data>
   <data name="SpeedText" xml:space="preserve">
-    <value>ContactS - надзвичайно швидка соціальна мережа, яка миттєво відзивається на ваші команди.</value>
+    <value>ContactS is an extremely fast social network that instantly hits your commands.</value>
   </data>
   <data name="Style" xml:space="preserve">
     <value>Style</value>
@@ -325,7 +325,7 @@
     <value>Libero enim sed faucibus turpis in eu mi bibendum. Quis commodo odio aenean sed adipiscing diam donec adipiscing tristique. In hendrerit gravida rutrum quisque non. Neque volutpat ac tincidunt vitae semper quis lectus nulla at. Erat velit scelerisque in dictum. Tortor at auctor urna nunc id. Justo donec enim diam vulputate. Scelerisque eu ultrices vitae auctor. Leo in vitae turpis massa sed elementum tempus egestas sed. At volutpat diam ut venenatis tellus in metus.</value>
   </data>
   <data name="StyleText" xml:space="preserve">
-    <value>ContactS - працює на Bootstrap 4, що дає їй можливіть вглядати однаково привабливо на всіх пристроя.</value>
+    <value>ContactS - works on Bootstrap 4, which gives it an opportunity to look equally attractive on all devices.</value>
   </data>
   <data name="Submit" xml:space="preserve">
     <value>Submit</value>
@@ -365,5 +365,8 @@
   </data>
   <data name="YourFriend" xml:space="preserve">
     <value>Your friend</value>
+  </data>
+  <data name="lang" xml:space="preserve">
+    <value>en</value>
   </data>
 </root>

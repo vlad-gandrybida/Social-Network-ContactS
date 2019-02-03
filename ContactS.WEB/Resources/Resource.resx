@@ -366,4 +366,7 @@
   <data name="Yes" xml:space="preserve">
     <value>Так</value>
   </data>
+  <data name="lang" xml:space="preserve">
+    <value>ua</value>
+  </data>
 </root>

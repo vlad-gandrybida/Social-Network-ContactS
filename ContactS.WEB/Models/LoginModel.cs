@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using ContactS.WEB.Models.Filters;
+using System.ComponentModel.DataAnnotations;
 
 namespace ContactS.WEB.Models
 {
@@ -17,12 +18,11 @@ namespace ContactS.WEB.Models
 
         [Required(ErrorMessageResourceType = typeof(Resources.Resource),
                   ErrorMessageResourceName = "ErrorRequired")]
-        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])\S{8,16}$",
-                           ErrorMessageResourceType = typeof(Resources.Resource),
-                           ErrorMessageResourceName = "WrongPassword")]
         [StringLength(16, MinimumLength = 8,
                       ErrorMessageResourceType = typeof(Resources.Resource),
                       ErrorMessageResourceName = "PasswordLengthError")]
+        [Password(ErrorMessageResourceType = typeof(Resources.Resource),
+                  ErrorMessageResourceName = "WrongPassword")]
         [Display(Name = "Password", ResourceType = typeof(Resources.Resource))]
         [DataType(DataType.Password)]
         public string Password { get; set; }

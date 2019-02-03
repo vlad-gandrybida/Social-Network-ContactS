@@ -15,8 +15,7 @@ using WebGrease.Css.Extensions;
 namespace ContactS.WEB.Controllers
 {
     [Authorize]
-    [Culture]
-    public class DialogController : Controller
+    public class DialogController : MyController
     {
         private IDialogService DialogService => HttpContext.GetOwinContext().GetUserManager<IDialogService>();
 

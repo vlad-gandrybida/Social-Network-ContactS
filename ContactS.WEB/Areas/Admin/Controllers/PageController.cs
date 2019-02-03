@@ -1,6 +1,6 @@
 ﻿using ContactS.BLL.Interfaces;
 using ContactS.WEB.Areas.Admin.Models;
-using ContactS.WEB.Models.Filters;
+using ContactS.WEB.Controllers;
 using Microsoft.AspNet.Identity.Owin;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -9,9 +9,8 @@ using System.Web.Mvc;
 
 namespace ContactS.WEB.Areas.Admin.Controllers
 {
-    [Culture]
     [Authorize(Roles = "admin")]
-    public class PageController : Controller
+    public class PageController : MyController
     {
         private IUserService UserService => HttpContext.GetOwinContext().GetUserManager<IUserService>();
         private IMessageService MessageService => HttpContext.GetOwinContext().GetUserManager<IMessageService>();

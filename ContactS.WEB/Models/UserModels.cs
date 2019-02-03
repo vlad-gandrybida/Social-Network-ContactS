@@ -1,4 +1,5 @@
 ﻿using ContactS.BLL.DTO;
+using ContactS.WEB.Models.Filters;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -28,6 +29,7 @@ namespace ContactS.WEB.Models
         public UserViewModel userInfo { get; set; }
         public int Relation { get; set; }
     }
+    
     public class UserViewModel
     {
         [Required(ErrorMessageResourceType = typeof(Resources.Resource),
@@ -52,12 +54,11 @@ namespace ContactS.WEB.Models
         [Display(Name = "Email", ResourceType = typeof(Resources.Resource))]
         public string Email { get; set; }
 
-        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])\S{8,16}$",
-                           ErrorMessageResourceType = typeof(Resources.Resource),
-                           ErrorMessageResourceName = "WrongPassword")]
         [StringLength(16, MinimumLength = 8,
                       ErrorMessageResourceType = typeof(Resources.Resource),
                       ErrorMessageResourceName = "PasswordLengthError")]
+        [Password(ErrorMessageResourceType = typeof(Resources.Resource),
+                  ErrorMessageResourceName = "WrongPassword")]
         [Display(Name = "Password", ResourceType = typeof(Resources.Resource))]
         [DataType(DataType.Password)]
         public string Password { get; set; }

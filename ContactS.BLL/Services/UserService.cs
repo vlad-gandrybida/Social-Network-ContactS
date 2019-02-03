@@ -48,7 +48,8 @@ namespace ContactS.BLL.Services
 
         public async Task<bool> AreUserExist(string userName)
         {
-            return (await Database.UserManager.FindByNameAsync(userName) == null);
+            ApplicationUser user = Database.UserManager.FindByName(userName);
+            return (user == null);
         }
 
         public async Task<ClaimsIdentity> Authenticate(UserDTO userDto)

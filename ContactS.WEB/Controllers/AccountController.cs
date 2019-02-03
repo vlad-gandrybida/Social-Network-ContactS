@@ -14,8 +14,7 @@ using System.Web.Mvc;
 namespace ContactS.WEB.Controllers
 {
     [Authorize]
-    [Culture]
-    public class AccountController : Controller
+    public class AccountController : MyController
     {
         private IUserService UserService => HttpContext.GetOwinContext().GetUserManager<IUserService>();
 
@@ -33,13 +32,13 @@ namespace ContactS.WEB.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet]
-        public JsonResult CheckUsername(string username)
+        public async Task<JsonResult> CheckUsername(string Login)
         {
-            var result = UserService.AreUserExist(username);
+            var result = await UserService.AreUserExist(Login);
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
+        [Culture]
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]

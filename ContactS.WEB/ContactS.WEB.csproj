@@ -166,11 +166,14 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\DialogController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MyController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\DialogModels.cs" />
     <Compile Include="Models\Filters\CultureAttribute.cs" />
+    <Compile Include="Models\Filters\PasswordAttribute.cs" />
+    <Compile Include="Models\Filters\LanguageMang.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\RegisterModel.cs" />
     <Compile Include="Models\UserModels.cs" />

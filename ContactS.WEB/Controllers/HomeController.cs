@@ -6,8 +6,7 @@ using System.Web.Mvc;
 
 namespace ContactS.WEB.Controllers
 {
-    [Culture]
-    public class HomeController : Controller
+    public class HomeController : MyController
     {
         public ActionResult Index()
         {
@@ -27,25 +26,9 @@ namespace ContactS.WEB.Controllers
         public ActionResult ChangeCulture(string lang)
         {
             string returnUrl = Request.UrlReferrer.AbsolutePath;
-            // Список культур
-            List<string> cultures = new List<string>() { "ua", "en" };
-            if (!cultures.Contains(lang))
-            {
-                lang = "ua";
-            }
 
-            HttpCookie cookie = Request.Cookies["lang"];
-            if (cookie != null)
-                cookie.Value = lang;
-            else
-            {
+            new LanguageMang().SetLanguage(lang);
 
-                cookie = new HttpCookie("lang");
-                cookie.HttpOnly = false;
-                cookie.Value = lang;
-                cookie.Expires = DateTime.Now.AddYears(1);
-            }
-            Response.Cookies.Add(cookie);
             return Redirect(returnUrl);
         }
 

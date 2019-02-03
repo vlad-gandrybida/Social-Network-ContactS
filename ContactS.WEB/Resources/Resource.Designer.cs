@@ -367,6 +367,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на ua.
+        /// </summary>
+        public static string lang {
+            get {
+                return ResourceManager.GetString("lang", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Дізнатися більше.
         /// </summary>
         public static string LearnMore {
