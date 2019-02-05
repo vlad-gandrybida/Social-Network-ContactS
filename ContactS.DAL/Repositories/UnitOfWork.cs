@@ -18,6 +18,7 @@ namespace ContactS.DAL.Repositories
         private IMessageManager messageManager;
         private IDialogManager dialogManager;
         private IFriendshipManager friendshipManager;
+        private IRequestManager requestManager;
 
         public UnitOfWork(string connectionString)
         {
@@ -28,6 +29,7 @@ namespace ContactS.DAL.Repositories
             messageManager = new MessageManager(db);
             dialogManager = new DialogManager(db);
             friendshipManager = new FriendshipManager(db);
+            requestManager = new RequestManager(db);
         }
 
         public ApplicationUserManager UserManager => userManager;
@@ -39,6 +41,8 @@ namespace ContactS.DAL.Repositories
         public IDialogManager DialogManager => dialogManager;
 
         public IFriendshipManager FriendshipManager => friendshipManager;
+
+        public IRequestManager RequestManager => requestManager;
 
         public ApplicationRoleManager RoleManager => roleManager;
 

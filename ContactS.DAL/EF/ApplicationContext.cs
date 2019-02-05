@@ -20,6 +20,7 @@ namespace ContactS.DAL.EF
         public DbSet<Friendship> Friendships { get; set; }
         public DbSet<Message> Messages { get; set; }
         public DbSet<Dialog> Dialogs { get; set; }
+        public DbSet<Request> Requests { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -35,32 +36,22 @@ namespace ContactS.DAL.EF
                 .WithMany()
                 .WillCascadeOnDelete(false);
 
+            modelBuilder.Entity<Request>()
+                .HasRequired(r => r.Receiver)
+                .WithMany()
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Request>()
+                .HasRequired(r => r.Sender)
+                .WithMany()
+                .WillCascadeOnDelete(true);
+
+
             //modelBuilder.Entity<ClientProfile>()
             //    .HasOptional(u => u.ApplicationUser)
-            //    .WithRequired(u => u.ClientProfile);
-            //						.WillCascadeOnDelete(true);
+            //    .WithRequired(u => u.ClientProfile)
+            //	  .WillCascadeOnDelete(true);
         }
-
-        //      private void InitializeDbContext()
-        //{
-        //	Database.SetInitializer(new AppDbInitializer());
-        //}
     }
-
-    //public class AppDbInitializer : CreateDatabaseIfNotExists<ApplicationContext>
-    //{
-    //    public override void InitializeDatabase(ApplicationContext context)
-    //    {
-    //        base.InitializeDatabase(context);
-    //        //			Init(context);
-
-    //        context.SaveChanges();
-    //    }
-
-    //    private static void Init(ApplicationContext context)
-    //    {
-
-    //    }
-    //}
 }
 

@@ -32,6 +32,8 @@ namespace ContactS.BLL.Queries
                     (f.User1.Id.Equals(Filter.Account.Id) && f.User2.Id.Equals(Filter.Account2.Id))
                     || (f.User2.Id.Equals(Filter.Account.Id) && f.User1.Id.Equals(Filter.Account2.Id)));
 
+            if (query == null) return null;
+
             List<FriendshipDTO> result = new List<FriendshipDTO>();
 
             foreach (Friendship frndshp in query)

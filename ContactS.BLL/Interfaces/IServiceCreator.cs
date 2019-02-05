@@ -7,5 +7,7 @@
         IMessageService CreateMessageService(string connection);
 
         IDialogService CreateDialogService(string connection);
+
+        IRequestService CreateRequestService(string connection);
     }
 }

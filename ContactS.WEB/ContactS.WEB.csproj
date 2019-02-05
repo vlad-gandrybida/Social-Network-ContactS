@@ -171,7 +171,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\DialogModels.cs" />
-    <Compile Include="Models\Filters\CultureAttribute.cs" />
     <Compile Include="Models\Filters\PasswordAttribute.cs" />
     <Compile Include="Models\Filters\LanguageMang.cs" />
     <Compile Include="Models\LoginModel.cs" />
@@ -286,6 +285,8 @@
     <Content Include="Views\Account\_UserList.cshtml" />
     <Content Include="Views\Account\Search.cshtml" />
     <Content Include="Views\Home\AccessDenied.cshtml" />
+    <Content Include="Views\Account\Requests.cshtml" />
+    <Content Include="Views\Account\_RequestsList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -299,6 +300,10 @@
     <ProjectReference Include="..\ContactS.BLL\ContactS.BLL.csproj">
       <Project>{3f40523e-de56-4779-b9a2-f734b8fb25b9}</Project>
       <Name>ContactS.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ContactS.ENUM\ContactS.ENUM.csproj">
+      <Project>{FD99BA70-3606-495E-9A4C-C7B318C63D83}</Project>
+      <Name>ContactS.ENUM</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

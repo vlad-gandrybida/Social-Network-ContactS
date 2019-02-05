@@ -369,4 +369,10 @@
   <data name="lang" xml:space="preserve">
     <value>ua</value>
   </data>
+  <data name="FriendRequestText" xml:space="preserve">
+    <value>Запит у друзі від</value>
+  </data>
+  <data name="Requests" xml:space="preserve">
+    <value>Запити</value>
+  </data>
 </root>

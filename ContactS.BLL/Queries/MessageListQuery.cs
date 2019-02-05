@@ -36,6 +36,8 @@ namespace ContactS.BLL.Queries
             if (Filter.Chat != null)
                 query = query.Where(c => c.Dialog.Id == Filter.Chat.Id);
 
+            if (query == null) return null;
+
             List<MessageDTO> result = new List<MessageDTO>();
 
             foreach (Message item in query)

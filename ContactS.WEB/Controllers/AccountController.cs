@@ -1,5 +1,6 @@
 ﻿using ContactS.BLL.DTO;
 using ContactS.BLL.Interfaces;
+using ContactS.ENUM.Request;
 using ContactS.WEB.Models;
 using ContactS.WEB.Models.Filters;
 using Microsoft.AspNet.Identity;
@@ -17,6 +18,8 @@ namespace ContactS.WEB.Controllers
     public class AccountController : MyController
     {
         private IUserService UserService => HttpContext.GetOwinContext().GetUserManager<IUserService>();
+
+        private IRequestService RequestService => HttpContext.GetOwinContext().GetUserManager<IRequestService>();
 
         private IAuthenticationManager AuthenticationManager => HttpContext.GetOwinContext().Authentication;
 
@@ -37,8 +40,7 @@ namespace ContactS.WEB.Controllers
             var result = await UserService.AreUserExist(Login);
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-
-        [Culture]
+        
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -151,11 +153,37 @@ namespace ContactS.WEB.Controllers
         public async Task<ActionResult> AddToFriend(string Id)
         {
             string Url = Request.UrlReferrer.AbsolutePath;
-            Task<UserDTO> user1 = UserService.GetUserById(User.Identity.GetUserId());
-            Task<UserDTO> user2 = UserService.GetUserById(Id);
-            await Task.WhenAll(user1, user2);
-            await UserService.AddUsersToFriends(user1.Result,
-                user2.Result);
+            Task<UserDTO> sender = UserService.GetUserById(User.Identity.GetUserId());
+            Task<UserDTO> reciever = UserService.GetUserById(Id);
+            await Task.WhenAll(sender, reciever);
+            await RequestService.SendRequest(new RequestDTO
+            {
+                Sender = sender.Result,
+                Receiver = reciever.Result,
+                Type = RequestType.Friendsip
+            });
+            return Redirect(Url);
+        }
+
+        public async Task<ActionResult> ConfirmRequest(int Id)
+        {
+            string Url = Request.UrlReferrer.AbsolutePath;
+            RequestDTO request = await RequestService.GetRequestById(Id);
+            if(request.Type == RequestType.Friendsip)
+            {
+                await UserService.AddUsersToFriends(request.Receiver, request.Sender);
+            }
+            request.Status = RequestStatus.Confirmed;
+            await RequestService.ConfirmRequest(request);
+            return Redirect(Url);
+        }
+
+        public async Task<ActionResult> CancelRequest(int Id)
+        {
+            string Url = Request.UrlReferrer.AbsolutePath;
+            RequestDTO request = await RequestService.GetRequestById(Id);
+            request.Status = RequestStatus.Canceled;
+            await RequestService.ConfirmRequest(request);
             return Redirect(Url);
         }
 
@@ -224,6 +252,21 @@ namespace ContactS.WEB.Controllers
             await Task.WhenAll(user1, user2);
             await UserService.RemoveUsersFromFriends(user1.Result, user2.Result);
             return Redirect(Url);
+        }
+
+        public async Task<ActionResult> Requests(int page = 1)
+        {
+            var receiver = await UserService.GetUserById(User.Identity.GetUserId());
+            RequestListDTO items = await RequestService.ListRequests( new BLL.DTO.Filtres.RequestFilter
+                {
+                    Receiver = receiver
+                }, page);
+            
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView("_RequestsList", items.ResultRequests);
+            }
+            return View(items.ResultRequests);
         }
     }
 }

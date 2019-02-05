@@ -19,5 +19,10 @@ namespace ContactS.BLL.Services
         {
             return new UserService(new UnitOfWork(connection));
         }
+
+        public IRequestService CreateRequestService(string connection)
+        {
+            return new RequestService(new UnitOfWork(connection));
+        }
     }
 }

@@ -369,4 +369,10 @@
   <data name="lang" xml:space="preserve">
     <value>en</value>
   </data>
+  <data name="FriendRequestText" xml:space="preserve">
+    <value>Friend request from</value>
+  </data>
+  <data name="Requests" xml:space="preserve">
+    <value>Requests</value>
+  </data>
 </root>

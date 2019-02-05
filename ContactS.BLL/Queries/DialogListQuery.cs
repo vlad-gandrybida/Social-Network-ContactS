@@ -37,6 +37,8 @@ namespace ContactS.BLL.Queries
                     .Contains(Database.Context.ClientProfiles
                         .FirstOrDefault(user => user.Id == Filter.Account.Id)));
 
+            if (query == null) return null;
+
             List<DialogDTO> result = new List<DialogDTO>();
 
             foreach (Dialog elem in query)

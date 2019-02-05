@@ -1,0 +1,46 @@
+﻿@model IEnumerable<ContactS.BLL.DTO.RequestDTO>
+
+<div class="list-group">
+    @foreach (var item in Model)
+    {
+        <div class="list-group-item">
+            <div class="container">
+                <div class="row">
+                    <div class="col-10">
+                        <div class="row">
+                            <div class="col-2">
+                                <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png" style="height:50px" class="rounded-circle">
+                            </div>
+                            <div class="col-10">
+                                @if (item.Type == ContactS.ENUM.Request.RequestType.Friendsip)
+                                {
+                                    <h5 class="m-0">@Resources.Resource.FriendRequestText @Html.ActionLink(item.Sender.Name, "ClientProfile", new { Id = item.Sender.Id })</h5>
+                                    <small class="text-muted" style="font-size:0.8rem">@@@item.Sender.UserName</small>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        @if (item.Status == ContactS.ENUM.Request.RequestStatus.Confirmed)
+                        {
+                            <input type="button" class="btn btn-block btn-success disabled" aria-disabled="true" value="✔" />
+                        }
+                        else if (item.Status == ContactS.ENUM.Request.RequestStatus.Canceled)
+                        {
+                            <input type="button" class="btn btn-block btn-danger disabled" aria-disabled="true"  value="✖" />
+                        }
+                        else
+                        {
+                            <div class="btn-block btn-group">
+                                @Html.ActionLink("✔", "ConfirmRequest", new { Id = item.Id }, new { @class = "btn btn-success" })
+                                @Html.ActionLink("✖", "CancelRequest", new { Id = item.Id }, new { @class = "btn btn-danger" })
+                            </div>
+
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>  
+    }
+</div>
+

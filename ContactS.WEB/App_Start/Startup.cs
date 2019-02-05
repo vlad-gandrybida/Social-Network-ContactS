@@ -17,6 +17,7 @@ namespace ContactS.WEB.App_Start
             app.CreatePerOwinContext(CreateUserService);
             app.CreatePerOwinContext(CreateMessageService);
             app.CreatePerOwinContext(CreateDialogService);
+            app.CreatePerOwinContext(CreateRequestService);
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
@@ -37,6 +38,11 @@ namespace ContactS.WEB.App_Start
         private IDialogService CreateDialogService()
         {
             return serviceCreator.CreateDialogService("DefaultConnection");
+        }
+
+        private IRequestService CreateRequestService()
+        {
+            return serviceCreator.CreateRequestService("DefaultConnection");
         }
     }
 }

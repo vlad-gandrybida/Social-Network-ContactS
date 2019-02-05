@@ -61,12 +61,14 @@
     <Compile Include="Entities\Dialog.cs" />
     <Compile Include="Entities\Friendship.cs" />
     <Compile Include="Entities\Message.cs" />
+    <Compile Include="Entities\Request.cs" />
     <Compile Include="Identity\ApplicationRoleManager.cs" />
     <Compile Include="Identity\ApplicationUserManager.cs" />
     <Compile Include="Interfaces\IClientManager.cs" />
     <Compile Include="Interfaces\IDialogManager.cs" />
     <Compile Include="Interfaces\IFriendshipManager.cs" />
     <Compile Include="Interfaces\IMessageManager.cs" />
+    <Compile Include="Interfaces\IRequestManager.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Migrations\201901212300502_InitialCreate.cs" />
     <Compile Include="Migrations\201901212300502_InitialCreate.Designer.cs">
@@ -76,12 +78,25 @@
     <Compile Include="Migrations\201901212313287_Fixed.Designer.cs">
       <DependentUpon>201901212313287_Fixed.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201902041258563_AddRequestsMigration.cs" />
+    <Compile Include="Migrations\201902041258563_AddRequestsMigration.Designer.cs">
+      <DependentUpon>201902041258563_AddRequestsMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902041853498_AddConfirmedColForRequest.cs" />
+    <Compile Include="Migrations\201902041853498_AddConfirmedColForRequest.Designer.cs">
+      <DependentUpon>201902041853498_AddConfirmedColForRequest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902051610558_RequestStatusAdd.cs" />
+    <Compile Include="Migrations\201902051610558_RequestStatusAdd.Designer.cs">
+      <DependentUpon>201902051610558_RequestStatusAdd.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ClientManager.cs" />
     <Compile Include="Repositories\DialogManager.cs" />
     <Compile Include="Repositories\FriendshipManager.cs" />
     <Compile Include="Repositories\MessageManager.cs" />
+    <Compile Include="Repositories\RequestManager.cs" />
     <Compile Include="Repositories\UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -95,6 +110,21 @@
     <EmbeddedResource Include="Migrations\201901212313287_Fixed.resx">
       <DependentUpon>201901212313287_Fixed.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902041258563_AddRequestsMigration.resx">
+      <DependentUpon>201902041258563_AddRequestsMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902041853498_AddConfirmedColForRequest.resx">
+      <DependentUpon>201902041853498_AddConfirmedColForRequest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902051610558_RequestStatusAdd.resx">
+      <DependentUpon>201902051610558_RequestStatusAdd.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ContactS.ENUM\ContactS.ENUM.csproj">
+      <Project>{fd99ba70-3606-495e-9a4c-c7b318c63d83}</Project>
+      <Name>ContactS.ENUM</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

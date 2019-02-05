@@ -12,7 +12,6 @@
     <link href="https://fonts.googleapis.com/css?family=Product+Sans" rel="stylesheet" type="text/css">
 </head>
 <body>
-    @Html.Hidden("lang", Resources.Resource.lang)
     <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
         <div class="container">
             @Html.ActionLink("Contact🆂", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
@@ -30,6 +29,9 @@
                         </li>
                         <li class="nav-item">
                             @Html.ActionLink(Resources.Resource.Users, "Index", "Account", null, new { @class = "nav-link" })
+                        </li>
+                        <li class="nav-item">
+                            @Html.ActionLink(Resources.Resource.Requests, "Requests", "Account", null, new { @class = "nav-link" })
                         </li>
                         @if (User.IsInRole("admin"))
                         {
@@ -56,8 +58,7 @@
                 }
                 else
                 {
-                    <ul class="navbar-nav mr-auto">
-                    </ul>
+                    <ul class="navbar-nav mr-auto"></ul>
                     <ul class="navbar-nav navbar-right">
                         <li class="nav-item">@Html.ActionLink(Resources.Resource.Login, "Login", "Account", null, new { @class = "nav-link" })</li>
                         <li class="nav-item">@Html.ActionLink(Resources.Resource.Registration, "Register", "Account", null, new { @class = "nav-link" })</li>

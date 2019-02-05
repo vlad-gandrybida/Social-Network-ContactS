@@ -41,6 +41,8 @@ namespace ContactS.BLL.Queries
             if (Filter.Address != null)
                 clients = clients.Where(u => u.Address.ToLower().Contains(Filter.Address.ToLower()));
 
+            if (clients == null) return null;
+
             List<UserDTO> result = new List<UserDTO>();
 
             foreach (ClientProfile client in clients)

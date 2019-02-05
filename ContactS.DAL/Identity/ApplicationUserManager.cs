@@ -1,4 +1,5 @@
-﻿using ContactS.DAL.Entities;
+﻿using System;
+using ContactS.DAL.Entities;
 using Microsoft.AspNet.Identity;
 
 namespace ContactS.DAL.Identity
@@ -8,6 +9,11 @@ namespace ContactS.DAL.Identity
         public ApplicationUserManager(IUserStore<ApplicationUser> store)
                 : base(store)
         {
+        }
+
+        public void Load()
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -358,6 +358,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Запит у друзі від.
+        /// </summary>
+        public static string FriendRequestText {
+            get {
+                return ResourceManager.GetString("FriendRequestText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Мої друзі.
         /// </summary>
         public static string Friends {
@@ -552,6 +561,15 @@ namespace Resources {
         public static string RemoveFromFriends {
             get {
                 return ResourceManager.GetString("RemoveFromFriends", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Запити.
+        /// </summary>
+        public static string Requests {
+            get {
+                return ResourceManager.GetString("Requests", resourceCulture);
             }
         }
         

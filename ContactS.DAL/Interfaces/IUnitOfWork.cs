@@ -11,6 +11,7 @@ namespace ContactS.DAL.Interfaces
         IMessageManager MessageManager { get; }
         IDialogManager DialogManager { get; }
         IFriendshipManager FriendshipManager { get; }
+        IRequestManager RequestManager { get; }
         ApplicationRoleManager RoleManager { get; }
         Task SaveAsync();
     }
