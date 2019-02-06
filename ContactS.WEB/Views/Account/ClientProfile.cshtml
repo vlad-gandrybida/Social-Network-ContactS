@@ -1,4 +1,6 @@
-﻿@model ContactS.WEB.Models.ClientProfileViewModel
+﻿@using ContactS.ENUM.User
+
+@model ContactS.WEB.Models.ClientProfileViewModel
 
 @{
     ViewBag.Title = Model.userInfo.Name;
@@ -28,7 +30,7 @@
             }
         }
 
-        @if (Model.Relation == 1)
+        @if (Model.Status == FriendshipStatus.Friend)
         {
             using (Html.BeginForm("Create", "Dialog", FormMethod.Post, new { @class = "form-group mt-2" }))
             {
@@ -39,7 +41,7 @@
                 </div>
             }
         }
-        else if (Model.Relation == -1)
+        else if (Model.Status == FriendshipStatus.Unknown)
         {
             using (Html.BeginForm("Create", "Dialog", FormMethod.Post, new { @class = "form-group mt-2" }))
             {
@@ -50,6 +52,28 @@
                 </div>
             }
 
+        }
+        else if (Model.Status == FriendshipStatus.SendRequest)
+        {
+            using (Html.BeginForm("Create", "Dialog", FormMethod.Post, new { @class = "form-group mt-2" }))
+            {
+                <div class="btn-group-vertical btn-block mt-2">
+                    @Html.ActionLink(Resources.Resource.YouSendRequest, "DeleteRequest", new { id = Model.userInfo.Id }, new { @class = "btn btn-danger" })
+                    <input value="@Model.userInfo.Id" name="id" type="hidden" />
+                    <input type="submit" name="Send" value="@Resources.Resource.Write" class="btn btn-primary" />
+                </div>
+            }
+        }
+        else if (Model.Status == FriendshipStatus.Follower)
+        {
+            using (Html.BeginForm("Create", "Dialog", FormMethod.Post, new { @class = "form-group mt-2" }))
+            {
+                <div class="btn-group-vertical btn-block mt-2">
+                    @Html.ActionLink(Resources.Resource.Follower, "ConfirmRequestFrom", new { id = Model.userInfo.Id }, new { @class = "btn btn-primary" })
+                    <input value="@Model.userInfo.Id" name="id" type="hidden" />
+                    <input type="submit" name="Send" value="@Resources.Resource.Write" class="btn btn-primary" />
+                </div>
+            }
         }
         else
         {

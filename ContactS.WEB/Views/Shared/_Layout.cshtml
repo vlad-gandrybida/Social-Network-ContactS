@@ -23,23 +23,26 @@
 
                 @if (User.Identity.IsAuthenticated)
                 {
-                    <ul class="navbar-nav mr-auto">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        @Html.ActionLink(Resources.Resource.Dialogs, "Index", "Dialog", null, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink(Resources.Resource.Users, "Index", "Account", null, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink(Resources.Resource.Requests, "Requests", "Account", null, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink(Resources.Resource.Friends, "Friends", "Account", null, new { @class = "nav-link" })
+                    </li>
+                    @if (User.IsInRole("admin"))
+                    {
                         <li class="nav-item">
-                            @Html.ActionLink(Resources.Resource.Dialogs, "Index", "Dialog", null, new { @class = "nav-link" })
+                            <a href="/Admin/Page/Index" class="nav-link">Admin</a>
                         </li>
-                        <li class="nav-item">
-                            @Html.ActionLink(Resources.Resource.Users, "Index", "Account", null, new { @class = "nav-link" })
-                        </li>
-                        <li class="nav-item">
-                            @Html.ActionLink(Resources.Resource.Requests, "Requests", "Account", null, new { @class = "nav-link" })
-                        </li>
-                        @if (User.IsInRole("admin"))
-                        {
-                            <li class="nav-item">
-                                <a href="/Admin/Page/Index" class="nav-link">Admin</a>
-                            </li>
-                        }
-                    </ul>
+                    }
+                </ul>
                     <ul class="navbar-nav navbar-right">
                         <li class="nav-item">
                             @Html.ActionLink(Resources.Resource.MyPage, "ClientProfile", "Account", new { id = User.Identity.GetUserId() }, new { @class = "nav-link" })

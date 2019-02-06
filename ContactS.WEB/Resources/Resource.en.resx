@@ -375,4 +375,10 @@
   <data name="Requests" xml:space="preserve">
     <value>Requests</value>
   </data>
+  <data name="Follower" xml:space="preserve">
+    <value>Sent you a request</value>
+  </data>
+  <data name="YouSendRequest" xml:space="preserve">
+    <value>The request is sent</value>
+  </data>
 </root>

@@ -190,6 +190,7 @@ namespace ContactS.WEB.Controllers
         public async Task<ActionResult> ClientProfile(string id)
         {
             UserDTO user = await UserService.GetUserById(id);
+            var status = await UserService.FriendshipStatus(user.Id, User.Identity.GetUserId());
             return View(new ClientProfileViewModel
             {
                 userInfo = new UserViewModel {
@@ -199,8 +200,7 @@ namespace ContactS.WEB.Controllers
                     Address = user.Address,
                     UserName = user.UserName
                 },
-                Relation = await UserService.AreUsersIsFriends(user,
-                    await UserService.GetUserById(User.Identity.GetUserId())) ? 1 : user.Id == User.Identity.GetUserId() ? 0 : -1
+                Status = id==User.Identity.GetUserId()? ENUM.User.FriendshipStatus.MyPage:status 
             });
         }
 
@@ -230,11 +230,11 @@ namespace ContactS.WEB.Controllers
             List<UserListItemModel> items = new List<UserListItemModel>();
             foreach (UserDTO item in users.ResultUsers)
             {
+                var status = await UserService.FriendshipStatus(item.Id, User.Identity.GetUserId());
                 items.Add(new UserListItemModel
                 {
                     user = item,
-                    IsFriend = await UserService.AreUsersIsFriends(item,
-                    await UserService.GetUserById(User.Identity.GetUserId())) ? 1 : item.Id == User.Identity.GetUserId() ? 0 : -1,
+                    Status = item.Id == User.Identity.GetUserId() ? ENUM.User.FriendshipStatus.MyPage : status
                 });
             }
             if (Request.IsAjaxRequest())
@@ -254,6 +254,16 @@ namespace ContactS.WEB.Controllers
             return Redirect(Url);
         }
 
+        public async Task<ActionResult> DeleteRequest(string id)
+        {
+            string Url = Request.UrlReferrer.AbsolutePath;
+            Task<UserDTO> user1 = UserService.GetUserById(User.Identity.GetUserId());
+            Task<UserDTO> user2 = UserService.GetUserById(id);
+            await Task.WhenAll(user1, user2);
+            await RequestService.DeleteRequest(user1.Result, user2.Result);
+            return Redirect(Url);
+        }
+
         public async Task<ActionResult> Requests(int page = 1)
         {
             var receiver = await UserService.GetUserById(User.Identity.GetUserId());
@@ -267,6 +277,44 @@ namespace ContactS.WEB.Controllers
                 return PartialView("_RequestsList", items.ResultRequests);
             }
             return View(items.ResultRequests);
+        }
+
+        public async Task<ActionResult> ConfirmRequestFrom(string Id)
+        {
+            string Url = Request.UrlReferrer.AbsolutePath;
+            Task<UserDTO> user1 = UserService.GetUserById(User.Identity.GetUserId());
+            Task<UserDTO> user2 = UserService.GetUserById(Id);
+            await Task.WhenAll(user1, user2);
+            var request = await RequestService.GetRequestBySenderReceiver(user2.Result, user1.Result);
+            if (request == null) return Redirect(Url);
+            if (request.Type == RequestType.Friendsip)
+            {
+                await UserService.AddUsersToFriends(user2.Result, user1.Result);
+            }
+            request.Status = RequestStatus.Confirmed;
+            await RequestService.ConfirmRequest(request);
+            return Redirect(Url);
+        }
+
+        public async Task<ActionResult> Friends(int page = 1)
+        {
+            var user = await UserService.GetUserById(User.Identity.GetUserId());
+            var friendList = await UserService.ListFriendsOfUser(user,page);
+            List<UserListItemModel> items = new List<UserListItemModel>();
+            foreach (UserDTO item in friendList)
+            {
+                var status = await UserService.FriendshipStatus(item.Id, User.Identity.GetUserId());
+                items.Add(new UserListItemModel
+                {
+                    user = item,
+                    Status = ENUM.User.FriendshipStatus.Friend
+                });
+            }
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView("_UserList", items);
+            }
+            return View(items);
         }
     }
 }

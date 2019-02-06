@@ -1,4 +1,5 @@
 ﻿using ContactS.BLL.DTO;
+using ContactS.ENUM.User;
 using ContactS.WEB.Models.Filters;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -8,7 +9,7 @@ namespace ContactS.WEB.Models
     public class UserListItemModel
     {
         public UserDTO user { get; set; }
-        public int IsFriend { get; set; }
+        public FriendshipStatus Status { get; set; }
     }
 
     public class SearchModel
@@ -27,7 +28,7 @@ namespace ContactS.WEB.Models
     public class ClientProfileViewModel
     {
         public UserViewModel userInfo { get; set; }
-        public int Relation { get; set; }
+        public FriendshipStatus Status { get; set; }
     }
     
     public class UserViewModel

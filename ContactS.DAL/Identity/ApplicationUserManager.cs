@@ -10,10 +10,5 @@ namespace ContactS.DAL.Identity
                 : base(store)
         {
         }
-
-        public void Load()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

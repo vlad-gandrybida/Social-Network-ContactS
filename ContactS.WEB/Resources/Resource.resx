@@ -375,4 +375,10 @@
   <data name="Requests" xml:space="preserve">
     <value>Запити</value>
   </data>
+  <data name="Follower" xml:space="preserve">
+    <value>Надіслав вам запит</value>
+  </data>
+  <data name="YouSendRequest" xml:space="preserve">
+    <value>Запит надіслано</value>
+  </data>
 </root>

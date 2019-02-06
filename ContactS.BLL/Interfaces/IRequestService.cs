@@ -12,8 +12,10 @@ namespace ContactS.BLL.Interfaces
     {
         Task<RequestListDTO> ListRequests(RequestFilter filter, int page = 0);
         Task<RequestDTO> GetRequestById(int id);
+        Task<RequestDTO> GetRequestBySenderReceiver(UserDTO sender, UserDTO receiver);
 
         Task DeleteRequest(RequestDTO request);
+        Task DeleteRequest(UserDTO sender, UserDTO receiver);
 
         Task<int> SendRequest(RequestDTO request);
 

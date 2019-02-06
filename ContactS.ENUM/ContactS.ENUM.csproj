@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="User\FriendshipStatus.cs" />
     <Compile Include="Request\RequestStatus.cs" />
     <Compile Include="Request\RequestType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

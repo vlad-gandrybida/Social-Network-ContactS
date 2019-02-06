@@ -1,55 +1,70 @@
-﻿@model List<ContactS.WEB.Models.UserListItemModel>
+﻿@using ContactS.ENUM.User
+
+@model List<ContactS.WEB.Models.UserListItemModel>
+
 
 @{
     Random rand = new Random();
     foreach (var item in Model)
     {
-        <div class="card bg-dark text-white">
-            <div class="card-header">
-                <h5 class="card-title text-center">@Html.ActionLink(item.user.Name, "ClientProfile", new { id = item.user.Id }, new { @class = "text-white" })</h5>
-            </div>
-            <div class="card-body">
-                @{
-                    int img = rand.Next(1, 6);
-                    switch (img)
-                    {
-                        case 1:
-                            <img src="https://www.omis.ee/wp-content/uploads/2016/03/no-profile-img-240x300.gif" class="card-img-top" alt="...">
-                            break;
-                        case 2:
-                            <img src="https://www.compatico.com/content/img/misc/no-profile-image.jpg" class="card-img-top" alt="...">
-                            break;
-                        case 3:
-                            <img src="http://www.sud.if.ua/wp-content/uploads/2017/04/no-profile-img-239x300.png" class="card-img-top" alt="...">
-                            break;
-                        case 4:
-                            <img src="https://french.columbia.edu/themes/custom/columbia/assets/img/people-default.svg" class="card-img-top" alt="...">
-                            break;
-                        case 5:
-                            <img src="http://www.tippanii.com/images/noprofile.png" class="card-img-top" alt="...">
-                            break;
-                    }
-                }
-            </div>
-            @if (item.IsFriend == 1)
+<div class="card bg-dark text-white">
+    <div class="card-header">
+        <h5 class="card-title text-center">@Html.ActionLink(item.user.Name, "ClientProfile", new { id = item.user.Id }, new { @class = "text-white" })</h5>
+    </div>
+    <div class="card-body">
+        @{
+            int img = rand.Next(1, 6);
+            switch (img)
             {
-                <div class="card-footer text-center ">
-                    @Html.ActionLink(Resources.Resource.YourFriend, "ClientProfile", new { Id = item.user.Id }, new { @class = "btn btn-outline-success btn-block" })
-                </div>
+                case 1:
+                    <img src="https://www.omis.ee/wp-content/uploads/2016/03/no-profile-img-240x300.gif" class="card-img-top" alt="...">
+                    break;
+                case 2:
+                    <img src="https://www.compatico.com/content/img/misc/no-profile-image.jpg" class="card-img-top" alt="...">
+                    break;
+                case 3:
+                    <img src="http://www.sud.if.ua/wp-content/uploads/2017/04/no-profile-img-239x300.png" class="card-img-top" alt="...">
+                    break;
+                case 4:
+                    <img src="https://french.columbia.edu/themes/custom/columbia/assets/img/people-default.svg" class="card-img-top" alt="...">
+                    break;
+                case 5:
+                    <img src="http://www.tippanii.com/images/noprofile.png" class="card-img-top" alt="...">
+                    break;
             }
-            else if (item.IsFriend == -1)
-            {
-                <div class="card-footer text-center ">
-                    @Html.ActionLink(Resources.Resource.AddToFriend, "AddToFriend", new { Id = item.user.Id }, new { @class = "btn btn-outline-primary btn-block" })
-                </div>
-            }
-            else
-            {
-                <div class="card-footer text-center ">
-                    @Html.ActionLink(Resources.Resource.MyPage, "ClientProfile", new { Id = item.user.Id }, new { @class = "btn btn-outline-danger btn-block" })
-                </div>
-            }
-
+        }
+    </div>
+    @if (item.Status == FriendshipStatus.Friend)
+    {
+        <div class="card-footer text-center ">
+            @Html.ActionLink(Resources.Resource.YourFriend, "ClientProfile", new { Id = item.user.Id }, new { @class = "btn btn-outline-success btn-block" })
         </div>
+    }
+    else if (item.Status == FriendshipStatus.Unknown)
+    {
+        <div class="card-footer text-center ">
+            @Html.ActionLink(Resources.Resource.AddToFriend, "AddToFriend", new { Id = item.user.Id }, new { @class = "btn btn-outline-primary btn-block" })
+        </div>
+    }
+    else if (item.Status == FriendshipStatus.SendRequest)
+    {
+        <div class="card-footer text-center ">
+            @Html.ActionLink(Resources.Resource.YouSendRequest, "ClientProfile", new { Id = item.user.Id }, new { @class = "btn btn-outline-info btn-block" })
+        </div>
+    }
+    else if (item.Status == FriendshipStatus.Follower)
+    {
+        <div class="card-footer text-center">
+            @Html.ActionLink(Resources.Resource.Follower, "ConfirmRequestFrom", new { Id = item.user.Id }, new { @class = "btn btn-outline-danger btn-block" })
+        </div>
+    }
+    else
+    {
+        <div class="card-footer text-center ">
+            @Html.ActionLink(Resources.Resource.MyPage, "ClientProfile", new { Id = item.user.Id }, new { @class = "btn btn-outline-light btn-block" })
+        </div>
+    }
+
+</div>
     }
 }

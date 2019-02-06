@@ -24,6 +24,19 @@ namespace ContactS.BLL.Services
             Database = uow;
         }
 
+        public async Task DeleteRequest(UserDTO sender, UserDTO receiver)
+        {
+            RequestFilter requestFilter = new RequestFilter { Sender = sender, Receiver = receiver };
+            RequestDTO requestDTO = (GetQuery(requestFilter).Execute()).FirstOrDefault();
+            if (requestDTO!=null)
+            {
+                var req = await Database.RequestManager.GetById(requestDTO.Id);
+                await Database.RequestManager.Delete(req);
+                await Database.SaveAsync();
+            }
+            return;
+        }
+
         public async Task DeleteRequest(RequestDTO request)
         {
             var req = await Database.RequestManager.GetById(request.Id);
@@ -113,6 +126,14 @@ namespace ContactS.BLL.Services
             query.ClearSortCriterias();
             query.Filter = filter;
             return query;
+        }
+
+        public async Task<RequestDTO> GetRequestBySenderReceiver(UserDTO sender, UserDTO receiver)
+        {
+            RequestFilter requestFilter = new RequestFilter { Sender = sender, Receiver = receiver };
+            var query = GetQuery(requestFilter);
+            query.AddSortCriteria(req => req.Time, SortDirection.Descending);
+            return query.Execute().FirstOrDefault();
         }
     }
 }

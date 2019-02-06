@@ -6,6 +6,7 @@ using ContactS.BLL.Queries;
 using ContactS.DAL.Entities;
 using ContactS.DAL.Interfaces;
 using ContactS.DAL.Repositories;
+using ContactS.ENUM.User;
 using Microsoft.AspNet.Identity;
 using System.Collections.Generic;
 using System.Linq;
@@ -241,11 +242,31 @@ namespace ContactS.BLL.Services
             return query;
         }
 
+        private IQuery<RequestDTO> GetQuery(RequestFilter filter)
+        {
+            var query = new RequestListQuery((UnitOfWork)Database);
+            query.ClearSortCriterias();
+            query.Filter = filter;
+            return query;
+        }
+
         public async Task<bool> AreUsersIsFriends(UserDTO User1Id, UserDTO User2Id)
         {
             FriendshipFilter filter = new FriendshipFilter { Account = User1Id, Account2 = User2Id };
             return (GetQuery(filter).Execute()).Any();
         }
 
+        public async Task<FriendshipStatus> FriendshipStatus(string id1, string id2)
+        {
+            UserDTO user1 = await GetUserById(id1);
+            UserDTO user2 = await GetUserById(id2);
+            FriendshipFilter FriendFilter = new FriendshipFilter { Account = user1, Account2 = user2 };
+            if ((GetQuery(FriendFilter).Execute()).Any()) return ENUM.User.FriendshipStatus.Friend;
+            RequestFilter requestFilter = new RequestFilter { Sender = user1, Receiver = user2, Status=ENUM.Request.RequestStatus.Sended };
+            if ((GetQuery(requestFilter).Execute()).Any()) return ENUM.User.FriendshipStatus.Follower;
+            requestFilter = new RequestFilter { Sender = user2, Receiver = user1, Status = ENUM.Request.RequestStatus.Sended };
+            if ((GetQuery(requestFilter).Execute()).Any()) return ENUM.User.FriendshipStatus.SendRequest;
+            return ENUM.User.FriendshipStatus.Unknown;
+        }
     }
 }
